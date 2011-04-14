@@ -1,0 +1,15 @@
+The plugin works by piggy-backing your existing SELECT controls.  Since the original controls aren’t destroyed (they’re hidden), you can easily integrate this plugin into just about any existing form. The plugin degrades gracefully, as users without JavaScript will see the default SELECT controls.
+Plugin Features
+
+    Easily replace existing SELECT controls
+    Supports OPTGROUPs
+    Supports standard dropdown controls
+    Supports multi-select controls (i.e. multiple=”multiple”)
+    Supports inline controls (i.e. size=”5″)
+    Fully accessible via keyboard
+    Shift + click (or shift + enter) to select a range of options in multi-select controls
+    Type to search when the control has focus
+    Auto-height based on the size attribute (to use, omit the height property in your CSS!)
+    Tested in IE7-9, Firefox 3-4, recent webkit browsers, and Opera.
+
+Please refer to the main source file for implementation examples, a list of known issues, and the change log.
