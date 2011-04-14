@@ -1,15 +1,88 @@
+** Overview **
+
 The plugin works by piggy-backing your existing SELECT controls.  Since the original controls aren’t destroyed (they’re hidden), you can easily integrate this plugin into just about any existing form. The plugin degrades gracefully, as users without JavaScript will see the default SELECT controls.
-Plugin Features
 
-    Easily replace existing SELECT controls
-    Supports OPTGROUPs
-    Supports standard dropdown controls
-    Supports multi-select controls (i.e. multiple=”multiple”)
-    Supports inline controls (i.e. size=”5″)
-    Fully accessible via keyboard
-    Shift + click (or shift + enter) to select a range of options in multi-select controls
-    Type to search when the control has focus
-    Auto-height based on the size attribute (to use, omit the height property in your CSS!)
-    Tested in IE7-9, Firefox 3-4, recent webkit browsers, and Opera.
 
-Please refer to the main source file for implementation examples, a list of known issues, and the change log.
+** Features **
+
+	- Supports OPTGROUPS
+	- Supports standard dropdown controls
+	- Supports multi-select controls (i.e. multiple="multiple")
+	- Supports inline controls (i.e. size="5")
+	- Fully accessible via keyboard
+	- Shift + click (or shift + enter) to select a range of options in multi-select controls
+	- Type to search when the control has focus
+	- Auto-height based on the size attribute (to use, omit the height property in your CSS!)
+	- Tested in IE7-IE9, Firefox 3-4, recent webkit browsers, and Opera
+
+
+** License **
+
+Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
+
+
+** Usage **
+
+	Link to the JS file:
+
+		<script src="jquery.selectbox.min.js" type="text/javascript"></script>
+
+	Add the CSS file (or append contents to your own stylesheet):
+
+		<link href="jquery.selectbox.min.css" rel="stylesheet" type="text/css" />
+
+** To create **
+
+	$("SELECT").selectBox([settings]);
+	
+	
+** Settings **
+
+	menuTransition: ['default', 'slide', 'fade']
+	menuSpeed: [integer, 'slow', 'normal', 'fast']
+	
+	
+** Methods **
+	
+	To call a method use this syntax:
+	
+		$("SELECT").selectBox('methodName', [options]);
+	
+	create - Creates the control (default method)
+	destroy - Destroys the selectBox control and reverts back to the original form control
+	disable - Disables the control (i.e. disabled="disabled")
+	enable - Enables the control
+	value - if passed with a value, sets the control to that value; otherwise returns the current value
+	options - pass in either a string of HTML or a JSON object to replace the existing options
+	control - returns the selectBox control element (an anchor tag) for working with directly
+
+
+** Events **
+
+	Events are fired on the original select element. You can bind events like this:
+
+		$("SELECT").selectBox().change( function() { alert( $(this).val() ); } );
+		
+	focus - Fired when the control gains focus
+	blur - Fired when the control loses focus
+	change - Fired when the value of a control changes
+
+
+** Change Log **
+
+	v1.0.0 (2011-04-03)
+		- Complete rewrite with added support for inline and multi-select controls
+	v1.0.1 (2011-04-04)
+		- Fixed options method so it doesn't destroy/recreate the control when called.
+		- Added a check for iOS devices (their native controls are much better for touch-based devices; you can still use selectBox API methods for theme)
+		- Fixed issue where IE window would lose focus on XP
+		- Fixed premature selection issue in Webkit browsers
+	v1.0.2 (2011-04-13)
+		- Fixed auto-height for inline controls when control is invisible on load
+		- Removed auto-width for dropdown and inline controls; now relies 100% on CSS for setting the width
+		- Added 'control' method for working directly with the selectBox control
+
+
+** Known Issues **
+
+	- The blur and focus callbacks are not very reliable in IE7. The change callback works fine.
