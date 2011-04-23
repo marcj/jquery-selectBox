@@ -1,6 +1,6 @@
 /*
 	
-	jQuery selectBox (version 1.0.2)
+	jQuery selectBox (version 1.0.3)
 	
 		A cosmetic, styleable replacement for SELECT elements.
 	
@@ -86,6 +86,8 @@
 		                    - Removed auto-width for dropdown and inline controls; now relies 100% on CSS
 		                      for setting the width
 		                   	- Added 'control' method for working directly with the selectBox control
+		v1.0.3 (2011-04-22) - Fixed bug in value method that errored if the control didn't exist
+		
 		                      
 	Known Issues:
 	
@@ -772,10 +774,10 @@ if(jQuery) (function($) {
 				select = $(select);
 				select.val(value);
 				value = select.val();
-				var control = select.data('selectBox-control'),
-					settings = select.data('selectBox-settings'),
-					options = control.data('selectBox-options');
+				var control = select.data('selectBox-control');
 				if( !control ) return;
+				var settings = select.data('selectBox-settings'),
+					options = control.data('selectBox-options');
 				
 				// Update label
 				control.find('.selectBox-label').text( $(select).find('OPTION:selected').text() || '\u00A0' );
