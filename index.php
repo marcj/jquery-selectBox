@@ -167,6 +167,11 @@
 		    </p>
 	    	
 	    	<p>
+	    		Empty Dropdown<br />
+		    	<select name="empty-dropdown"></select>
+		    </p>
+		    
+	    	<p>
 	    		Multi-select Control<br />
 		    	<select name="multi-select-control" multiple="multiple">
 		    		<option value="1" selected="selected">Item 1</option>
@@ -175,6 +180,11 @@
 		    		<option value="4">Item 4</option>
 		    		<option value="5" disabled="disabled">Item 5 (disabled)</option>
 		    	</select>
+		    </p>
+	    	
+	    	<p>
+	    		Empty Multi-select<br />
+		    	<select name="empty-multi-select" size="5" multiple="multiple"></select>
 		    </p>
 	    	
 	    	<p>

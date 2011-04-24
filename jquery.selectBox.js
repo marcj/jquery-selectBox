@@ -1,6 +1,6 @@
 /*
 	
-	jQuery selectBox (version 1.0.3)
+	jQuery selectBox (version 1.0.4)
 	
 		A cosmetic, styleable replacement for SELECT elements.
 	
@@ -87,6 +87,7 @@
 		                      for setting the width
 		                   	- Added 'control' method for working directly with the selectBox control
 		v1.0.3 (2011-04-22) - Fixed bug in value method that errored if the control didn't exist
+		v1.0.4 (2011-04-22) - Fixed bug where controls without any options would render with incorrect heights
 		
 		                      
 	Known Issues:
@@ -169,24 +170,21 @@ if(jQuery) (function($) {
 					// Auto-height based on size attribute
 					if( !select[0].style.height ) {
 						
-						var size = select.attr('size') ? parseInt(select.attr('size')) : 5,
-							optionHeight = parseInt(control.find('.selectBox-options A:first').outerHeight());
+						var size = select.attr('size') ? parseInt(select.attr('size')) : 5;
 						
-						// If the control is invisible, we have to draw a dummy control 
-						// off-screen, measure the option, and remove it
-						if( !select.is(':visible') ) {
-							var tmp = control
-								.clone()
-								.removeAttr('id')
-								.css({
-									position: 'absolute',
-									top: '-9999em'
-								})
-								.show()
-								.appendTo('body');
-							optionHeight = parseInt(tmp.find('.selectBox-options A:first').html('&nbsp;').outerHeight());
-							tmp.remove();
-						}
+						// Draw a dummy control off-screen, measure, and remove it
+						var tmp = control
+							.clone()
+							.removeAttr('id')
+							.css({
+								position: 'absolute',
+								top: '-9999em'
+							})
+							.show()
+							.appendTo('body');
+						tmp.find('.selectBox-options').html('<li><a>\u00A0</a></li>');
+						optionHeight = parseInt(tmp.find('.selectBox-options A:first').html('&nbsp;').outerHeight());
+						tmp.remove();
 						
 						control.height(optionHeight * size);
 						
@@ -343,16 +341,20 @@ if(jQuery) (function($) {
 							
 						} else {
 							
-							select.find('OPTION').each( function() {
-								var li = $('<li />'),
-									a = $('<a />');
-								li.addClass( $(this).attr('class') );
-								a.attr('rel', $(this).val()).text( $(this).text() );
-								li.append(a);
-								if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
-								if( $(this).attr('selected') ) li.addClass('selectBox-selected');
-								options.append(li);
-							});
+							if( select.find('OPTION').length > 0 ) {
+								select.find('OPTION').each( function() {
+									var li = $('<li />'),
+										a = $('<a />');
+									li.addClass( $(this).attr('class') );
+									a.attr('rel', $(this).val()).text( $(this).text() );
+									li.append(a);
+									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
+									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
+									options.append(li);
+								});
+							} else {
+								options.append('<li>\u00A0</li>');
+							}
 							
 						}
 						
