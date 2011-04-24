@@ -1,6 +1,6 @@
 /*
 	
-	jQuery selectBox (version 1.0.4)
+	jQuery selectBox (version 1.0.5)
 	
 		A cosmetic, styleable replacement for SELECT elements.
 	
@@ -88,6 +88,10 @@
 		                   	- Added 'control' method for working directly with the selectBox control
 		v1.0.3 (2011-04-22) - Fixed bug in value method that errored if the control didn't exist
 		v1.0.4 (2011-04-22) - Fixed bug where controls without any options would render with incorrect heights
+		v1.0.5 (2011-04-22) - Removed 'tick' image in lieu of background colors to indicate selection
+		                    - Clicking no longer toggles selected/unselected in multi-selects; use CTRL/CMD and 
+		                      SHIFT like in normal browser controls
+		                    - Fixed bug where inline controls would not receive focus unless tabbed into
 		
 		                      
 	Known Issues:
@@ -300,14 +304,11 @@ if(jQuery) (function($) {
 								})
 								.bind('mousedown.selectBox', function(event) {
 									event.preventDefault(); // Prevent options from being "dragged"
+									if( !select.selectBox('control').hasClass('selectBox-active') ) select.selectBox('control').focus();
 								})
 								.bind('mouseup.selectBox', function(event) {
 									hideMenus();
-									if( event.shiftKey ) {
-										selectOption(select, $(this).parent(), true);
-									} else {
-										selectOption(select, $(this).parent(), false);
-									}
+									selectOption(select, $(this).parent(), event);
 								});
 						
 						disableSelection(options);
@@ -496,7 +497,7 @@ if(jQuery) (function($) {
 			};
 			
 			
-			var selectOption = function(select, li, selectRange) {
+			var selectOption = function(select, li, event) {
 				
 				select = $(select);
 				li = $(li);
@@ -508,8 +509,8 @@ if(jQuery) (function($) {
 				
 				if( select.attr('multiple') ) {
 					
-					// If selectRange is true, this will select all options between li and the last li selected
-					if( selectRange && control.data('selectBox-last-selected') ) {
+					// If event.shiftKey is true, this will select all options between li and the last li selected
+					if( event.shiftKey && control.data('selectBox-last-selected') ) {
 						
 						li.toggleClass('selectBox-selected');
 						
@@ -528,8 +529,11 @@ if(jQuery) (function($) {
 							affectedOptions.removeClass('selectBox-selected');
 						}
 						
-					} else {
+					} else if( event.metaKey ) {
 						li.toggleClass('selectBox-selected');
+					} else {
+						li.siblings().removeClass('selectBox-selected');
+						li.addClass('selectBox-selected');
 					}
 					
 				} else {
@@ -639,7 +643,7 @@ if(jQuery) (function($) {
 					
 					case 13: // enter
 						if( control.hasClass('selectBox-menuShowing') ) {
-							selectOption(select, options.find('LI.selectBox-hover:first'), event.shiftKey);
+							selectOption(select, options.find('LI.selectBox-hover:first'), event);
 							if( control.hasClass('selectBox-dropdown') ) hideMenus();
 						} else {
 							showMenu(select);

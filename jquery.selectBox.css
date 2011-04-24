@@ -101,14 +101,14 @@
 
 .selectBox-options LI A {
 	line-height: 1.5;
-	padding: 0 .3em 0 22px;
+	padding: 0 .5em;
 	white-space: nowrap;
 	overflow: hidden;
 	background: 6px center no-repeat;
 }
 
 .selectBox-options LI.selectBox-hover A {
-	background-color: #C8DEF4;
+	background-color: #EEE;
 }
 
 .selectBox-options LI.selectBox-disabled A {
@@ -117,7 +117,7 @@
 }
 
 .selectBox-options LI.selectBox-selected A {
-	background-image: url(jquery.selectBox-tick.gif);
+	background-color: #C8DEF4;
 }
 
 .selectBox-options .selectBox-optgroup {
