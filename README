@@ -70,18 +70,7 @@ Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jq
 
 ** Change Log **
 
-	v1.0.0 (2011-04-03)
-		- Complete rewrite with added support for inline and multi-select controls
-	v1.0.1 (2011-04-04)
-		- Fixed options method so it doesn't destroy/recreate the control when called.
-		- Added a check for iOS devices (their native controls are much better for touch-based devices; you can still use selectBox API methods for them)
-		- Fixed issue where IE window would lose focus on XP
-		- Fixed premature selection issue in Webkit browsers
-	v1.0.2 (2011-04-13)
-		- Fixed auto-height for inline controls when control is invisible on load
-		- Removed auto-width for dropdown and inline controls; now relies 100% on CSS for setting the width
-		- Added 'control' method for working directly with the selectBox control
-
+	- Refer to jquery.selectBox.js for the full change log
 
 ** Known Issues **
 
