@@ -188,6 +188,15 @@
 		    </p>
 	    	
 	    	<p>
+	    		Multi-select with few options<br />
+		    	<select name="multi-select-few-options" multiple="multiple" size="5">
+		    		<option value="1" selected="selected">Item 1</option>
+		    		<option value="2">Item 2</option>
+		    		<option value="3">Item 3</option>
+		    	</select>
+		    </p>
+		    
+	    	<p>
 	    		No multi-select, size = 4<br />
 		    	<select name="no-multi-with-size-4" size="4">
 		    		<option value="1" selected="selected">Item 1</option>

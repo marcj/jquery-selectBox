@@ -1,6 +1,6 @@
 /*
 	
-	jQuery selectBox (version 1.0.5)
+	jQuery selectBox (version 1.0.6)
 	
 		A cosmetic, styleable replacement for SELECT elements.
 	
@@ -92,6 +92,7 @@
 		                    - Clicking no longer toggles selected/unselected in multi-selects; use CTRL/CMD and 
 		                      SHIFT like in normal browser controls
 		                    - Fixed bug where inline controls would not receive focus unless tabbed into
+		v1.0.6 (2011-04-29) - Fixed bug where inline controls could be "dragged" when selecting an empty area
 		
 		                      
 	Known Issues:
@@ -168,6 +169,10 @@ if(jQuery) (function($) {
 						})
 						.bind('keypress.selectBox', function(event) {
 							handleKeyPress(select, event);
+						})
+						.bind('mousedown.selectBox', function(event) {
+							if( $(event.target).is('A.selectBox-inline') ) event.preventDefault();
+							if( !control.hasClass('selectBox-focus') ) control.focus();
 						})
 						.insertAfter(select);
 					
