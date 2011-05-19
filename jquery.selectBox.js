@@ -1,6 +1,6 @@
 /*
 	
-	jQuery selectBox (version 1.0.6)
+	jQuery selectBox (version 1.0.7)
 	
 		A cosmetic, styleable replacement for SELECT elements.
 	
@@ -93,7 +93,8 @@
 		                      SHIFT like in normal browser controls
 		                    - Fixed bug where inline controls would not receive focus unless tabbed into
 		v1.0.6 (2011-04-29) - Fixed bug where inline controls could be "dragged" when selecting an empty area
-		
+		v1.0.7 (2011-05-18) - Expanded iOS check to include Android devices as well
+		                    - Added autoWidth option; set to false on init to use CSS widths for dropdown menus
 		                      
 	Known Issues:
 	
@@ -117,7 +118,7 @@ if(jQuery) (function($) {
 			var init = function(select, data) {
 				
 				// Disable for iOS devices (their native controls are more suitable for a touch device)
-				if( navigator.userAgent.match(/iPad|iPhone/i) ) return false;
+				if( navigator.userAgent.match(/iPad|iPhone|Android/i) ) return false;
 				
 				// Element must be a select control
 				if( select.tagName.toLowerCase() !== 'select' ) return false;
@@ -129,6 +130,7 @@ if(jQuery) (function($) {
 					inline = select.attr('multiple') || parseInt(select.attr('size')) > 1;
 				
 				var settings = data || {};
+				if( settings.autoWidth === undefined ) settings.autoWidth = true;
 				
 				// Inherit class names, style, and title attributes
 				control
@@ -429,13 +431,16 @@ if(jQuery) (function($) {
 				
 				hideMenus();
 				
-				// Show menu
+				// Auto-width
+				if( settings.autoWidth ) options.css('width', control.outerWidth() - (parseInt(control.css('borderLeftWidth')) + parseInt(control.css('borderLeftWidth'))));
+				
+				// Menu position
 				options.css({
-					width: control.outerWidth() - (parseInt(control.css('borderLeftWidth')) + parseInt(control.css('borderLeftWidth'))),
 					top: control.offset().top + control.outerHeight() - (parseInt(control.css('borderBottomWidth'))),
 					left: control.offset().left
 				});
 				
+				// Show menu
 				switch( settings.menuTransition ) {
 					
 					case 'fade':
