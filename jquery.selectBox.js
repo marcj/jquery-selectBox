@@ -433,6 +433,9 @@ if(jQuery) (function($) {
 				
 				// Auto-width
 				if( settings.autoWidth ) options.css('width', control.innerWidth());
+				else if(options.innerWidth() < control.innerWidth()) {
+					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')))
+				}
 				
 				// Menu position
 				options.css({
