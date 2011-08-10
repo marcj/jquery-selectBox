@@ -432,7 +432,10 @@ if(jQuery) (function($) {
 				hideMenus();
 				
 				// Auto-width
-				if( settings.autoWidth ) options.css('width', control.outerWidth() - (parseInt(control.css('borderLeftWidth')) + parseInt(control.css('borderLeftWidth'))));
+				if( settings.autoWidth ) options.css('width', control.innerWidth());
+				else if(options.innerWidth() < control.innerWidth()) {
+					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')))
+				}
 				
 				// Menu position
 				options.css({
