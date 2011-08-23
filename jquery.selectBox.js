@@ -920,7 +920,8 @@ if(jQuery) (function($) {
 					break;
 				
 				case 'value':
-					if( !data ) return $(this).val();
+                    // Empty string is a valid value
+					if( data === undefined ) return $(this).val();
 					$(this).each( function() {
 						setValue(this, data);
 					});
