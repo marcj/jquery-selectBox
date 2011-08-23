@@ -48,7 +48,6 @@
 			
 			menuTransition: ['default', 'slide', 'fade'] - the show/hide transition for dropdown menus
 			menuSpeed: [integer, 'slow', 'normal', 'fast'] - the show/hide transition speed
-            itemMutator: function - the function applied to a option content on init
 	
 	
 	Methods:
@@ -132,17 +131,6 @@ if(jQuery) (function($) {
 				
 				var settings = data || {};
 				if( settings.autoWidth === undefined ) settings.autoWidth = true;
-
-                // Empty item text hides the item, so we have to decorate the mutator.
-                settings.itemMutator = settings.itemMutator || function(x){ return x; };
-                settings.itemMutator = function(x){
-                    return function(y){
-                        return $.trim( x(y) ) || '&nbsp;';
-                    }
-                }(settings.itemMutator);
-
-                // Store settings for later use
-                select.data('selectBox-settings', settings);
 				
 				// Inherit class names, style, and title attributes
 				control
@@ -224,7 +212,7 @@ if(jQuery) (function($) {
 					var label = $('<span class="selectBox-label" />'),
 						arrow = $('<span class="selectBox-arrow" />');
 					
-					label.html( $(select).find('OPTION:selected').html() || '\u00A0' );
+					label.text( $(select).find('OPTION:selected').text() || '\u00A0' );
 					
 					var options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
@@ -260,13 +248,15 @@ if(jQuery) (function($) {
 				select
 					.addClass('selectBox')
 					.data('selectBox-control', control)
+					.data('selectBox-settings', settings)
 					.hide();
+				
 			};
 			
 			
 			var getOptions = function(select, type) {
-				var options,
-                    settings = select.data('selectBox-settings');
+				
+				var options;
 				
 				switch( type ) {
 					
@@ -280,14 +270,14 @@ if(jQuery) (function($) {
 							select.find('OPTGROUP').each( function() {
 								
 								var optgroup = $('<li class="selectBox-optgroup" />');
-								optgroup.html($(this).attr('label'));
+								optgroup.text($(this).attr('label'));
 								options.append(optgroup);
 								
 								$(this).find('OPTION').each( function() {
 									var li = $('<li />'),
 										a = $('<a />');
 									li.addClass( $(this).attr('class') );
-									a.attr('rel', $(this).val()).html( settings.itemMutator( $(this).html() ) );
+									a.attr('rel', $(this).val()).text( $(this).text() );
 									li.append(a);
 									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
 									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
@@ -302,7 +292,7 @@ if(jQuery) (function($) {
 								var li = $('<li />'),
 									a = $('<a />');
 								li.addClass( $(this).attr('class') );
-								a.attr('rel', $(this).val()).html( settings.itemMutator( $(this).html() ) );
+								a.attr('rel', $(this).val()).text( $(this).text() );
 								li.append(a);
 								if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
 								if( $(this).attr('selected') ) li.addClass('selectBox-selected');
@@ -341,14 +331,14 @@ if(jQuery) (function($) {
 							select.find('OPTGROUP').each( function() {
 								
 								var optgroup = $('<li class="selectBox-optgroup" />');
-								optgroup.html($(this).attr('label'));
+								optgroup.text($(this).attr('label'));
 								options.append(optgroup);
 								
 								$(this).find('OPTION').each( function() {
 									var li = $('<li />'),
 										a = $('<a />');
 									li.addClass( $(this).attr('class') );
-									a.attr('rel', $(this).val()).html( settings.itemMutator( $(this).html() ) );
+									a.attr('rel', $(this).val()).text( $(this).text() );
 									li.append(a);
 									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
 									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
@@ -364,7 +354,7 @@ if(jQuery) (function($) {
 									var li = $('<li />'),
 										a = $('<a />');
 									li.addClass( $(this).attr('class') );
-									a.attr('rel', $(this).val()).html( settings.itemMutator( $(this).html() ) );
+									a.attr('rel', $(this).val()).text( $(this).text() );
 									li.append(a);
 									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
 									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
@@ -565,7 +555,7 @@ if(jQuery) (function($) {
 				}
 				
 				if( control.hasClass('selectBox-dropdown') ) {
-					control.find('.selectBox-label').html($('a', li).html());
+					control.find('.selectBox-label').text(li.text());
 				}
 				
 				// Update original control's value
@@ -764,7 +754,7 @@ if(jQuery) (function($) {
 						typeSearch += String.fromCharCode(event.charCode || event.keyCode);
 						
 						options.find('A').each( function() {
-							if( $(this).html().substr(0, typeSearch.length).toLowerCase() === typeSearch.toLowerCase() ) {
+							if( $(this).text().substr(0, typeSearch.length).toLowerCase() === typeSearch.toLowerCase() ) {
 								addHover(select, $(this).parent());
 								keepOptionInView(select, $(this).parent());
 								return false;
@@ -809,7 +799,7 @@ if(jQuery) (function($) {
 					options = control.data('selectBox-options');
 				
 				// Update label
-				control.find('.selectBox-label').html( settings.itemMutator( $(select).find('OPTION:selected').html() ) || '\u00A0' );
+				control.find('.selectBox-label').text( $(select).find('OPTION:selected').text() || '\u00A0' );
 				
 				// Update control values
 				options.find('.selectBox-selected').removeClass('selectBox-selected');
@@ -878,7 +868,7 @@ if(jQuery) (function($) {
 						control.append(options);
 						break;
 					case 'dropdown':
-						control.find('.selectBox-label').html( $(select).find('OPTION:selected').html() || '\u00A0' );
+						control.find('.selectBox-label').text( $(select).find('OPTION:selected').text() || '\u00A0' );
 						$("BODY").append(options);
 						break;
 				}
