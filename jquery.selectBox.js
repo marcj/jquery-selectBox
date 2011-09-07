@@ -48,6 +48,7 @@
 			
 			menuTransition: ['default', 'slide', 'fade'] - the show/hide transition for dropdown menus
 			menuSpeed: [integer, 'slow', 'normal', 'fast'] - the show/hide transition speed
+			loopOptions: [boolean] - flag to allow arrow keys to loop through options
 	
 	
 	Methods:
@@ -636,6 +637,7 @@ if(jQuery) (function($) {
 				select = $(select);
 				var control = select.data('selectBox-control'),
 					options = control.data('selectBox-options'),
+					settings = select.data('selectBox-settings'),
 					totalOptions = 0,
 					i = 0;
 				
@@ -676,7 +678,13 @@ if(jQuery) (function($) {
 							
 							while( prev.length === 0 || prev.hasClass('selectBox-disabled') || prev.hasClass('selectBox-optgroup') ) {
 								prev = prev.prev('LI');
-								if( prev.length === 0 ) prev = options.find('LI:last');
+								if( prev.length === 0 ) {
+									if (settings.loopOptions) {
+										prev = options.find('LI:last');
+									} else {
+										prev = options.find('LI:first');	
+									}
+								}
 								if( ++i >= totalOptions ) break;
 							}
 							
@@ -702,7 +710,13 @@ if(jQuery) (function($) {
 							
 							while( next.length === 0 || next.hasClass('selectBox-disabled') || next.hasClass('selectBox-optgroup') ) {
 								next = next.next('LI');
-								if( next.length === 0 ) next = options.find('LI:first');
+								if( next.length === 0 ) {
+									if (settings.loopOptions) {
+										next = options.find('LI:first');
+									} else {
+										next = options.find('LI:last');
+									}
+								}
 								if( ++i >= totalOptions ) break;
 							}
 							
