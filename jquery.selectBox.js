@@ -422,6 +422,10 @@ if(jQuery) (function($) {
 			};
 			
 			
+			var refresh = function(select) {
+				$(select).selectBox('options', $(select).html())
+			}
+			
 			var showMenu = function(select) {
 				
 				select = $(select);
@@ -943,6 +947,12 @@ if(jQuery) (function($) {
 				case 'disable':
 					$(this).each( function() {
 						disable(this);
+					});
+					break;				
+
+				case 'refresh':
+					$(this).each( function() {
+						refresh(this);
 					});
 					break;
 				
