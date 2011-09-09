@@ -681,6 +681,7 @@ if(jQuery) (function($) {
 							}
 							
 							addHover(select, prev);
+							selectOption(select, prev, event);
 							keepOptionInView(select, prev);
 							
 						} else {
@@ -707,6 +708,7 @@ if(jQuery) (function($) {
 							}
 							
 							addHover(select, next);
+							selectOption(select, next, event);
 							keepOptionInView(select, next);
 							
 						} else {
