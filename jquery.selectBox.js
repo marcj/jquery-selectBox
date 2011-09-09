@@ -438,9 +438,10 @@ if(jQuery) (function($) {
 					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')))
 				}
 				
+				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
 				// Menu position
 				options.css({
-					top: control.offset().top + control.outerHeight() - (parseInt(control.css('borderBottomWidth'))),
+					top: control.offset().top + control.outerHeight() - borderBottomWidth,
 					left: control.offset().left
 				});
 				
