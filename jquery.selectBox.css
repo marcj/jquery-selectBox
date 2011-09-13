@@ -148,3 +148,7 @@
 .selectBox-inline.selectBox-disabled .selectBox-options A {
 	background-color: transparent !important;
 }
+
+.small                     { width: 110px; }
+.small,
+.small-dropdown-menu a     { line-height: 1.3; font-size: 12px; }

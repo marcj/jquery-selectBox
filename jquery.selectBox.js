@@ -396,6 +396,16 @@ if(jQuery) (function($) {
 						
 						disableSelection(options);
 						
+					/*
+					 * Modified:
+					 *
+					 * if select has class then to .selectBox-dropdown-menu is added classname: select.attr('class') + '-dropdown-menu'
+					 * 
+					 */
+						if (select.attr('class') != undefined && select.attr('class') !== '') {
+							options.addClass(select.attr('class')+'-dropdown-menu');
+						}
+						
 						return options;
 					
 				}
