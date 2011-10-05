@@ -387,6 +387,9 @@ if(jQuery) (function($) {
 									}
 									selectOption(select, $(this).parent());
 									hideMenus();
+									
+									// Give focus back to the original selectBox. This is native browser behaviour.
+									$(select).next('a.selectBox').focus();
 								}).bind('mouseover.selectBox', function(event) {
 									addHover(select, $(this).parent());
 								})
