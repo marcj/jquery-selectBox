@@ -277,6 +277,7 @@ if(jQuery) (function($) {
 									var li = $('<li />'),
 										a = $('<a />');
 									li.addClass( $(this).attr('class') );
+									li.data( $(this).data() );
 									a.attr('rel', $(this).val()).text( $(this).text() );
 									li.append(a);
 									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
@@ -291,6 +292,7 @@ if(jQuery) (function($) {
 								var li = $('<li />'),
 									a = $('<a />');
 								li.addClass( $(this).attr('class') );
+								li.data( $(this).data() );
 								a.attr('rel', $(this).val()).text( $(this).text() );
 								li.append(a);
 								if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
@@ -336,6 +338,7 @@ if(jQuery) (function($) {
 									var li = $('<li />'),
 										a = $('<a />');
 									li.addClass( $(this).attr('class') );
+									li.data( $(this).data() );
 									a.attr('rel', $(this).val()).text( $(this).text() );
 									li.append(a);
 									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
@@ -352,6 +355,7 @@ if(jQuery) (function($) {
 									var li = $('<li />'),
 										a = $('<a />');
 									li.addClass( $(this).attr('class') );
+									li.data( $(this).data() );
 									a.attr('rel', $(this).val()).text( $(this).text() );
 									li.append(a);
 									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
