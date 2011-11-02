@@ -165,8 +165,7 @@ if(jQuery) (function($) {
 					control
 						.append(options)
 						.data('selectBox-options', options)
-						.addClass('selectBox-inline')
-						.addClass('selectBox-menuShowing')
+						.addClass('selectBox-inline selectBox-menuShowing')
 						.bind('keydown.selectBox', function(event) {
 							handleKeyDown(select, event);
 						})
@@ -273,33 +272,12 @@ if(jQuery) (function($) {
 								optgroup.text($(this).attr('label'));
 								options.append(optgroup);
 
-								$(this).find('OPTION').each( function() {
-									var li = $('<li />'),
-										a = $('<a />');
-									li.addClass( $(this).attr('class') );
-									li.data( $(this).data() );
-									a.attr('rel', $(this).val()).text( $(this).text() );
-									li.append(a);
-									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
-									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
-									options.append(li);
-								});
+								generateOptions($(this).find('OPTION'), options);
 
 							});
 
 						} else {
-							select.find('OPTION').each( function() {
-								var li = $('<li />'),
-									a = $('<a />');
-								li.addClass( $(this).attr('class') );
-								li.data( $(this).data() );
-								a.attr('rel', $(this).val()).text( $(this).text() );
-								li.append(a);
-								if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
-								if( $(this).attr('selected') ) li.addClass('selectBox-selected');
-								options.append(li);
-							});
-
+							generateOptions(select.find('OPTION'), options);
 						}
 
 						options
@@ -333,35 +311,14 @@ if(jQuery) (function($) {
 								var optgroup = $('<li class="selectBox-optgroup" />');
 								optgroup.text($(this).attr('label'));
 								options.append(optgroup);
-
-								$(this).find('OPTION').each( function() {
-									var li = $('<li />'),
-										a = $('<a />');
-									li.addClass( $(this).attr('class') );
-									li.data( $(this).data() );
-									a.attr('rel', $(this).val()).text( $(this).text() );
-									li.append(a);
-									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
-									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
-									options.append(li);
-								});
+								generateOptions($(this).find('OPTION'), options);
 
 							});
 
 						} else {
 
 							if( select.find('OPTION').length > 0 ) {
-								select.find('OPTION').each( function() {
-									var li = $('<li />'),
-										a = $('<a />');
-									li.addClass( $(this).attr('class') );
-									li.data( $(this).data() );
-									a.attr('rel', $(this).val()).text( $(this).text() );
-									li.append(a);
-									if( $(this).attr('disabled') ) li.addClass('selectBox-disabled');
-									if( $(this).attr('selected') ) li.addClass('selectBox-selected');
-									options.append(li);
-								});
+								generateOptions(select.find('OPTION'), options);
 							} else {
 								options.append('<li>\u00A0</li>');
 							}
@@ -902,6 +859,20 @@ if(jQuery) (function($) {
 					});
 			};
 
+			var generateOptions = function(originalOptions, options){
+				originalOptions.each(function(){
+					var self = $(this);
+					var li = $('<li />'),
+					a = $('<a />');
+					li.addClass( self.attr('class') );
+					li.data( self.data() );
+					a.attr('rel', self.val()).text( self.text() );
+					li.append(a);
+					if( self.attr('disabled') ) li.addClass('selectBox-disabled');
+					if( self.attr('selected') ) li.addClass('selectBox-selected');
+					options.append(li);
+				})
+			};
 
 			//
 			// Public methods
