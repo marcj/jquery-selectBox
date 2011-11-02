@@ -5,51 +5,51 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
 		<script type="text/javascript" src="jquery.selectBox.js"></script>
 		<link type="text/css" rel="stylesheet" href="jquery.selectBox.css"></script>
-		
+
 		<script type="text/javascript">
-			
+
 			$(document).ready( function() {
-				
+
 				//
 				// Enable selectBox control and bind events
 				//
-				
+
 				$("#create").click( function() {
 					$("SELECT").selectBox();
 				});
-				
+
 				$("#destroy").click( function() {
 					$("SELECT").selectBox('destroy');
 				});
-				
+
 				$("#enable").click( function() {
 					$("SELECT").selectBox('enable');
 				});
-				
+
 				$("#disable").click( function() {
 					$("SELECT").selectBox('disable');
 				});
-				
+
 				$("#serialize").click( function() {
 					$("#console").append('<br />-- Serialized data --<br />' + $("FORM").serialize().replace(/&/g, '<br />') + '<br /><br />');
 					$("#console")[0].scrollTop = $("#console")[0].scrollHeight;
 				});
-				
+
 				$("#value-1").click( function() {
 					$("SELECT").selectBox('value', 1);
 				});
-				
+
 				$("#value-2").click( function() {
 					$("SELECT").selectBox('value', 2);
 				});
-				
+
 				$("#value-2-4").click( function() {
 					$("SELECT").selectBox('value', [2, 4]);
 				});
-				
+
 				$("#options").click( function() {
 					$("SELECT").selectBox('options', {
-						
+
 						'Opt Group 1': {
 							'1': 'Value 1',
 							'2': 'Value 2',
@@ -71,32 +71,32 @@
 							'14': 'Value 14',
 							'15': 'Value 15'
 						}
-						
+
 					});
 				});
-				
+
 				$("#default").click( function() {
 					$("SELECT").selectBox('settings', {
 						'menuTransition': 'default',
 						'menuSpeed' : 0
 					});
 				});
-				
+
 				$("#fade").click( function() {
 					$("SELECT").selectBox('settings', {
 						'menuTransition': 'fade',
 						'menuSpeed' : 'fast'
 					});
 				});
-				
+
 				$("#slide").click( function() {
 					$("SELECT").selectBox('settings', {
 						'menuTransition': 'slide',
 						'menuSpeed' : 'fast'
 					});
 				});
-				
-				
+
+
 				$("SELECT")
 					.selectBox()
 					.focus( function() {
@@ -111,17 +111,17 @@
 						$("#console").append('Change on ' + $(this).attr('name') + ': ' + $(this).val() + '<br />');
 						$("#console")[0].scrollTop = $("#console")[0].scrollHeight;
 					});
-				
+
 			});
-			
+
 		</script>
-		
+
     </head>
-    
+
     <body style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
-        
+
         <form style="background: #FFF; padding: 20px; border: solid 2px #DDD;">
-        
+
 	    	<div id="console" style="width: 50%; font-family: 'Courier New', monospace; border: solid 2px #000; background: #000; color: #FFF; height: 350px; overflow: auto; padding: 10px; float: right;"></div>
 
 			<div style="background: #FFFCCC; border: solid 2px #DDD999; padding: 1px 10px; width: 50%; float: right; clear: right; margin: 1em 0;">
@@ -137,13 +137,13 @@
 					<a href="http://abeautifulsite.net/blog/2011/01/jquery-selectbox-plugin/">Go to the project homepage</a>
 				</p>
 			</div>
-			
+
 	        <h1>$("SELECT").selectBox();</h1>
-			
+
 	    	<p>
 	    		Standard Dropdown<br />
 		    	<select name="standard-dropdown">
-		    		<option value="1">Item 1</option>
+		    		<option id="testing" data-1="sdcnslc" data-pouet="pouetos" value="1asdasd">Item 1</option>
 		    		<option value="2">Item 2</option>
 		    		<option value="3">Item 3 has &lt;a&gt; really long label but it won't affect the control's display at all</option>
 		    		<option value="4">Item 4</option>
@@ -165,12 +165,12 @@
 		    		<option value="20">Item 20</option>
 		    	</select>
 		    </p>
-	    	
+
 	    	<p>
 	    		Empty Dropdown<br />
 		    	<select name="empty-dropdown"></select>
 		    </p>
-		    
+
 	    	<p>
 	    		Multi-select Control<br />
 		    	<select name="multi-select-control" multiple="multiple">
@@ -181,12 +181,12 @@
 		    		<option value="5" disabled="disabled">Item 5 (disabled)</option>
 		    	</select>
 		    </p>
-	    	
+
 	    	<p>
 	    		Empty Multi-select<br />
 		    	<select name="empty-multi-select" size="5" multiple="multiple"></select>
 		    </p>
-	    	
+
 	    	<p>
 	    		Multi-select with few options<br />
 		    	<select name="multi-select-few-options" multiple="multiple" size="5">
@@ -195,7 +195,7 @@
 		    		<option value="3">Item 3</option>
 		    	</select>
 		    </p>
-		    
+
 	    	<p>
 	    		No multi-select, size = 4<br />
 		    	<select name="no-multi-with-size-4" size="4">
@@ -204,9 +204,9 @@
 		    		<option value="3">Item 3 has &lt;a&gt; really long label but it won't affect the control's display at all</option>
 		    		<option value="4">Item 4</option>
 		    		<option value="5" disabled="disabled">Item 5 (disabled)</option>
-		    	</select>     	
+		    	</select>
 	    	</p>
-	    	
+
 	    	<p>
 	    		Standard control with OPTGROUPS<br />
 		    	<select name="standard-with-optgroups">
@@ -248,7 +248,7 @@
 		    		</optgroup>
 		    	</select>
 	    	</p>
-	    	
+
 	    	<p>
 	    		Multi-select control with OPTGROUPS<br />
 		    	<select name="multi-with-optgroups" multiple="multiple">
@@ -289,8 +289,8 @@
 			    		<option value="24">Item 24</option>
 		    		</optgroup>
 		    	</select>
-	    	</p>	    	
-	    	
+	    	</p>
+
 	        <p>
 	        	Big Control Test (2,000 items)<br />
 				<select name="big-control">
@@ -299,7 +299,7 @@
 					?>
 				</select>
 			</p>
-			
+
 			<p style="width: 40%; margin-top: 30px; padding-top: 20px; border-top: solid 1px #DDD;">
 				Methods:
 				<input type="button" id="destroy" value="Destroy" />
@@ -308,7 +308,7 @@
 				<input type="button" id="disable" value="Disable" />
 				<input type="button" id="serialize" value="Serialize Form" />
 			</p>
-			
+
 			<p>
 				Values:
 				<input type="button" id="value-1" value="Value = 1" />
@@ -316,18 +316,18 @@
 				<input type="button" id="value-2-4" value="Value = [2, 4]" />
 				<input type="button" id="options" value="Set New Options" />
 			</p>
-			
+
 			<p>
-				Transitions: 
+				Transitions:
 				<input type="button" id="default" value="Default" />
 				<input type="button" id="fade" value="Fade" />
 				<input type="button" id="slide" value="Slide" />
 			</p>
-			
+
 			<div style="clear: both;"></div>
-				
+
     	</form>
-    	
+
     </body>
-    
+
 </html>
