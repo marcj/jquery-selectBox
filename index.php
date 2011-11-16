@@ -299,6 +299,17 @@
 					?>
 				</select>
 			</p>
+	    
+			<p>
+	        	Customized using class<br />
+				<select class="small" name="no-name">
+					<option value="1">1 small</option>
+					<option value="2">2 small</option>
+					<option value="3">3 small</option>
+					<option value="4">4 small</option>
+					<option value="5">5 small</option>
+				</select>
+			</p>
 			
 			<p style="width: 40%; margin-top: 30px; padding-top: 20px; border-top: solid 1px #DDD;">
 				Methods:
