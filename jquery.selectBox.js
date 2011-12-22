@@ -117,7 +117,6 @@ if(jQuery) (function($) {
 
 
 			var init = function(select, data) {
-
 				// Disable for iOS devices (their native controls are more suitable for a touch device)
 				if( navigator.userAgent.match(/iPad|iPhone|Android/i) ) return false;
 
@@ -210,9 +209,13 @@ if(jQuery) (function($) {
 					//
 
 					var label = $('<span class="selectBox-label" />'),
-						arrow = $('<span class="selectBox-arrow" />');
-
-					label.text( $(select).find('OPTION:selected').text() || '\u00A0' );
+						arrow = $('<span class="selectBox-arrow" />'),
+            selected = $(select).find('OPTION:selected');
+          
+          control
+            .data( 'selectBox-optionClass', selected.attr('class') )
+            .addClass( control.data('selectBox-optionClass') );
+					label.text( selected.text() || '\u00A0' );
 
 					var options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
@@ -471,11 +474,11 @@ if(jQuery) (function($) {
 
 
 			var selectOption = function(select, li, event) {
-
 				select = $(select);
 				li = $(li);
 				var control = select.data('selectBox-control'),
-					settings = select.data('selectBox-settings');
+					settings = select.data('selectBox-settings'),
+          options = control.data('selectBox-options');
 
 				if( control.hasClass('selectBox-disabled') ) return false;
 				if( li.length === 0 || li.hasClass('selectBox-disabled') ) return false;
@@ -516,6 +519,14 @@ if(jQuery) (function($) {
 
 				if( control.hasClass('selectBox-dropdown') ) {
 					control.find('.selectBox-label').text(li.text());
+          if( control.data( 'selectBox-optionClass') ) { 
+            control
+              .removeClass( control.data('selectBox-optionClass') )
+              .removeData('selectBox-optionClass');
+          }
+          control
+            .data( 'selectBox-optionClass', options.find('.selectBox-selected').data('selectBox-optionClass') )
+            .addClass( control.data('selectBox-optionClass') ); 
 				}
 
 				// Update original control's value
@@ -843,7 +854,12 @@ if(jQuery) (function($) {
 						control.append(options);
 						break;
 					case 'dropdown':
-						control.find('.selectBox-label').text( $(select).find('OPTION:selected').text() || '\u00A0' );
+            var selected = $(select).find('OPTION:selected');
+						
+            control
+              .data( 'selectBox-optionClass', selected.attr('class') )
+              .addClass( contol.data('selectBox-optionClass') )
+              .find('.selectBox-label').text( selected.text() || '\u00A0' );
 						$("BODY").append(options);
 						break;
 				}
@@ -866,6 +882,7 @@ if(jQuery) (function($) {
 					a = $('<a />');
 					li.addClass( self.attr('class') );
 					li.data( self.data() );
+          li.data( 'selectBox-optionClass', self.attr('class') );
 					a.attr('rel', self.val()).text( self.text() );
 					li.append(a);
 					if( self.attr('disabled') ) li.addClass('selectBox-disabled');
