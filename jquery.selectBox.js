@@ -249,6 +249,12 @@ if(jQuery) (function($) {
 					.addClass('selectBox')
 					.data('selectBox-control', control)
 					.data('selectBox-settings', settings)
+				        .bind({  // make associated form label trigger focus
+            					'click.selectBox':  function( event ) {
+              						control.focus();
+              						event.preventDefault();
+            					}
+          				})
 					.hide();
 
 			};
