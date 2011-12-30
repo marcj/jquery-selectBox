@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>jQuery selectBox (select replacement plugin)</title>
-		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript" src="jquery.selectBox.js"></script>
 		<link type="text/css" rel="stylesheet" href="jquery.selectBox.css"></script>
 
@@ -141,8 +141,8 @@
 	        <h1>$("SELECT").selectBox();</h1>
 
 	    	<p>
-	    		Standard Dropdown<br />
-		    	<select name="standard-dropdown">
+	    		<label for="standard-dropdown">Standard Dropdown</label><br />
+		    	<select id="standard-dropdown" name="standard-dropdown" class="custom-class1 custom-class2">
 		    		<option id="testing" data-1="sdcnslc" data-pouet="pouetos" value="1asdasd">Item 1</option>
 		    		<option value="2">Item 2</option>
 		    		<option value="3">Item 3 has &lt;a&gt; really long label but it won't affect the control's display at all</option>
@@ -172,8 +172,8 @@
 		    </p>
 
 	    	<p>
-	    		Multi-select Control<br />
-		    	<select name="multi-select-control" multiple="multiple">
+	    		<label for="multi-select-control">Multi-select Control</lable><br />
+		    	<select id="multi-select-control" name="multi-select-control" multiple="multiple">
 		    		<option value="1" selected="selected">Item 1</option>
 		    		<option value="2">Item 2</option>
 		    		<option value="3">Item 3</option>
@@ -290,15 +290,6 @@
 		    		</optgroup>
 		    	</select>
 	    	</p>
-
-	        <p>
-	        	Big Control Test (2,000 items)<br />
-				<select name="big-control">
-					<?php
-					for( $i = 1; $i <= 2000; $i++ ) echo "<option value=\"$i\">Item $i</option>";
-					?>
-				</select>
-			</p>
 
 			<p style="width: 40%; margin-top: 30px; padding-top: 20px; border-top: solid 1px #DDD;">
 				Methods:

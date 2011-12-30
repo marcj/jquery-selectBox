@@ -96,6 +96,13 @@
 		v1.0.6 (2011-04-29) - Fixed bug where inline controls could be "dragged" when selecting an empty area
 		v1.0.7 (2011-05-18) - Expanded iOS check to include Android devices as well
 		                    - Added autoWidth option; set to false on init to use CSS widths for dropdown menus
+		v1.0.8 (2011-12-29) - Added refresh method (contributed by xjamundx)
+		                    - Hide menus when window is resized or scrolled (#9)
+		                    - Fixed autoWidth data issue (#13)
+		                    - SelectBox now gains focus when associated label is clicked
+		                    - Dropdown now inherits classes from original control (suffixed by -selectBox-dropdown-menu)
+		                    - Fixed meta/ctrl key issue (#41)
+		                    - Expanded iOS/Android check to include Windows 7 Phone and BlackBerry
 
 	Known Issues:
 
@@ -108,7 +115,9 @@ if(jQuery) (function($) {
 
 		selectBox: function(method, data) {
 
-			var typeTimer, typeSearch = '';
+			var typeTimer,
+				typeSearch = '',
+				isMac = navigator.platform.match(/mac/i).length > 0;
 
 
 			//
@@ -119,7 +128,7 @@ if(jQuery) (function($) {
 			var init = function(select, data) {
 
 				// Disable for iOS devices (their native controls are more suitable for a touch device)
-				if( navigator.userAgent.match(/iPad|iPhone|Android/i) ) return false;
+				if( navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i) ) return false;
 
 				// Element must be a select control
 				if( select.tagName.toLowerCase() !== 'select' ) return false;
@@ -151,8 +160,21 @@ if(jQuery) (function($) {
 						control.removeClass('selectBox-active');
 						select.trigger('blur');
 					});
-
+				
+				if( !$(window).data('selectBox-bindings') ) {
+					$(window)
+						.data('selectBox-bindings', true)
+						.bind('scroll.selectBox', hideMenus)
+						.bind('resize.selectBox', hideMenus);
+				}
+				
 				if( select.attr('disabled') ) control.addClass('selectBox-disabled');
+				
+				// Focus on control when label is clicked
+				select.bind('click.selectBox', function(event) {
+					control.focus();
+					event.preventDefault();
+				});
 
 				// Generate control
 				if( inline ) {
@@ -351,6 +373,13 @@ if(jQuery) (function($) {
 								.bind('mouseout.selectBox', function(event) {
 									removeHover(select, $(this).parent());
 								});
+						
+						// Inherit classes for dropdown menu
+						var classes = select.attr('class') || '';
+						if( classes !== '' ) {
+							classes = classes.split(' ');
+							for( var i in classes ) options.addClass(classes[i] + '-selectBox-dropdown-menu');
+						}						
 
 						disableSelection(options);
 
@@ -373,13 +402,19 @@ if(jQuery) (function($) {
 				control.remove();
 				select
 					.removeClass('selectBox')
-					.removeData('selectBox-control')
-					.removeData('selectBox-settings')
+					.removeData('selectBox-control').data('selectBox-control', null)
+					.removeData('selectBox-settings').data('selectBox-settings', null)
 					.show();
 
 			};
+			
+			
+			var refresh = function(select) {
+				select = $(select);
+				select.selectBox('options', select.html());
+			};
 
-
+			
 			var showMenu = function(select) {
 
 				select = $(select);
@@ -392,7 +427,7 @@ if(jQuery) (function($) {
 
 				// Auto-width
 				if( settings.autoWidth ) options.css('width', control.innerWidth());
-				else if(options.innerWidth() < control.innerWidth()) {
+				if(options.innerWidth() < control.innerWidth()) {
 					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')))
 				}
 
@@ -502,7 +537,8 @@ if(jQuery) (function($) {
 							affectedOptions.removeClass('selectBox-selected');
 						}
 
-					} else if( event.metaKey ) {
+					} else if( (isMac && event.metaKey) || (!isMac && event.ctrlKey) ) {
+						console.log(isMac);
 						li.toggleClass('selectBox-selected');
 					} else {
 						li.siblings().removeClass('selectBox-selected');
@@ -903,6 +939,12 @@ if(jQuery) (function($) {
 					if( data === undefined ) return $(this).val();
 					$(this).each( function() {
 						setValue(this, data);
+					});
+					break;
+				
+				case 'refresh':
+					$(this).each( function() {
+						refresh(this);
 					});
 					break;
 
