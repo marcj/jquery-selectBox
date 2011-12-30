@@ -62,6 +62,7 @@
 			value - if passed with a value, sets the control to that value; otherwise returns the current value
 			options - pass in either a string of HTML or a JSON object to replace the existing options
 			control - returns the selectBox control element (an anchor tag) for working with directly
+			refresh - updates the selectBox control's options based on the original controls options
 
 
 	Events:
