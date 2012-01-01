@@ -16,9 +16,14 @@ The plugin works by piggy-backing your existing SELECT controls.  Since the orig
 	- Tested in IE7-IE9, Firefox 3-4, recent webkit browsers, and Opera
 
 
+** Demo **
+
+	http://labs.abeautifulsite.dev/jquery-selectBox/
+
+
 ** License **
 
-Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
+	Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
 
 
 ** Usage **
