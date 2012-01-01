@@ -55,6 +55,7 @@ Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jq
 	value - if passed with a value, sets the control to that value; otherwise returns the current value
 	options - pass in either a string of HTML or a JSON object to replace the existing options
 	control - returns the selectBox control element (an anchor tag) for working with directly
+	refresh - syncs the UI control with the original contol's options
 
 
 ** Events **
