@@ -118,7 +118,7 @@ if(jQuery) (function($) {
 
 			var typeTimer,
 				typeSearch = '',
-				isMac = navigator.platform.match(/mac/i).length > 0;
+				isMac = navigator.platform.match(/mac/i);
 
 
 			//
