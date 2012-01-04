@@ -210,11 +210,14 @@ if(jQuery) (function($) {
 
 					var label = $('<span class="selectBox-label" />'),
 						arrow = $('<span class="selectBox-arrow" />'),
-            selected = $(select).find('OPTION:selected');
+            selected = $(select).find('OPTION:selected'),
+            selectedClass = selected.attr('class');
           
-          control
-            .data( 'selectBox-optionClass', selected.attr('class') )
-            .addClass( control.data('selectBox-optionClass') );
+          if ( selectedClass ) {
+            control
+              .data( 'selectBox-optionClass', selectedClass )
+              .addClass( selectedClass );
+          }
 					label.text( selected.text() || '\u00A0' );
 
 					var options = getOptions(select, 'dropdown');
@@ -518,15 +521,18 @@ if(jQuery) (function($) {
 				}
 
 				if( control.hasClass('selectBox-dropdown') ) {
+          var selectedClass = options.find('.selectBox-selected').data('selectBox-optionClass');
 					control.find('.selectBox-label').text(li.text());
           if( control.data( 'selectBox-optionClass') ) { 
             control
               .removeClass( control.data('selectBox-optionClass') )
               .removeData('selectBox-optionClass');
           }
-          control
-            .data( 'selectBox-optionClass', options.find('.selectBox-selected').data('selectBox-optionClass') )
-            .addClass( control.data('selectBox-optionClass') ); 
+          if( selectedClass ) {
+            control
+              .data( 'selectBox-optionClass', selectedClass )
+              .addClass( selectedClass ); 
+          } 
 				}
 
 				// Update original control's value
