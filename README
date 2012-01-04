@@ -1,9 +1,13 @@
-** Overview **
+jQuery selectBox
 
-The plugin works by piggy-backing your existing SELECT controls.  Since the original controls aren’t destroyed (they’re hidden), you can easily integrate this plugin into just about any existing form. The plugin degrades gracefully, as users without JavaScript will see the default SELECT controls.
+	A cosmetic, styleable replacement for SELECT elements.
 
+	Homepage:   http://abeautifulsite.net/blog/2011/01/jquery-selectbox-plugin/
+	Demo:  http://labs.abeautifulsite.dev/jquery-selectBox/
 
-** Features **
+	Copyright 2012 Cory LaViska for A Beautiful Site, LLC.
+
+Features:
 
 	- Supports OPTGROUPS
 	- Supports standard dropdown controls
@@ -16,17 +20,12 @@ The plugin works by piggy-backing your existing SELECT controls.  Since the orig
 	- Tested in IE7-IE9, Firefox 3-4, recent webkit browsers, and Opera
 
 
-** Demo **
-
-	http://labs.abeautifulsite.dev/jquery-selectBox/
-
-
-** License **
+License:
 
 	Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
 
 
-** Usage **
+Usage:
 
 	Link to the JS file:
 
@@ -36,48 +35,76 @@ The plugin works by piggy-backing your existing SELECT controls.  Since the orig
 
 		<link href="jquery.selectbox.min.css" rel="stylesheet" type="text/css" />
 
-** To create **
+	To create:
 
-	$("SELECT").selectBox([settings]);
-	
-	
-** Settings **
-
-	menuTransition: ['default', 'slide', 'fade']
-	menuSpeed: [integer, 'slow', 'normal', 'fast']
-	
-	
-** Methods **
-	
-	To call a method use this syntax:
-	
-		$("SELECT").selectBox('methodName', [options]);
-	
-	create - Creates the control (default method)
-	destroy - Destroys the selectBox control and reverts back to the original form control
-	disable - Disables the control (i.e. disabled="disabled")
-	enable - Enables the control
-	value - if passed with a value, sets the control to that value; otherwise returns the current value
-	options - pass in either a string of HTML or a JSON object to replace the existing options
-	control - returns the selectBox control element (an anchor tag) for working with directly
-	refresh - syncs the UI control with the original contol's options
+		$("SELECT").selectBox([settings]);
 
 
-** Events **
+Settings:
+
+	To specify settings, use this syntax: $("SELECT").selectBox('settings', { settingName: value, ... });
+
+		menuTransition: ['default', 'slide', 'fade'] - the show/hide transition for dropdown menus
+		menuSpeed: [integer, 'slow', 'normal', 'fast'] - the show/hide transition speed
+		loopOptions: [boolean] - flag to allow arrow keys to loop through options
+
+
+Methods:
+
+	To call a method use this syntax: $("SELECT").selectBox('methodName', [options]);
+
+		create - Creates the control (default method)
+		destroy - Destroys the selectBox control and reverts back to the original form control
+		disable - Disables the control (i.e. disabled="disabled")
+		enable - Enables the control
+		value - if passed with a value, sets the control to that value; otherwise returns the current value
+		options - pass in either a string of HTML or a JSON object to replace the existing options
+		control - returns the selectBox control element (an anchor tag) for working with directly
+		refresh - updates the selectBox control's options based on the original controls options
+
+
+Events:
 
 	Events are fired on the original select element. You can bind events like this:
 
 		$("SELECT").selectBox().change( function() { alert( $(this).val() ); } );
-		
-	focus - Fired when the control gains focus
-	blur - Fired when the control loses focus
-	change - Fired when the value of a control changes
+
+		focus - Fired when the control gains focus
+		blur - Fired when the control loses focus
+		change - Fired when the value of a control changes
 
 
-** Change Log **
+Change Log:
 
-	- Refer to jquery.selectBox.js for the full change log.
+	v1.0.0 (2011-04-03) - Complete rewrite with added support for inline and multi-select controls
+	v1.0.1 (2011-04-04) - Fixed options method so it doesn't destroy/recreate the control when called.
+	                    - Added a check for iOS devices (their native controls are much better for
+	                      touch-based devices; you can still use selectBox API methods for theme)
+	                    - Fixed issue where IE window would lose focus on XP
+	                    - Fixed premature selection issue in Webkit browsers
+	v1.0.2 (2011-04-13) - Fixed auto-height for inline controls when control is invisible on load
+	                    - Removed auto-width for dropdown and inline controls; now relies 100% on CSS
+	                      for setting the width
+	                   	- Added 'control' method for working directly with the selectBox control
+	v1.0.3 (2011-04-22) - Fixed bug in value method that errored if the control didn't exist
+	v1.0.4 (2011-04-22) - Fixed bug where controls without any options would render with incorrect heights
+	v1.0.5 (2011-04-22) - Removed 'tick' image in lieu of background colors to indicate selection
+	                    - Clicking no longer toggles selected/unselected in multi-selects; use CTRL/CMD and
+	                      SHIFT like in normal browser controls
+	                    - Fixed bug where inline controls would not receive focus unless tabbed into
+	v1.0.6 (2011-04-29) - Fixed bug where inline controls could be "dragged" when selecting an empty area
+	v1.0.7 (2011-05-18) - Expanded iOS check to include Android devices as well
+	                    - Added autoWidth option; set to false on init to use CSS widths for dropdown menus
+	v1.0.8 (2011-12-29) - Added refresh method (contributed by xjamundx)
+	                    - Hide menus when window is resized or scrolled (#9)
+	                    - Fixed autoWidth data issue (#13)
+	                    - SelectBox now gains focus when associated label is clicked
+	                    - Dropdown now inherits classes from original control (suffixed by -selectBox-dropdown-menu)
+	                    - Fixed meta/ctrl key issue (#41)
+	                    - Expanded iOS/Android check to include Windows 7 Phone and BlackBerry
+	v1.0.9 (2012-01-04) - Dropdown label class now syncs with selected option's class(es)
 
-** Known Issues **
+
+Known Issues:
 
 	- The blur and focus callbacks are not very reliable in IE7. The change callback works fine.

@@ -1,115 +1,13 @@
 /*
-
-	jQuery selectBox (version 1.0.7)
-
-		A cosmetic, styleable replacement for SELECT elements.
-
-		Homepage:   http://abeautifulsite.net/blog/2011/01/jquery-selectbox-plugin/
-		Demo page:  http://labs.abeautifulsite.net/projects/js/jquery/selectBox/
-
-		Copyright 2011 Cory LaViska for A Beautiful Site, LLC.
-
-	Features:
-
-		- Supports OPTGROUPS
-		- Supports standard dropdown controls
-		- Supports multi-select controls (i.e. multiple="multiple")
-		- Supports inline controls (i.e. size="5")
-		- Fully accessible via keyboard
-		- Shift + click (or shift + enter) to select a range of options in multi-select controls
-		- Type to search when the control has focus
-		- Auto-height based on the size attribute (to use, omit the height property in your CSS!)
-		- Tested in IE7-IE9, Firefox 3-4, recent webkit browsers, and Opera
-
-
-	License:
-
-		Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
-
-
-	Usage:
-
-		Link to the JS file:
-
-			<script src="jquery.selectbox.min.js" type="text/javascript"></script>
-
-		Add the CSS file (or append contents to your own stylesheet):
-
-			<link href="jquery.selectbox.min.css" rel="stylesheet" type="text/css" />
-
-		To create:
-
-			$("SELECT").selectBox([settings]);
-
-
-	Settings:
-
-		To specify settings, use this syntax: $("SELECT").selectBox('settings', { settingName: value, ... });
-
-			menuTransition: ['default', 'slide', 'fade'] - the show/hide transition for dropdown menus
-			menuSpeed: [integer, 'slow', 'normal', 'fast'] - the show/hide transition speed
-			loopOptions: [boolean] - flag to allow arrow keys to loop through options
-
-
-	Methods:
-
-		To call a method use this syntax: $("SELECT").selectBox('methodName', [options]);
-
-			create - Creates the control (default method)
-			destroy - Destroys the selectBox control and reverts back to the original form control
-			disable - Disables the control (i.e. disabled="disabled")
-			enable - Enables the control
-			value - if passed with a value, sets the control to that value; otherwise returns the current value
-			options - pass in either a string of HTML or a JSON object to replace the existing options
-			control - returns the selectBox control element (an anchor tag) for working with directly
-			refresh - updates the selectBox control's options based on the original controls options
-
-
-	Events:
-
-		Events are fired on the original select element. You can bind events like this:
-
-			$("SELECT").selectBox().change( function() { alert( $(this).val() ); } );
-
-			focus - Fired when the control gains focus
-			blur - Fired when the control loses focus
-			change - Fired when the value of a control changes
-
-
-	Change Log:
-
-		v1.0.0 (2011-04-03) - Complete rewrite with added support for inline and multi-select controls
-		v1.0.1 (2011-04-04) - Fixed options method so it doesn't destroy/recreate the control when called.
-		                    - Added a check for iOS devices (their native controls are much better for
-		                      touch-based devices; you can still use selectBox API methods for theme)
-		                    - Fixed issue where IE window would lose focus on XP
-		                    - Fixed premature selection issue in Webkit browsers
-		v1.0.2 (2011-04-13) - Fixed auto-height for inline controls when control is invisible on load
-		                    - Removed auto-width for dropdown and inline controls; now relies 100% on CSS
-		                      for setting the width
-		                   	- Added 'control' method for working directly with the selectBox control
-		v1.0.3 (2011-04-22) - Fixed bug in value method that errored if the control didn't exist
-		v1.0.4 (2011-04-22) - Fixed bug where controls without any options would render with incorrect heights
-		v1.0.5 (2011-04-22) - Removed 'tick' image in lieu of background colors to indicate selection
-		                    - Clicking no longer toggles selected/unselected in multi-selects; use CTRL/CMD and
-		                      SHIFT like in normal browser controls
-		                    - Fixed bug where inline controls would not receive focus unless tabbed into
-		v1.0.6 (2011-04-29) - Fixed bug where inline controls could be "dragged" when selecting an empty area
-		v1.0.7 (2011-05-18) - Expanded iOS check to include Android devices as well
-		                    - Added autoWidth option; set to false on init to use CSS widths for dropdown menus
-		v1.0.8 (2011-12-29) - Added refresh method (contributed by xjamundx)
-		                    - Hide menus when window is resized or scrolled (#9)
-		                    - Fixed autoWidth data issue (#13)
-		                    - SelectBox now gains focus when associated label is clicked
-		                    - Dropdown now inherits classes from original control (suffixed by -selectBox-dropdown-menu)
-		                    - Fixed meta/ctrl key issue (#41)
-		                    - Expanded iOS/Android check to include Windows 7 Phone and BlackBerry
-
-	Known Issues:
-
-		- The blur and focus callbacks are not very reliable in IE7. The change callback works fine.
-
-*/
+ *  jQuery selectBox - A cosmetic, styleable replacement for SELECT elements
+ *
+ *  Copyright 2012 Cory LaViska for A Beautiful Site, LLC.
+ *
+ *  https://github.com/claviska/jquery-selectBox
+ *
+ *  Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
+ *
+ */
 if(jQuery) (function($) {
 
 	$.extend($.fn, {
@@ -120,11 +18,9 @@ if(jQuery) (function($) {
 				typeSearch = '',
 				isMac = navigator.platform.match(/mac/i);
 
-
 			//
 			// Private methods
 			//
-
 
 			var init = function(select, data) {
 
@@ -231,12 +127,12 @@ if(jQuery) (function($) {
 					//
 					// Dropdown controls
 					//
-
 					var label = $('<span class="selectBox-label" />'),
 						arrow = $('<span class="selectBox-arrow" />');
-
-					label.text( $(select).find('OPTION:selected').text() || '\u00A0' );
-
+					
+					// Update label
+					label.attr('class', getLabelClass(select)).text(getLabelText(select));
+					
 					var options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
 
@@ -273,7 +169,7 @@ if(jQuery) (function($) {
 					.data('selectBox-control', control)
 					.data('selectBox-settings', settings)
 					.hide();
-
+				
 			};
 
 
@@ -389,12 +285,31 @@ if(jQuery) (function($) {
 				}
 
 			};
-
-
+			
+			
+			var getLabelClass = function(select) {
+				var selected = $(select).find('OPTION:selected');
+				return ('selectBox-label ' + (selected.attr('class') || '')).replace(/\s+$/, '');
+			}
+			
+			
+			var getLabelText = function(select) {
+				var selected = $(select).find('OPTION:selected');
+				return selected.text() || '\u00A0';
+			}
+			
+			
+			var setLabel = function(select) {
+				select = $(select);
+				var control = select.data('selectBox-control');
+				if( !control ) return;
+				control.find('.selectBox-label').attr('class', getLabelClass(select)).text(getLabelText(select));
+			}
+			
+			
 			var destroy = function(select) {
 
 				select = $(select);
-
 				var control = select.data('selectBox-control');
 				if( !control ) return;
 				var options = control.data('selectBox-options');
@@ -554,7 +469,7 @@ if(jQuery) (function($) {
 				if( control.hasClass('selectBox-dropdown') ) {
 					control.find('.selectBox-label').text(li.text());
 				}
-
+				
 				// Update original control's value
 				var i = 0, selection = [];
 				if( select.attr('multiple') ) {
@@ -564,13 +479,14 @@ if(jQuery) (function($) {
 				} else {
 					selection = li.find('A').attr('rel');
 				}
-
+				
 				// Remember most recently selected item
 				control.data('selectBox-last-selected', li);
 
 				// Change callback
 				if( select.val() !== selection ) {
 					select.val(selection);
+					setLabel(select);
 					select.trigger('change');
 				}
 
@@ -811,8 +727,8 @@ if(jQuery) (function($) {
 					options = control.data('selectBox-options');
 
 				// Update label
-				control.find('.selectBox-label').text( $(select).find('OPTION:selected').text() || '\u00A0' );
-
+				setLabel(select);
+				
 				// Update control values
 				options.find('.selectBox-selected').removeClass('selectBox-selected');
 				options.find('A').each( function() {
@@ -880,7 +796,8 @@ if(jQuery) (function($) {
 						control.append(options);
 						break;
 					case 'dropdown':
-						control.find('.selectBox-label').text( $(select).find('OPTION:selected').text() || '\u00A0' );
+						// Update label
+						setLabel(select);
 						$("BODY").append(options);
 						break;
 				}
@@ -914,7 +831,6 @@ if(jQuery) (function($) {
 			//
 			// Public methods
 			//
-
 
 			switch( method ) {
 
