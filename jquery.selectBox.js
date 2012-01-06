@@ -39,12 +39,10 @@ if(jQuery) (function($) {
 					inline = select.attr('multiple') || parseInt(select.attr('size')) > 1;
 
 				var settings = data || {};
-				if( settings.autoWidth === undefined ) settings.autoWidth = true;
-
-				// Inherit class names, style, and title attributes
+				
 				control
+					.width(select.outerWidth())
 					.addClass(select.attr('class'))
-					.attr('style', select.attr('style') || '')
 					.attr('title', select.attr('title') || '')
 					.attr('tabindex', parseInt(select.attr('tabindex')))
 					.css('display', 'inline-block')
@@ -133,7 +131,9 @@ if(jQuery) (function($) {
 						arrow = $('<span class="selectBox-arrow" />');
 					
 					// Update label
-					label.attr('class', getLabelClass(select)).text(getLabelText(select));
+					label
+						.attr('class', getLabelClass(select))
+						.text(getLabelText(select));
 					
 					options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
@@ -160,9 +160,13 @@ if(jQuery) (function($) {
 							handleKeyPress(select, event);
 						})
 						.insertAfter(select);
-
+					
+					// Set label width
+					var labelWidth = control.width() - arrow.outerWidth() - parseInt(label.css('paddingLeft')) - parseInt(label.css('paddingLeft'));
+					label.width(labelWidth);
+					
 					disableSelection(control);
-
+					
 				}
 
 				// Store data for later use and show the control
@@ -343,18 +347,15 @@ if(jQuery) (function($) {
 
 				hideMenus();
 
-				// Auto-width
-				if( settings.autoWidth ) options.css('width', control.innerWidth());
-				if(options.innerWidth() < control.innerWidth()) {
-					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')));
-				}
-
 				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
+				
 				// Menu position
-				options.css({
-					top: control.offset().top + control.outerHeight() - borderBottomWidth,
-					left: control.offset().left
-				});
+				options
+					.width(control.innerWidth())
+					.css({
+						top: control.offset().top + control.outerHeight() - borderBottomWidth,
+						left: control.offset().left
+					});
 
 				// Show menu
 				switch( settings.menuTransition ) {

@@ -2,8 +2,8 @@ jQuery selectBox
 
 	A cosmetic, styleable replacement for SELECT elements.
 
-	Homepage:   http://abeautifulsite.net/blog/2011/01/jquery-selectbox-plugin/
-	Demo:  http://labs.abeautifulsite.dev/jquery-selectBox/
+	Homepage:  http://abeautifulsite.net/blog/2011/01/jquery-selectbox-plugin/
+	Demo:      http://labs.abeautifulsite.dev/jquery-selectBox/
 
 	Copyright 2012 Cory LaViska for A Beautiful Site, LLC.
 
@@ -17,7 +17,7 @@ Features:
 	- Shift + click (or shift + enter) to select a range of options in multi-select controls
 	- Type to search when the control has focus
 	- Auto-height based on the size attribute (to use, omit the height property in your CSS!)
-	- Tested in IE7-IE9, Firefox 3-4, recent webkit browsers, and Opera
+	- Tested in IE7-IE9, Firefox 3-4, recent WebKit browsers, and Opera
 
 
 License:
@@ -103,6 +103,7 @@ Change Log:
 	                    - Fixed meta/ctrl key issue (#41)
 	                    - Expanded iOS/Android check to include Windows 7 Phone and BlackBerry
 	v1.0.9 (2012-01-04) - Dropdown label class now syncs with selected option's class(es)
+	v1.1.0 (2012-01-06) - Removed autowidth option; control now inherits the size of the original select element
 
 
 Known Issues:
