@@ -23,7 +23,9 @@ if(jQuery) (function($) {
 			//
 
 			var init = function(select, data) {
-
+				
+				var options;
+				
 				// Disable for iOS devices (their native controls are more suitable for a touch device)
 				if( navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i) ) return false;
 
@@ -79,7 +81,7 @@ if(jQuery) (function($) {
 					//
 					// Inline controls
 					//
-					var options = getOptions(select, 'inline');
+					options = getOptions(select, 'inline');
 
 					control
 						.append(options)
@@ -133,7 +135,7 @@ if(jQuery) (function($) {
 					// Update label
 					label.attr('class', getLabelClass(select)).text(getLabelText(select));
 					
-					var options = getOptions(select, 'dropdown');
+					options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
 
 					control
@@ -290,13 +292,13 @@ if(jQuery) (function($) {
 			var getLabelClass = function(select) {
 				var selected = $(select).find('OPTION:selected');
 				return ('selectBox-label ' + (selected.attr('class') || '')).replace(/\s+$/, '');
-			}
+			};
 			
 			
 			var getLabelText = function(select) {
 				var selected = $(select).find('OPTION:selected');
 				return selected.text() || '\u00A0';
-			}
+			};
 			
 			
 			var setLabel = function(select) {
@@ -304,7 +306,7 @@ if(jQuery) (function($) {
 				var control = select.data('selectBox-control');
 				if( !control ) return;
 				control.find('.selectBox-label').attr('class', getLabelClass(select)).text(getLabelText(select));
-			}
+			};
 			
 			
 			var destroy = function(select) {
@@ -344,7 +346,7 @@ if(jQuery) (function($) {
 				// Auto-width
 				if( settings.autoWidth ) options.css('width', control.innerWidth());
 				if(options.innerWidth() < control.innerWidth()) {
-					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')))
+					options.css('width', control.innerWidth() - parseInt(options.css('padding-left')) - parseInt(options.css('padding-right')));
 				}
 
 				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
@@ -825,7 +827,7 @@ if(jQuery) (function($) {
 					if( self.attr('disabled') ) li.addClass('selectBox-disabled');
 					if( self.attr('selected') ) li.addClass('selectBox-selected');
 					options.append(li);
-				})
+				});
 			};
 
 			//
@@ -836,7 +838,6 @@ if(jQuery) (function($) {
 
 				case 'control':
 					return $(this).data('selectBox-control');
-					break;
 
 				case 'settings':
 					if( !data ) return $(this).data('selectBox-settings');
