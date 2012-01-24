@@ -194,7 +194,7 @@ if(jQuery) (function($) {
 							.show()
 							.appendTo('body');
 						tmp.find('.selectBox-options').html('<li><a>\u00A0</a></li>');
-						optionHeight = parseInt(tmp.find('.selectBox-options A:first').html('&nbsp;').outerHeight());
+						var optionHeight = parseInt(tmp.find('.selectBox-options A:first').html('&nbsp;').outerHeight());
 						tmp.remove();
 						
 						control.height(optionHeight * size);
