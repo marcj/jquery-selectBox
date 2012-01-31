@@ -23,11 +23,6 @@ http://labs.abeautifulsite.dev/jquery-selectBox/
 * Tested in IE7-IE9, Firefox 3-4, recent WebKit browsers, and Opera
 
 
-## License
-
-Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
-
-
 ## Usage
 
 Link to the JS file:
