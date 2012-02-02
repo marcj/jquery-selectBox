@@ -182,29 +182,41 @@ if(jQuery) (function($) {
 			var getOptions = function(select, type) {
 				var options;
 
+	// Private function to handle recursion in the getOptions function.
+	var _getOptions = function(select, options) {
+		// Loop through the set in order of element children.
+		select.children('OPTION, OPTGROUP').each( function() {
+			// If the element is an option, add it to the list.
+			if ($(this).is('OPTION')) {
+				// Check for a value in the option found.
+				if($(this).length > 0) {
+					// Create an option form the found element.
+					generateOptions($(this), options);
+				}
+				else {
+					// No option information found, so add an empty.
+					options.append('<li>\u00A0</li>');
+				}
+			}
+			else {
+				// If the element is an option group, add the group and call this function on it.
+				var optgroup = $('<li class="selectBox-optgroup" />');
+				optgroup.text($(this).attr('label'));
+				options.append(optgroup);			
+				options = _getOptions($(this), options);
+			}
+		});
+		// Return the built string.
+		return options;
+	}
+
 				switch( type ) {
 
 					case 'inline':
 
-
 						options = $('<ul class="selectBox-options" />');
-
-						if( select.find('OPTGROUP').length ) {
-
-							select.find('OPTGROUP').each( function() {
-
-								var optgroup = $('<li class="selectBox-optgroup" />');
-								optgroup.text($(this).attr('label'));
-								options.append(optgroup);
-
-								generateOptions($(this).find('OPTION'), options);
-
-							});
-
-						} else {
-							generateOptions(select.find('OPTION'), options);
-						}
-
+						options = _getOptions(select, options);
+						
 						options
 							.find('A')
 								.bind('mouseover.selectBox', function(event) {
@@ -228,27 +240,7 @@ if(jQuery) (function($) {
 
 					case 'dropdown':
 						options = $('<ul class="selectBox-dropdown-menu selectBox-options" />');
-
-						if( select.find('OPTGROUP').length ) {
-
-							select.find('OPTGROUP').each( function() {
-
-								var optgroup = $('<li class="selectBox-optgroup" />');
-								optgroup.text($(this).attr('label'));
-								options.append(optgroup);
-								generateOptions($(this).find('OPTION'), options);
-
-							});
-
-						} else {
-
-							if( select.find('OPTION').length > 0 ) {
-								generateOptions(select.find('OPTION'), options);
-							} else {
-								options.append('<li>\u00A0</li>');
-							}
-
-						}
+						options = _getOptions(select, options);
 
 						options
 							.data('selectBox-select', select)
@@ -816,19 +808,16 @@ if(jQuery) (function($) {
 					});
 			};
 
-			var generateOptions = function(originalOptions, options){
-				originalOptions.each(function(){
-					var self = $(this);
-					var li = $('<li />'),
-					a = $('<a />');
-					li.addClass( self.attr('class') );
-					li.data( self.data() );
-					a.attr('rel', self.val()).text( self.text() );
-					li.append(a);
-					if( self.attr('disabled') ) li.addClass('selectBox-disabled');
-					if( self.attr('selected') ) li.addClass('selectBox-selected');
-					options.append(li);
-				});
+			var generateOptions = function(self, options){
+				var li = $('<li />'),
+				a = $('<a />');
+				li.addClass( self.attr('class') );
+				li.data( self.data() );
+				a.attr('rel', self.val()).text( self.text() );
+				li.append(a);
+				if( self.attr('disabled') ) li.addClass('selectBox-disabled');
+				if( self.attr('selected') ) li.addClass('selectBox-selected');
+				options.append(li);
 			};
 
 			//
