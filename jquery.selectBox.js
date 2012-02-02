@@ -182,33 +182,33 @@ if(jQuery) (function($) {
 			var getOptions = function(select, type) {
 				var options;
 
-	// Private function to handle recursion in the getOptions function.
-	var _getOptions = function(select, options) {
-		// Loop through the set in order of element children.
-		select.children('OPTION, OPTGROUP').each( function() {
-			// If the element is an option, add it to the list.
-			if ($(this).is('OPTION')) {
-				// Check for a value in the option found.
-				if($(this).length > 0) {
-					// Create an option form the found element.
-					generateOptions($(this), options);
+				// Private function to handle recursion in the getOptions function.
+				var _getOptions = function(select, options) {
+					// Loop through the set in order of element children.
+					select.children('OPTION, OPTGROUP').each( function() {
+						// If the element is an option, add it to the list.
+						if ($(this).is('OPTION')) {
+							// Check for a value in the option found.
+							if($(this).length > 0) {
+								// Create an option form the found element.
+								generateOptions($(this), options);
+							}
+							else {
+								// No option information found, so add an empty.
+								options.append('<li>\u00A0</li>');
+							}
+						}
+						else {
+							// If the element is an option group, add the group and call this function on it.
+							var optgroup = $('<li class="selectBox-optgroup" />');
+							optgroup.text($(this).attr('label'));
+							options.append(optgroup);			
+							options = _getOptions($(this), options);
+						}
+					});
+					// Return the built string.
+					return options;
 				}
-				else {
-					// No option information found, so add an empty.
-					options.append('<li>\u00A0</li>');
-				}
-			}
-			else {
-				// If the element is an option group, add the group and call this function on it.
-				var optgroup = $('<li class="selectBox-optgroup" />');
-				optgroup.text($(this).attr('label'));
-				options.append(optgroup);			
-				options = _getOptions($(this), options);
-			}
-		});
-		// Return the built string.
-		return options;
-	}
 
 				switch( type ) {
 
