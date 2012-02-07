@@ -1,6 +1,6 @@
 /* Dropdown control */
 .selectBox-dropdown {
-	min-width: 75px;
+	min-width: 150px;
 	position: relative;
 	border: solid 1px #BBB;
 	line-height: 1.5;
@@ -59,6 +59,7 @@
 	position: absolute;
 	z-index: 99999;
 	max-height: 200px;
+	min-height: 1em;
 	border: solid 1px #BBB; /* should be the same border width as .selectBox-dropdown */
 	background: #FFF;
 	-moz-box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
@@ -70,7 +71,7 @@
 
 /* Inline control */
 .selectBox-inline {
-	min-width: 75px;
+	min-width: 150px;
 	outline: none;
 	border: solid 1px #BBB;
 	background: #FFF;
