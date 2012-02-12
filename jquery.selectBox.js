@@ -837,6 +837,9 @@ if(jQuery) (function($) {
 					break;
 
 				case 'options':
+					// Getter
+					if( data === undefined ) return $(this).data('selectBox-control').data('selectBox-options');
+					// Setter
 					$(this).each( function() {
 						setOptions(this, data);
 					});
