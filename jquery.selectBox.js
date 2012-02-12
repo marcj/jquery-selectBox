@@ -348,14 +348,22 @@ if(jQuery) (function($) {
 				hideMenus();
 
 				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
-				
-				// Menu position
-				options
-					.width(control.innerWidth())
-					.css({
-						top: control.offset().top + control.outerHeight() - borderBottomWidth,
-						left: control.offset().left
-					});
+
+				var position = {
+					top: control.offset().top + control.outerHeight() - borderBottomWidth,
+					left: control.offset().left
+				};
+
+				options.css(position);
+
+				// Reposition menu if obscured from view
+				if( options.is(':obscured') ) {
+					position.top = control.offset().top - options.outerHeight();
+					options.css(position);
+				}
+
+				// Menu width
+				options.width(control.innerWidth());
 
 				if( select.triggerHandler('beforeopen') ) return false;
 
