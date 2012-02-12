@@ -159,6 +159,14 @@ if(jQuery) (function($) {
 						.bind('keypress.selectBox', function(event) {
 							handleKeyPress(select, event);
 						})
+						.bind('open.selectBox', function(event, triggerData) {
+							if(triggerData && triggerData._selectBox === true) return;
+							showMenu(select);
+						})
+						.bind('close.selectBox', function(event, triggerData) {
+							if(triggerData && triggerData._selectBox === true) return;
+							hideMenus();
+						})
 						.insertAfter(select);
 					
 					// Set label width
@@ -349,22 +357,30 @@ if(jQuery) (function($) {
 						left: control.offset().left
 					});
 
+				if( select.triggerHandler('beforeopen') ) return false;
+
+				var dispatchOpenEvent = function() {
+					select.triggerHandler('open', { _selectBox: true });
+				};
+
 				// Show menu
 				switch( settings.menuTransition ) {
 
 					case 'fade':
-						options.fadeIn(settings.menuSpeed);
+						options.fadeIn(settings.menuSpeed, dispatchOpenEvent);
 						break;
 
 					case 'slide':
-						options.slideDown(settings.menuSpeed);
+						options.slideDown(settings.menuSpeed, dispatchOpenEvent);
 						break;
 
 					default:
-						options.show(settings.menuSpeed);
+						options.show(settings.menuSpeed, dispatchOpenEvent);
 						break;
 
 				}
+
+				if( !settings.menuSpeed ) dispatchOpenEvent();
 
 				// Center on selected option
 				var li = options.find('.selectBox-selected:first');
@@ -383,7 +399,7 @@ if(jQuery) (function($) {
 
 			var hideMenus = function() {
 
-				if( $(".selectBox-dropdown-menu").length === 0 ) return;
+				if( $(".selectBox-dropdown-menu:visible").length === 0 ) return;
 				$(document).unbind('mousedown.selectBox');
 
 				$(".selectBox-dropdown-menu").each( function() {
@@ -393,21 +409,29 @@ if(jQuery) (function($) {
 						control = select.data('selectBox-control'),
 						settings = select.data('selectBox-settings');
 
+					if( select.triggerHandler('beforeclose') ) return false;
+
+					var dispatchCloseEvent = function() {
+						select.triggerHandler('close', { _selectBox: true });
+					};
+
 					switch( settings.menuTransition ) {
 
 						case 'fade':
-							options.fadeOut(settings.menuSpeed);
+							options.fadeOut(settings.menuSpeed, dispatchCloseEvent);
 							break;
 
 						case 'slide':
-							options.slideUp(settings.menuSpeed);
+							options.slideUp(settings.menuSpeed, dispatchCloseEvent);
 							break;
 
 						default:
-							options.hide(settings.menuSpeed);
+							options.hide(settings.menuSpeed, dispatchCloseEvent);
 							break;
 
 					}
+
+					if( !settings.menuSpeed ) dispatchCloseEvent();
 
 					control.removeClass('selectBox-menuShowing');
 
