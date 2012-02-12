@@ -202,7 +202,7 @@ if(jQuery) (function($) {
 							// If the element is an option group, add the group and call this function on it.
 							var optgroup = $('<li class="selectBox-optgroup" />');
 							optgroup.text($(this).attr('label'));
-							options.append(optgroup);			
+							options.append(optgroup);
 							options = _getOptions($(this), options);
 						}
 					});
@@ -268,13 +268,13 @@ if(jQuery) (function($) {
 								.bind('mouseout.selectBox', function(event) {
 									removeHover(select, $(this).parent());
 								});
-						
+
 						// Inherit classes for dropdown menu
 						var classes = select.attr('class') || '';
 						if( classes !== '' ) {
 							classes = classes.split(' ');
 							for( var i in classes ) options.addClass(classes[i] + '-selectBox-dropdown-menu');
-						}						
+						}
 
 						disableSelection(options);
 
@@ -843,7 +843,7 @@ if(jQuery) (function($) {
 					break;
 
 				case 'value':
-                    // Empty string is a valid value
+					// Empty string is a valid value
 					if( data === undefined ) return $(this).val();
 					$(this).each( function() {
 						setValue(this, data);
