@@ -64,7 +64,7 @@ To call a method use this syntax:
 * __disable__ - Disables the control (i.e. disabled="disabled")
 * __enable__ - Enables the control
 * __value__ - if passed with a value, sets the control to that value; otherwise returns the current value
-* __options__ - pass in either a string of HTML or a JSON object to replace the existing options
+* __options__ - if passed either a string of HTML or a JSON object, replaces the existing options; otherwise returns the options container element as a jQuery object
 * __control__ - returns the selectBox control element (an anchor tag) for working with directly
 * __refresh__ - updates the selectBox control's options based on the original controls options
 
