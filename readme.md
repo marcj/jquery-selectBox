@@ -80,6 +80,10 @@ Events are fired on the original select element. You can bind events like this:
 * __focus__ - Fired when the control gains focus
 * __blur__ - Fired when the control loses focus
 * __change__ - Fired when the value of a control changes
+* __beforeopen__ - Fired before a dropdown menu opens (cancelable)
+* __open__ - Fired after a dropdown menu opens (not cancelable)
+* __beforeclose__ - Fired before a dropdown menu closes (cancelable)
+* __close__ - Fired after a dropdown menu closes (not cancelable)
 
 
 ### Known Issues
