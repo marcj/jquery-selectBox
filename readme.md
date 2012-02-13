@@ -77,9 +77,9 @@ Events are fired on the original select element. You can bind events like this:
 
 ### Available events
 
-__focus__ - Fired when the control gains focus
-__blur__ - Fired when the control loses focus
-__change__ - Fired when the value of a control changes
+* __focus__ - Fired when the control gains focus
+* __blur__ - Fired when the control loses focus
+* __change__ - Fired when the value of a control changes
 
 
 ### Known Issues
