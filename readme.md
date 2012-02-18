@@ -7,7 +7,7 @@ _Dual licensed under the MIT / GPLv2 licenses_
 
 ## Demo
 
-http://labs.abeautifulsite.dev/jquery-selectBox/
+http://labs.abeautifulsite.net/jquery-selectBox/
 
 
 ## Features
