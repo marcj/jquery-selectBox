@@ -159,6 +159,14 @@ if(jQuery) (function($) {
 						.bind('keypress.selectBox', function(event) {
 							handleKeyPress(select, event);
 						})
+						.bind('open.selectBox', function(event, triggerData) {
+							if(triggerData && triggerData._selectBox === true) return;
+							showMenu(select);
+						})
+						.bind('close.selectBox', function(event, triggerData) {
+							if(triggerData && triggerData._selectBox === true) return;
+							hideMenus();
+						})
 						.insertAfter(select);
 					
 					// Set label width
@@ -202,7 +210,7 @@ if(jQuery) (function($) {
 							// If the element is an option group, add the group and call this function on it.
 							var optgroup = $('<li class="selectBox-optgroup" />');
 							optgroup.text($(this).attr('label'));
-							options.append(optgroup);			
+							options.append(optgroup);
 							options = _getOptions($(this), options);
 						}
 					});
@@ -268,13 +276,13 @@ if(jQuery) (function($) {
 								.bind('mouseout.selectBox', function(event) {
 									removeHover(select, $(this).parent());
 								});
-						
+
 						// Inherit classes for dropdown menu
 						var classes = select.attr('class') || '';
 						if( classes !== '' ) {
 							classes = classes.split(' ');
 							for( var i in classes ) options.addClass(classes[i] + '-selectBox-dropdown-menu');
-						}						
+						}
 
 						disableSelection(options);
 
@@ -340,31 +348,47 @@ if(jQuery) (function($) {
 				hideMenus();
 
 				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
-				
-				// Menu position
-				options
-					.width(control.innerWidth())
-					.css({
-						top: control.offset().top + control.outerHeight() - borderBottomWidth,
-						left: control.offset().left
-					});
+
+				var position = {
+					top: control.offset().top + control.outerHeight() - borderBottomWidth,
+					left: control.offset().left
+				};
+
+				options.css(position);
+
+				// Reposition menu if obscured from view
+				if( options.is(':obscured') ) {
+					position.top = control.offset().top - options.outerHeight();
+					options.css(position);
+				}
+
+				// Menu width
+				options.width(control.innerWidth());
+
+				if( select.triggerHandler('beforeopen') ) return false;
+
+				var dispatchOpenEvent = function() {
+					select.triggerHandler('open', { _selectBox: true });
+				};
 
 				// Show menu
 				switch( settings.menuTransition ) {
 
 					case 'fade':
-						options.fadeIn(settings.menuSpeed);
+						options.fadeIn(settings.menuSpeed, dispatchOpenEvent);
 						break;
 
 					case 'slide':
-						options.slideDown(settings.menuSpeed);
+						options.slideDown(settings.menuSpeed, dispatchOpenEvent);
 						break;
 
 					default:
-						options.show(settings.menuSpeed);
+						options.show(settings.menuSpeed, dispatchOpenEvent);
 						break;
 
 				}
+
+				if( !settings.menuSpeed ) dispatchOpenEvent();
 
 				// Center on selected option
 				var li = options.find('.selectBox-selected:first');
@@ -383,7 +407,7 @@ if(jQuery) (function($) {
 
 			var hideMenus = function() {
 
-				if( $(".selectBox-dropdown-menu").length === 0 ) return;
+				if( $(".selectBox-dropdown-menu:visible").length === 0 ) return;
 				$(document).unbind('mousedown.selectBox');
 
 				$(".selectBox-dropdown-menu").each( function() {
@@ -393,21 +417,29 @@ if(jQuery) (function($) {
 						control = select.data('selectBox-control'),
 						settings = select.data('selectBox-settings');
 
+					if( select.triggerHandler('beforeclose') ) return false;
+
+					var dispatchCloseEvent = function() {
+						select.triggerHandler('close', { _selectBox: true });
+					};
+
 					switch( settings.menuTransition ) {
 
 						case 'fade':
-							options.fadeOut(settings.menuSpeed);
+							options.fadeOut(settings.menuSpeed, dispatchCloseEvent);
 							break;
 
 						case 'slide':
-							options.slideUp(settings.menuSpeed);
+							options.slideUp(settings.menuSpeed, dispatchCloseEvent);
 							break;
 
 						default:
-							options.hide(settings.menuSpeed);
+							options.hide(settings.menuSpeed, dispatchCloseEvent);
 							break;
 
 					}
+
+					if( !settings.menuSpeed ) dispatchCloseEvent();
 
 					control.removeClass('selectBox-menuShowing');
 
@@ -837,13 +869,16 @@ if(jQuery) (function($) {
 					break;
 
 				case 'options':
+					// Getter
+					if( data === undefined ) return $(this).data('selectBox-control').data('selectBox-options');
+					// Setter
 					$(this).each( function() {
 						setOptions(this, data);
 					});
 					break;
 
 				case 'value':
-                    // Empty string is a valid value
+					// Empty string is a valid value
 					if( data === undefined ) return $(this).val();
 					$(this).each( function() {
 						setValue(this, data);
@@ -889,3 +924,64 @@ if(jQuery) (function($) {
 	});
 
 })(jQuery);
+
+/*!
+ * jQuery :obscured
+ *
+ *  @version 1.0.0
+ *
+ *  Copyright 2012, Andrew C. Dvorak
+ *  Released under the MIT, BSD, and GPL Licenses.
+ *  More information: https://github.com/acdvorak/jquery.obscured
+ */
+if(jQuery && !jQuery.expr[':']['obscured']) (function( $, undefined ) {
+
+	var Rect = function(left, top, width, height) {
+		if( ! ( this instanceof Rect ) ) {
+			return new Rect(left, top, width, height);
+		}
+
+		this.left = left;
+		this.top = top;
+		this.right = left + width;
+		this.bottom = top + height;
+
+		this.width = width;
+		this.height = height;
+	};
+
+	Rect.prototype.contains = function(otherRect) {
+		return this.left <= otherRect.left
+			&& this.top <= otherRect.top
+			&& this.right >= otherRect.right
+			&& this.bottom >= otherRect.bottom;
+	};
+
+	$.extend ( $.expr[':'], {
+
+		obscured: function ( obj ) {
+			var $obj = $(obj);
+			var $parent = $obj.offsetParent();
+			var $window = $(window);
+
+			var isHidden = $obj.is(':hidden');
+
+			if( isHidden ) $obj.show();
+
+			var objOffset = $obj.offset();
+
+			var objRect = new Rect(objOffset.left, objOffset.top, $obj.outerWidth(), $obj.outerHeight());
+			var parentRect = new Rect($parent.scrollLeft(), $parent.scrollTop(), $parent.width(), $parent.height());
+			var windowRect = new Rect($window.scrollLeft(), $window.scrollTop(), $window.width(), $window.height());
+
+			if( isHidden ) $obj.hide();
+
+			var parentContains = parentRect.contains(objRect);
+			var windowContains = windowRect.contains(objRect);
+
+			return ! ( parentContains && windowContains );
+		}
+
+	} );
+
+})( jQuery );

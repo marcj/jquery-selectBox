@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>jQuery selectBox (select replacement plugin)</title>
+	<head>
+		<title>jQuery selectBox (select replacement plugin)</title>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript" src="jquery.selectBox.js"></script>
-		<link type="text/css" rel="stylesheet" href="jquery.selectBox.css"></script>
+		<link type="text/css" rel="stylesheet" href="jquery.selectBox.css" />
 
 		<script type="text/javascript">
 
@@ -116,13 +116,13 @@
 
 		</script>
 
-    </head>
+	</head>
 
-    <body style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
+	<body style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">
 
-        <form style="background: #FFF; padding: 20px; border: solid 2px #DDD;">
+		<form style="background: #FFF; padding: 20px; border: solid 2px #DDD;">
 
-	    	<div id="console" style="width: 50%; font-family: 'Courier New', monospace; border: solid 2px #000; background: #000; color: #FFF; height: 350px; overflow: auto; padding: 10px; float: right;"></div>
+			<div id="console" style="width: 50%; font-family: 'Courier New', monospace; border: solid 2px #000; background: #000; color: #FFF; height: 350px; overflow: auto; padding: 10px; float: right;"></div>
 
 			<div style="background: #FFFCCC; border: solid 2px #DDD999; padding: 1px 10px; width: 50%; float: right; clear: right; margin: 1em 0;">
 				<p><strong>Note</strong></p>
@@ -138,160 +138,188 @@
 				</p>
 			</div>
 
-	        <h1>$("SELECT").selectBox();</h1>
+			<h1>$("SELECT").selectBox();</h1>
 
-	    	<p>
-	    		<label for="standard-dropdown">Standard Dropdown</label><br />
-		    	<select id="standard-dropdown" name="standard-dropdown" class="custom-class1 custom-class2" style="width: 200px;">
-		    		<option value="1" class="test-class-1">Item 1</option>
-		    		<option value="2" class="test-class-2" selected="selected">Item 2</option>
-		    		<option value="3" class="test-class-3">Item 3 has a really long label that will not interfere with the control’s width</option>
-		    		<option value="4" class="test-class-4">Item 4</option>
-		    		<option value="5" disabled="disabled">Item 5 (disabled)</option>
-		    		<option value="6">Item 6</option>
-		    		<option value="7">Item 7</option>
-		    		<option value="8">Item 8</option>
-		    		<option value="9">Item 9</option>
-		    		<option value="10">Item 10</option>
-		    		<option value="11">Item 11</option>
-		    		<option value="12">Item 12</option>
-		    		<option value="13">Item 13</option>
-		    		<option value="14">Item 14</option>
-		    		<option value="15">Item 15</option>
-		    		<option value="16">Item 16</option>
-		    		<option value="17">Item 17</option>
-		    		<option value="18">Item 18</option>
-		    		<option value="19">Item 19</option>
-		    		<option value="20">Item 20</option>
-		    	</select>
-		    </p>
+			<p>
+				<label for="standard-dropdown">Standard Dropdown</label><br />
+				<select id="standard-dropdown" name="standard-dropdown" class="custom-class1 custom-class2" style="width: 200px;">
+					<option value="1" class="test-class-1">Item 1</option>
+					<option value="2" class="test-class-2" selected="selected">Item 2</option>
+					<option value="3" class="test-class-3">Item 3 has a really long label that will not interfere with the control's width</option>
+					<option value="4" class="test-class-4">Item 4</option>
+					<option value="5" disabled="disabled">Item 5 (disabled)</option>
+					<option value="6">Item 6</option>
+					<option value="7">Item 7</option>
+					<option value="8">Item 8</option>
+					<option value="9">Item 9</option>
+					<option value="10">Item 10</option>
+					<option value="11">Item 11</option>
+					<option value="12">Item 12</option>
+					<option value="13">Item 13</option>
+					<option value="14">Item 14</option>
+					<option value="15">Item 15</option>
+					<option value="16">Item 16</option>
+					<option value="17">Item 17</option>
+					<option value="18">Item 18</option>
+					<option value="19">Item 19</option>
+					<option value="20">Item 20</option>
+				</select>
+			</p>
 
-	    	<p>
-	    		Empty Dropdown<br />
-		    	<select name="empty-dropdown"></select>
-		    </p>
+			<p>
+				Empty Dropdown<br />
+				<select name="empty-dropdown"></select>
+			</p>
 
-	    	<p>
-	    		<label for="multi-select-control">Multi-select Control</lable><br />
-		    	<select id="multi-select-control" name="multi-select-control" multiple="multiple">
-		    		<option value="1" selected="selected">Item 1</option>
-		    		<option value="2">Item 2</option>
-		    		<option value="3">Item 3</option>
-		    		<option value="4">Item 4</option>
-		    		<option value="5" disabled="disabled">Item 5 (disabled)</option>
-		    	</select>
-		    </p>
+			<p>
+				<label for="multi-select-control">Multi-select Control</label><br />
+				<select id="multi-select-control" name="multi-select-control" multiple="multiple">
+					<option value="1" selected="selected">Item 1</option>
+					<option value="2">Item 2</option>
+					<option value="3">Item 3</option>
+					<option value="4">Item 4</option>
+					<option value="5" disabled="disabled">Item 5 (disabled)</option>
+				</select>
+			</p>
 
-	    	<p>
-	    		Empty Multi-select<br />
-		    	<select name="empty-multi-select" size="5" multiple="multiple"></select>
-		    </p>
+			<p>
+				Empty Multi-select<br />
+				<select name="empty-multi-select" size="5" multiple="multiple"></select>
+			</p>
 
-	    	<p>
-	    		Multi-select with few options<br />
-		    	<select name="multi-select-few-options" multiple="multiple" size="5">
-		    		<option value="1" selected="selected">Item 1</option>
-		    		<option value="2">Item 2</option>
-		    		<option value="3">Item 3</option>
-		    	</select>
-		    </p>
+			<p>
+				Multi-select with few options<br />
+				<select name="multi-select-few-options" multiple="multiple" size="5">
+					<option value="1" selected="selected">Item 1</option>
+					<option value="2">Item 2</option>
+					<option value="3">Item 3</option>
+				</select>
+			</p>
 
-	    	<p>
-	    		No multi-select, size = 4<br />
-		    	<select name="no-multi-with-size-4" size="4">
-		    		<option value="1" selected="selected">Item 1</option>
-		    		<option value="2">Item 2</option>
-		    		<option value="3">Item 3 has &lt;a&gt; really long label but it won't affect the control's display at all</option>
-		    		<option value="4">Item 4</option>
-		    		<option value="5" disabled="disabled">Item 5 (disabled)</option>
-		    	</select>
-	    	</p>
+			<p>
+				No multi-select, size = 4<br />
+				<select name="no-multi-with-size-4" size="4">
+					<option value="1" selected="selected">Item 1</option>
+					<option value="2">Item 2</option>
+					<option value="3">Item 3 has &lt;a&gt; really long label but it won't affect the control's display at all</option>
+					<option value="4">Item 4</option>
+					<option value="5" disabled="disabled">Item 5 (disabled)</option>
+				</select>
+			</p>
 
-	    	<p>
-	    		Standard control with OPTGROUPS<br />
-		    	<select name="standard-with-optgroups">
-		    		<optgroup label="Section 1">
-			    		<option value="1">Item 1</option>
-			    		<option value="2">Item 2</option>
-			    		<option value="3">Item 3</option>
-			    		<option value="4">Item 4</option>
-		    		</optgroup>
-		    		<optgroup label="Section 2">
-			    		<option value="5">Item 5</option>
-			    		<option value="6">Item 6</option>
-			    		<option value="7">Item 7</option>
-			    		<option value="8">Item 8</option>
-		    		</optgroup>
-		    		<optgroup label="Section 3">
-			    		<option value="9">Item 9</option>
-			    		<option value="10">Item 10</option>
-			    		<option value="11">Item 11</option>
-			    		<option value="12">Item 12</option>
-		    		</optgroup>
-		    		<optgroup label="Section 4">
-			    		<option value="13">Item 13</option>
-			    		<option value="14">Item 14</option>
-			    		<option value="15">Item 15</option>
-			    		<option value="16">Item 16</option>
-		    		</optgroup>
-		    		<optgroup label="Section 5">
-			    		<option value="17">Item 17</option>
-			    		<option value="18">Item 18</option>
-			    		<option value="19">Item 19</option>
-			    		<option value="20">Item 20</option>
-		    		</optgroup>
-		    		<optgroup label="Section 6">
-			    		<option value="21">Item 21</option>
-			    		<option value="22">Item 22</option>
-			    		<option value="23">Item 23</option>
-			    		<option value="24">Item 24</option>
-		    		</optgroup>
-		    	</select>
-	    	</p>
+			<p>
+				Standard control with OPTGROUPS<br />
+				<select name="standard-with-optgroups">
+					<optgroup label="Section 1">
+						<option value="1">Item 1</option>
+						<option value="2">Item 2</option>
+						<option value="3">Item 3</option>
+						<option value="4">Item 4</option>
+					</optgroup>
+					<optgroup label="Section 2">
+						<option value="5">Item 5</option>
+						<option value="6">Item 6</option>
+						<option value="7">Item 7</option>
+						<option value="8">Item 8</option>
+					</optgroup>
+					<optgroup label="Section 3">
+						<option value="9">Item 9</option>
+						<option value="10">Item 10</option>
+						<option value="11">Item 11</option>
+						<option value="12">Item 12</option>
+					</optgroup>
+					<optgroup label="Section 4">
+						<option value="13">Item 13</option>
+						<option value="14">Item 14</option>
+						<option value="15">Item 15</option>
+						<option value="16">Item 16</option>
+					</optgroup>
+					<optgroup label="Section 5">
+						<option value="17">Item 17</option>
+						<option value="18">Item 18</option>
+						<option value="19">Item 19</option>
+						<option value="20">Item 20</option>
+					</optgroup>
+					<optgroup label="Section 6">
+						<option value="21">Item 21</option>
+						<option value="22">Item 22</option>
+						<option value="23">Item 23</option>
+						<option value="24">Item 24</option>
+					</optgroup>
+				</select>
+			</p>
 
-	    	<p>
-	    		Multi-select control with OPTGROUPS<br />
-		    	<select name="multi-with-optgroups" multiple="multiple">
-		    		<optgroup label="Section 1">
-			    		<option value="1">Item 1</option>
-			    		<option value="2">Item 2</option>
-			    		<option value="3">Item 3</option>
-			    		<option value="4">Item 4</option>
-		    		</optgroup>
-		    		<optgroup label="Section 2">
-			    		<option value="5">Item 5</option>
-			    		<option value="6">Item 6</option>
-			    		<option value="7">Item 7</option>
-			    		<option value="8">Item 8</option>
-		    		</optgroup>
-		    		<optgroup label="Section 3">
-			    		<option value="9">Item 9</option>
-			    		<option value="10">Item 10</option>
-			    		<option value="11">Item 11</option>
-			    		<option value="12">Item 12</option>
-		    		</optgroup>
-		    		<optgroup label="Section 4">
-			    		<option value="13">Item 13</option>
-			    		<option value="14">Item 14</option>
-			    		<option value="15">Item 15</option>
-			    		<option value="16">Item 16</option>
-		    		</optgroup>
-		    		<optgroup label="Section 5">
-			    		<option value="17">Item 17</option>
-			    		<option value="18">Item 18</option>
-			    		<option value="19">Item 19</option>
-			    		<option value="20">Item 20</option>
-		    		</optgroup>
-		    		<optgroup label="Section 6">
-			    		<option value="21">Item 21</option>
-			    		<option value="22">Item 22</option>
-			    		<option value="23">Item 23</option>
-			    		<option value="24">Item 24</option>
-		    		</optgroup>
-		    	</select>
-	    	</p>
+			<p>
+				Multi-select control with OPTGROUPS<br />
+				<select name="multi-with-optgroups" multiple="multiple">
+					<optgroup label="Section 1">
+						<option value="1">Item 1</option>
+						<option value="2">Item 2</option>
+						<option value="3">Item 3</option>
+						<option value="4">Item 4</option>
+					</optgroup>
+					<optgroup label="Section 2">
+						<option value="5">Item 5</option>
+						<option value="6">Item 6</option>
+						<option value="7">Item 7</option>
+						<option value="8">Item 8</option>
+					</optgroup>
+					<optgroup label="Section 3">
+						<option value="9">Item 9</option>
+						<option value="10">Item 10</option>
+						<option value="11">Item 11</option>
+						<option value="12">Item 12</option>
+					</optgroup>
+					<optgroup label="Section 4">
+						<option value="13">Item 13</option>
+						<option value="14">Item 14</option>
+						<option value="15">Item 15</option>
+						<option value="16">Item 16</option>
+					</optgroup>
+					<optgroup label="Section 5">
+						<option value="17">Item 17</option>
+						<option value="18">Item 18</option>
+						<option value="19">Item 19</option>
+						<option value="20">Item 20</option>
+					</optgroup>
+					<optgroup label="Section 6">
+						<option value="21">Item 21</option>
+						<option value="22">Item 22</option>
+						<option value="23">Item 23</option>
+						<option value="24">Item 24</option>
+					</optgroup>
+				</select>
+			</p>
+			
+			<p>
+				<label for="obscured-dropdown">Dropdown positioned above control</label> <br />
+				<select id="obscured-dropdown" name="obscured-dropdown" style="width: 200px">
+					<option value="1" class="test-class-1">Item 1</option>
+					<option value="2" class="test-class-2" selected="selected">Item 2</option>
+					<option value="3" class="test-class-3">Item 3 has a really long label that will not interfere with the control's width</option>
+					<option value="4" class="test-class-4">Item 4</option>
+					<option value="5" disabled="disabled">Item 5 (disabled)</option>
+					<option value="6">Item 6</option>
+					<option value="7">Item 7</option>
+					<option value="8">Item 8</option>
+					<option value="9">Item 9</option>
+					<option value="10">Item 10</option>
+					<option value="11">Item 11</option>
+					<option value="12">Item 12</option>
+					<option value="13">Item 13</option>
+					<option value="14">Item 14</option>
+					<option value="15">Item 15</option>
+					<option value="16">Item 16</option>
+					<option value="17">Item 17</option>
+					<option value="18">Item 18</option>
+					<option value="19">Item 19</option>
+					<option value="20">Item 20</option>
+				</select>
+			</p>
 
-			<p style="width: 40%; margin-top: 30px; padding-top: 20px; border-top: solid 1px #DDD;">
+			<hr align="left" style="height: 1px; background-color: #DDD; width: 40%; margin-top: 1.5em; border: 0;" />
+
+			<p>
 				Methods:
 				<input type="button" id="destroy" value="Destroy" />
 				<input type="button" id="create" value="Create" />
@@ -317,8 +345,8 @@
 
 			<div style="clear: both;"></div>
 
-    	</form>
+		</form>
 
-    </body>
+	</body>
 
 </html>
