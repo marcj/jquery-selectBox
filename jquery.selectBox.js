@@ -47,7 +47,7 @@ if(jQuery) (function($) {
 					.attr('tabindex', parseInt(select.attr('tabindex')))
 					.css('display', 'inline-block')
 					.bind('focus.selectBox', function() {
-						if( this !== document.activeElement ) $(document.activeElement).blur();
+						if( this !== document.activeElement && document.body !== document.activeElement ) $(document.activeElement).blur();
 						if( control.hasClass('selectBox-active') ) return;
 						control.addClass('selectBox-active');
 						select.trigger('focus');
