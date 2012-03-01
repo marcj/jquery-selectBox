@@ -131,9 +131,11 @@ if(jQuery) (function($) {
 						arrow = $('<span class="selectBox-arrow" />');
 					
 					// Update label
+					var labelText = getLabelText(select);
 					label
 						.attr('class', getLabelClass(select))
-						.text(getLabelText(select));
+						.attr('title', labelText)
+						.text(labelText);
 					
 					options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
@@ -484,7 +486,10 @@ if(jQuery) (function($) {
 				}
 
 				if( control.hasClass('selectBox-dropdown') ) {
-					control.find('.selectBox-label').text(li.text());
+					var newLabel = li.text();
+					control.find('.selectBox-label')
+					  .attr('title', newLabel)
+					  .text(newLabel);
 				}
 				
 				// Update original control's value
@@ -832,10 +837,13 @@ if(jQuery) (function($) {
 
 			var generateOptions = function(self, options){
 				var li = $('<li />'),
-				a = $('<a />');
+				a = $('<a />'),
+				label = self.text();
 				li.addClass( self.attr('class') );
 				li.data( self.data() );
-				a.attr('rel', self.val()).text( self.text() );
+				a.attr('rel', self.val())
+				  .attr('title', label)
+				  .text( label );
 				li.append(a);
 				if( self.attr('disabled') ) li.addClass('selectBox-disabled');
 				if( self.attr('selected') ) li.addClass('selectBox-selected');
