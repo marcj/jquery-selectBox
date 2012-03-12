@@ -346,14 +346,24 @@ if(jQuery) (function($) {
 
 				hideMenus();
 
-				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
+				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth')),
+				    borderTopWidth = isNaN(control.css('borderTopWidth')) ? 0 : parseInt(control.css('borderTopWidth')),
+                    $window = $(window),
+                    controlOffset = control.offset(),
+                    totalHeight = $window.scrollTop() + $window.height(),
+                    positionTop = controlOffset.top + control.outerHeight() - borderBottomWidth,
+                    above = (positionTop + options.outerHeight() > totalHeight);
+
+                if (above) {
+                    positionTop = controlOffset.top - options.outerHeight() - borderTopWidth;
+                }
 				
 				// Menu position
 				options
 					.width(control.innerWidth())
 					.css({
-						top: control.offset().top + control.outerHeight() - borderBottomWidth,
-						left: control.offset().left
+						top: positionTop, 
+						left: controlOffset.left
 					});
 				
 				if( select.triggerHandler('beforeopen') ) return false;
@@ -386,6 +396,9 @@ if(jQuery) (function($) {
 				addHover(select, li);
 
 				control.addClass('selectBox-menuShowing');
+                control.addClass(above?'selectBox-menuAbove':'selectBox-menuBelow');
+                options.addClass(above?'selectBox-menuAbove':'selectBox-menuBelow');
+                
 
 				$(document).bind('mousedown.selectBox', function(event) {
 					if( $(event.target).parents().andSelf().hasClass('selectBox-options') ) return;
@@ -433,6 +446,11 @@ if(jQuery) (function($) {
 					
 					control.removeClass('selectBox-menuShowing');
 
+                    control.removeClass('selectBox-menuAbove');
+                    control.removeClass('selectBox-menuBelow');
+                    options.removeClass('selectBox-menuAbove');
+                    options.removeClass('selectBox-menuBelow');
+ 
 				});
 
 			};
