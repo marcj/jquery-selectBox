@@ -182,19 +182,7 @@ if(jQuery) (function($) {
 					.addClass('selectBox')
 					.data('selectBox-control', control)
 					.data('selectBox-settings', settings)
-                    .focus(function() {
-                        // relay focus to control
-                        control.focus()
-                     })
-					.css({
-                            // 'display: none' prevents our control from gaining
-                            // focus when user is using tab navigation
-                            'width': '1px',
-                            'height': '1px',
-                            'position': 'absolute',
-                            'top': '-9999px'
-                        });
-				
+					.hide();
 			};
 
 
