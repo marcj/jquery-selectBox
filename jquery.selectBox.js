@@ -35,7 +35,7 @@ if(jQuery) (function($) {
 				select = $(select);
 				if( select.data('selectBox-control') ) return false;
 
-				var control = $('<a class="selectBox" />'),
+				var control = $('<a href="#" class="selectBox" />'),
 					inline = select.attr('multiple') || parseInt(select.attr('size')) > 1;
 
 				var settings = data || {};
@@ -854,7 +854,7 @@ if(jQuery) (function($) {
 
 			var generateOptions = function(self, options){
 				var li = $('<li />'),
-				a = $('<a />'),
+				a = $('<a href="#" />'),
 				label = self.text();
 				li.addClass( self.attr('class') );
 				li.data( self.data() );
