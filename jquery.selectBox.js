@@ -45,6 +45,7 @@ if(jQuery) (function($) {
 					.addClass(select.attr('class'))
 					.attr('title', select.attr('title') || '')
 					.attr('tabindex', parseInt(select.attr('tabindex')))
+                    .attr('id', 'selectBox-' + select.attr('id'))
 					.css('display', 'inline-block')
 					.bind('focus.selectBox', function() {
 						if( this !== document.activeElement && document.body !== document.activeElement ) $(document.activeElement).blur();
