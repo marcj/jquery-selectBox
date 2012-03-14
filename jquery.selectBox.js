@@ -35,7 +35,7 @@ if(jQuery) (function($) {
 				select = $(select);
 				if( select.data('selectBox-control') ) return false;
 
-				var control = $('<a class="selectBox" />'),
+				var control = $('<a href="#" class="selectBox" />'),
 					inline = select.attr('multiple') || parseInt(select.attr('size')) > 1;
 
 				var settings = data || {};
@@ -45,6 +45,7 @@ if(jQuery) (function($) {
 					.addClass(select.attr('class'))
 					.attr('title', select.attr('title') || '')
 					.attr('tabindex', parseInt(select.attr('tabindex')))
+                    .attr('id', 'selectBox-' + select.attr('id'))
 					.css('display', 'inline-block')
 					.bind('focus.selectBox', function() {
 						if( this !== document.activeElement && document.body !== document.activeElement ) $(document.activeElement).blur();
@@ -131,9 +132,11 @@ if(jQuery) (function($) {
 						arrow = $('<span class="selectBox-arrow" />');
 					
 					// Update label
+					var labelText = getLabelText(select);
 					label
 						.attr('class', getLabelClass(select))
-						.text(getLabelText(select));
+						.attr('title', labelText)
+						.text(labelText);
 					
 					options = getOptions(select, 'dropdown');
 					options.appendTo('BODY');
@@ -183,7 +186,6 @@ if(jQuery) (function($) {
 					.data('selectBox-control', control)
 					.data('selectBox-settings', settings)
 					.hide();
-				
 			};
 
 
@@ -347,14 +349,24 @@ if(jQuery) (function($) {
 
 				hideMenus();
 
-				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
+				var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth')),
+				    borderTopWidth = isNaN(control.css('borderTopWidth')) ? 0 : parseInt(control.css('borderTopWidth')),
+                    $window = $(window),
+                    controlOffset = control.offset(),
+                    totalHeight = $window.scrollTop() + $window.height(),
+                    positionTop = controlOffset.top + control.outerHeight() - borderBottomWidth,
+                    above = (positionTop + options.outerHeight() > totalHeight);
+
+                if (above) {
+                    positionTop = controlOffset.top - options.outerHeight() - borderTopWidth;
+                }
 				
 				// Menu position
 				options
 					.width(control.innerWidth())
 					.css({
-						top: control.offset().top + control.outerHeight() - borderBottomWidth,
-						left: control.offset().left
+						top: positionTop, 
+						left: controlOffset.left
 					});
 				
 				if( select.triggerHandler('beforeopen') ) return false;
@@ -387,6 +399,9 @@ if(jQuery) (function($) {
 				addHover(select, li);
 
 				control.addClass('selectBox-menuShowing');
+                control.addClass(above?'selectBox-menuAbove':'selectBox-menuBelow');
+                options.addClass(above?'selectBox-menuAbove':'selectBox-menuBelow');
+                
 
 				$(document).bind('mousedown.selectBox', function(event) {
 					if( $(event.target).parents().andSelf().hasClass('selectBox-options') ) return;
@@ -434,6 +449,11 @@ if(jQuery) (function($) {
 					
 					control.removeClass('selectBox-menuShowing');
 
+                    control.removeClass('selectBox-menuAbove');
+                    control.removeClass('selectBox-menuBelow');
+                    options.removeClass('selectBox-menuAbove');
+                    options.removeClass('selectBox-menuBelow');
+ 
 				});
 
 			};
@@ -484,7 +504,10 @@ if(jQuery) (function($) {
 				}
 
 				if( control.hasClass('selectBox-dropdown') ) {
-					control.find('.selectBox-label').text(li.text());
+					var newLabel = li.text();
+					control.find('.selectBox-label')
+					  .attr('title', newLabel)
+					  .text(newLabel);
 				}
 				
 				// Update original control's value
@@ -832,10 +855,13 @@ if(jQuery) (function($) {
 
 			var generateOptions = function(self, options){
 				var li = $('<li />'),
-				a = $('<a />');
+				a = $('<a href="#" />'),
+				label = self.text();
 				li.addClass( self.attr('class') );
 				li.data( self.data() );
-				a.attr('rel', self.val()).text( self.text() );
+				a.attr('rel', self.val())
+				  .attr('title', label)
+				  .text( label );
 				li.append(a);
 				if( self.attr('disabled') ) li.addClass('selectBox-disabled');
 				if( self.attr('selected') ) li.addClass('selectBox-selected');
