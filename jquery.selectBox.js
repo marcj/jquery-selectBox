@@ -737,7 +737,11 @@ if(jQuery) (function($) {
 			var setValue = function(select, value) {
 				select = $(select);
 				select.val(value);
-				value = select.val();
+				value = select.val(); // IE9's select would be null if it was set with a non-exist options value
+        if(value == null) { // So check it here and set it with the first option's value if possible
+          value = select.children().first().val();
+          select.val(value);
+        }
 				var control = select.data('selectBox-control');
 				if( !control ) return;
 				var settings = select.data('selectBox-settings'),
