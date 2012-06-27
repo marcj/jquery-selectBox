@@ -414,25 +414,32 @@ if(jQuery) (function($) {
 						select.triggerHandler('close', { _selectBox: true });
 					};					
 					
-					switch( settings.menuTransition ) {
+					if( settings ) {
+					    switch( settings.menuTransition ) {
 
-						case 'fade':
-							options.fadeOut(settings.menuSpeed, dispatchCloseEvent);
-							break;
+					      case 'fade':
+						options.fadeOut(settings.menuSpeed, dispatchCloseEvent);
+						break;
 
-						case 'slide':
-							options.slideUp(settings.menuSpeed, dispatchCloseEvent);
-							break;
+					      case 'slide':
+						options.slideUp(settings.menuSpeed, dispatchCloseEvent);
+						break;
 
-						default:
-							options.hide(settings.menuSpeed, dispatchCloseEvent);
-							break;
+					      default:
+						options.hide(settings.menuSpeed, dispatchCloseEvent);
+						break;
 
-					}
-					
-					if( !settings.menuSpeed ) dispatchCloseEvent();
-					
-					control.removeClass('selectBox-menuShowing');
+					    }
+
+					    if( !settings.menuSpeed ) dispatchCloseEvent();
+
+					    control.removeClass('selectBox-menuShowing');
+					  }
+					  else {
+					    $(this).hide();
+					    $(this).triggerHandler('close', { _selectBox: true });
+					    $(this).removeClass('selectBox-menuShowing');
+					  }
 
 				});
 
