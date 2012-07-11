@@ -157,8 +157,10 @@ if (jQuery)(function($) {
 								if (!select.selectBox('control').hasClass('selectBox-active')) select.selectBox('control').focus();
 							}
 						}).bind('mouseup.selectBox', function(event) {
-							hideMenus();
-							selectOption(select, $(this).parent(), event);
+							if ( event.which === 1 ) {
+								hideMenus();
+								selectOption(select, $(this).parent(), event);
+							}
 						});
 						disableSelection(options);
 						return options;
@@ -174,13 +176,15 @@ if (jQuery)(function($) {
 								}
 							} 
 						}).bind('mouseup.selectBox', function(event) {
-							if (event.screenX === options.data('selectBox-down-at-x') && event.screenY === options.data('selectBox-down-at-y')) {
-								return;
-							} else {
-								options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
+							if ( event.which === 1 ) {
+								if (event.screenX === options.data('selectBox-down-at-x') && event.screenY === options.data('selectBox-down-at-y')) {
+									return;
+								} else {
+									options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
+								}
+								selectOption(select, $(this).parent());
+								hideMenus();
 							}
-							selectOption(select, $(this).parent());
-							hideMenus();
 						}).bind('mouseover.selectBox', function(event) {
 							addHover(select, $(this).parent());
 						}).bind('mouseout.selectBox', function(event) {
