@@ -27,7 +27,7 @@ if (jQuery)(function($) {
 					var control = $('<a class="selectBox" />'),
 						inline = select.attr('multiple') || parseInt(select.attr('size')) > 1;
 					var settings = data || {};
-					control.width(select.outerWidth()).addClass(select.attr('class')).attr('title', select.attr('title') || '').attr('tabindex', parseInt(select.attr('tabindex'))).css('display', 'inline-block').bind('focus.selectBox', function() {
+					control.width(select.outerWidth()).addClass(select.attr('class')).attr('title', select.attr('title') || '').attr('tabindex', parseInt(select.prop('tabindex'))).css('display', 'inline-block').bind('focus.selectBox', function() {
 						if (this !== document.activeElement && document.body !== document.activeElement) $(document.activeElement).blur();
 						if (control.hasClass('selectBox-active')) return;
 						control.addClass('selectBox-active');
