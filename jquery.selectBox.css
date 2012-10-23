@@ -23,12 +23,22 @@
 	cursor: default;
 }
 
+.selectBox-dropdown .selectBox-arrow {
+	-webkit-border-top-right-radius: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -moz-border-radius-bottomright: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
 .selectBox-dropdown:focus,
 .selectBox-dropdown:focus .selectBox-arrow {
 	border-color: #666;
 }
 
-.selectBox-dropdown.selectBox-menuShowing {
+.selectBox-dropdown.selectBox-menuShowing,
+.selectBox-dropdown.selectBox-menuShowing .selectBox-arrow  {
 	-moz-border-radius-bottomleft: 0;
 	-moz-border-radius-bottomright: 0;
 	-webkit-border-bottom-left-radius: 0;
@@ -50,25 +60,29 @@
 	right: 0;
 	width: 23px;
 	height: 100%;
-	background: url(jquery.selectBox-arrow.gif) 50% center no-repeat;
 	border-left: solid 1px #BBB;
 }
 
+.selectBox-dropdown .selectBox-arrow-icon {
+	position: absolute;
+    width:100%;
+    height:100%;
+    background: url(jquery.selectBox-arrow.gif) 50% center no-repeat;
+}
 
 /* Dropdown menu */
 .selectBox-dropdown-menu {
 	position: absolute;
 	z-index: 99999;
-	max-height: 200px;
-	min-height: 1em;
-	border: solid 1px #BBB; /* should be the same border width as .selectBox-dropdown */
+	max-height: 198px;
+	min-height: 1.5em;
+	border: 1px solid #BBB; /* should be the same border width as .selectBox-dropdown */
 	background: #FFF;
 	-moz-box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
 	-webkit-box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
 	box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
 	overflow: auto;
 }
-
 
 /* Inline control */
 .selectBox-inline {
@@ -87,11 +101,11 @@
 	border-color: #666;
 }
 
-
 /* Options */
 .selectBox-options,
 .selectBox-options LI,
-.selectBox-options LI A {
+.selectBox-options LI A,
+.selectBox-options UL {
 	list-style: none;
 	display: block;
 	cursor: default;
@@ -100,35 +114,44 @@
 }
 
 .selectBox-options LI A {
-	line-height: 1.5;
-	padding: 0 .5em;
+	line-height: 1.429em;
+	padding: 0 0.5em;
 	white-space: nowrap;
 	overflow: hidden;
-	background: 6px center no-repeat;
+	background: center no-repeat;
+    border: 1px solid transparent;
+    position: relative;
 }
 
 .selectBox-options LI.selectBox-hover A {
 	background-color: #EEE;
+    border: 1px solid #E8E8E8;
 }
 
 .selectBox-options LI.selectBox-disabled A {
-	color: #888;
-	background-color: transparent;
+	color: #888 !important;
+	background-color: transparent !important;
+    border-color: transparent !important;
 }
 
 .selectBox-options LI.selectBox-selected A {
 	background-color: #C8DEF4;
 }
 
-.selectBox-options .selectBox-optgroup {
+.selectBox-options LI.selectBox-hover.selectBox-selected A {
+	border: 1px solid #A8BED4;
+}
+
+.selectBox-options .selectBox-optgroup>span {
 	color: #666;
 	background: #EEE;
+    border: 1px solid #EEE;
 	font-weight: bold;
 	line-height: 1.5;
 	padding: 0 .3em;
 	white-space: nowrap;
+	display:block;
 }
-
 
 /* Disabled state */
 .selectBox.selectBox-disabled {
@@ -147,4 +170,183 @@
 
 .selectBox-inline.selectBox-disabled .selectBox-options A {
 	background-color: transparent !important;
+}
+
+/* CSS Animation */
+@keyframes selectBox-multiselect-animation {
+    0% {
+    	border-color: #EEE;
+    }
+    50% {
+    	border-color: #BBB;
+    }
+    100% {
+    	border-color: #EEE;
+    }
+}
+@-webkit-keyframes selectBox-multiselect--webkit-animation {
+    0% {
+    	border-color: #EEE;
+    }
+    50% {
+    	border-color: #BBB;
+    }
+    100% {
+    	border-color: #EEE;
+    }
+}
+@-moz-keyframes selectBox-multiselect--moz-animation {
+    0% {
+    	border-color: #EEE;
+    }
+    50% {
+    	border-color: #BBB;
+    }
+    100% {
+    	border-color: #EEE;
+    }
+}
+@-ms-keyframes selectBox-multiselect--ms-animation {
+    0% {
+    	border-color: #EEE;
+    }
+    50% {
+    	border-color: #BBB;
+    }
+    100% {
+    	border-color: #EEE;
+    }
+}
+@-o-keyframes selectBox-multiselect--o-animation {
+    0% {
+    	border-color: #EEE;
+    }
+    50% {
+    	border-color: #BBB;
+    }
+    100% {
+    	border-color: #EEE;
+    }
+}
+
+@keyframes selectBox-multiselect-selected-animation {
+    0% {
+    	border-color: #C8DEF4;
+    }
+    50% {
+    	border-color: #A8BED4;
+    }
+    100% {
+    	border-color: #C8DEF4;
+    }
+}
+@-webkit-keyframes selectBox-multiselect-selected--webkit-animation {
+    0% {
+    	border-color: #C8DEF4;
+    }
+    50% {
+    	border-color: #A8BED4;
+    }
+    100% {
+    	border-color: #C8DEF4;
+    }
+}
+@-moz-keyframes selectBox-multiselect-selected--moz-animation {
+    0% {
+    	border-color: #C8DEF4;
+    }
+    50% {
+    	border-color: #A8BED4;
+    }
+    100% {
+    	border-color: #C8DEF4;
+    }
+}
+@-ms-keyframes selectBox-multiselect-selected--ms-animation {
+    0% {
+    	border-color: #C8DEF4;
+    }
+    50% {
+    	border-color: #A8BED4;
+    }
+    100% {
+    	border-color: #C8DEF4;
+    }
+}
+@-o-keyframes selectBox-multiselect-selected--o-animation {
+    0% {
+    	border-color: #C8DEF4;
+    }
+    50% {
+    	border-color: #A8BED4;
+    }
+    100% {
+    	border-color: #C8DEF4;
+    }
+}
+
+.selectBox-multiselect .selectBox-options LI.selectBox-hover A {
+    animation-name: selectBox-multiselect-animation;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: none;
+    animation-direction: normal;
+    -webkit-animation-name: selectBox-multiselect--webkit-animation;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: none;
+    -webkit-animation-direction: normal;
+    -moz-animation-name: selectBox-multiselect--moz-animation;
+    -moz-animation-duration: 1.5s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: none;
+    -moz-animation-direction: normal;
+    -ms-animation-name: selectBox-multiselect--ms-animation;
+    -ms-animation-duration: 1.5s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: ease-in-out;
+    -ms-animation-fill-mode: none;
+    -ms-animation-direction: normal;
+    -o-animation-name: selectBox-multiselect--o-animation;
+    -o-animation-duration: 1.5s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: none;
+    -o-animation-direction: normal;
+}
+
+.selectBox-multiselect .selectBox-options LI.selectBox-hover.selectBox-selected A {
+    animation-name: selectBox-multiselect-selected-animation;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: none;
+    animation-direction: normal;
+    -webkit-animation-name: selectBox-multiselect-selected--webkit-animation;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-fill-mode: none;
+    -webkit-animation-direction: normal;
+    -moz-animation-name: selectBox-multiselect-selected--moz-animation;
+    -moz-animation-duration: 1.5s;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: ease-in-out;
+    -moz-animation-fill-mode: none;
+    -moz-animation-direction: normal;
+    -ms-animation-name: selectBox-multiselect-selected--ms-animation;
+    -ms-animation-duration: 1.5s;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: ease-in-out;
+    -ms-animation-fill-mode: none;
+    -ms-animation-direction: normal;
+    -o-animation-name: selectBox-multiselect-selected--o-animation;
+    -o-animation-duration: 1.5s;
+    -o-animation-iteration-count: infinite;
+    -o-animation-timing-function: ease-in-out;
+    -o-animation-fill-mode: none;
+    -o-animation-direction: normal;
 }
