@@ -60,6 +60,12 @@ if (jQuery)(function($) {
 							if ($(event.target).is('A.selectBox-inline')) event.preventDefault();
 							if (!control.hasClass('selectBox-focus')) control.focus();
 						}).insertAfter(select);
+						select.parents().bind('scroll',function(){
+								//enable if you want to hide on scroll
+								//$('.selectBox.selectBox-menuShowing').trigger('mousedown');
+								//updates element position on parent scroll where parent is scrollable ( i'm talking about parent element, not body)
+								($('.selectBox-dropdown-menu').find(':visible').length) ? $('.selectBox').trigger('mousedown') : '';
+						});
 						// Auto-height based on size attribute
 						if (!select[0].style.height) {
 							var size = select.attr('size') ? parseInt(select.attr('size')) : 5;
