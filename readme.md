@@ -9,7 +9,7 @@ _Dual licensed under the MIT / GPLv2 licenses_
 
 I first started working on this plugin nearly two years ago, but I never ended up using it in production. Because of this, I can't prioritize further development for it and therefore the project is suffering.
 
-If someone is interested in officially taking it over, please let me know.  Otherwise, I will be removing the project from GitHub by the end of the year.
+If someone is interested in officially taking it over, please let me know.  Otherwise, I will be removing it from GitHub by the end of the year.
 
 
 
