@@ -671,7 +671,7 @@ if (jQuery)(function($) {
 				break;
 			default:
 				$(this).each(function() {
-					init(this, method);
+					init(this, data);
 				});
 				break;
 			}
