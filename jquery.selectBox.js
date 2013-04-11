@@ -182,7 +182,7 @@ if (jQuery)(function($) {
 						var classes = select.attr('class') || '';
 						if (classes !== '') {
 							classes = classes.split(' ');
-							for (var i in classes) options.addClass(classes[i] + '-selectBox-dropdown-menu');
+							for (var i = 0; i < classes.length; i++) options.addClass(classes[i] + '-selectBox-dropdown-menu');
 						}
 						disableSelection(options);
 						return options;
