@@ -1,23 +1,6 @@
 # jQuery selectBox: A styleable replacement for SELECT elements
 
-_Copyright 2011 Cory LaViska for A Beautiful Site, LLC. (http://www.abeautifulsite.net/)_
-
-_Dual licensed under the MIT / GPLv2 licenses_
-
-
-## IMPORTANT ##
-
-I first started working on this plugin nearly two years ago, but I never ended up using it in production. Because of this, I can't prioritize further development for it and therefore the project is suffering.
-
-If someone is interested in officially taking it over, please let me know.
-
-For a more current, feature-rich plugin, consider using http://gregfranko.com/jquery.selectBoxIt.js/
-
-
-## Demo
-
-http://labs.abeautifulsite.net/jquery-selectBox/
-
+_Licensed under the MIT license: http://opensource.org/licenses/MIT_
 
 ## Features
 
@@ -97,3 +80,8 @@ Events are fired on the original select element. You can bind events like this:
 ### Known Issues
 
 * The blur and focus callbacks are not very reliable in IE7. The change callback works fine.
+
+
+## Credits
+
+Original plugin by Cory LaViska of A Beautiful Site, LLC. (http://www.abeautifulsite.net/)

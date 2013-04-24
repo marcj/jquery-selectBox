@@ -1,11 +1,7 @@
 /*
  *  jQuery selectBox - A cosmetic, styleable replacement for SELECT elements
  *
- *  Copyright 2012 Cory LaViska for A Beautiful Site, LLC.
- *
- *  https://github.com/claviska/jquery-selectBox
- *
- *  Licensed under both the MIT license and the GNU GPLv2 (same as jQuery: http://jquery.org/license)
+ *  Licensed under the MIT license: http://opensource.org/licenses/MIT
  *
  */
 if (jQuery)(function($) {
