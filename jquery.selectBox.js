@@ -232,10 +232,17 @@ if (jQuery)(function($) {
 					hideMenus();
 					var borderBottomWidth = isNaN(control.css('borderBottomWidth')) ? 0 : parseInt(control.css('borderBottomWidth'));
 					// Menu position
-					options.width(control.innerWidth()).css({
-						top: control.offset().top + control.outerHeight() - borderBottomWidth,
-						left: control.offset().left
-					});
+					if(settings.menuAbove) {
+			                        options.width(control.innerWidth()).css({
+			                            top: control.offset().top - options.height() - borderBottomWidth,
+			                            left: control.offset().left
+			                        });
+			                } else {
+			                        options.width(control.innerWidth()).css({
+			                            top: control.offset().top + control.outerHeight() - borderBottomWidth,
+			                            left: control.offset().left
+			                        });
+			                }
 					if (select.triggerHandler('beforeopen')) return false;
 					var dispatchOpenEvent = function() {
 							select.triggerHandler('open', {
