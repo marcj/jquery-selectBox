@@ -34,7 +34,7 @@ To create:
 
 To specify settings, use this syntax:
 
-	$("SELECT").selectBox('settings', { settingName: value, ... });
+	$("SELECT").selectBox('settings', settingName: value, ... });
 
 ### Available settings
 
@@ -59,13 +59,43 @@ To call a method use this syntax:
 * __options__ - if passed either a string of HTML or a JSON object, replaces the existing options; otherwise returns the options container element as a jQuery object
 * __control__ - returns the selectBox control element (an anchor tag) for working with directly
 * __refresh__ - updates the selectBox control's options based on the original controls options
+* __instance__ - returns the SelectBox instance, where you have more methods available (only in v1.2.0-dev available):
 
+    refresh()
+    destroy()
+    disable()
+    enable()
+
+    getLabelClass()
+    getLabelText()
+    getSelectElement()
+    getOptions(type)
+
+    hideMenus()
+    showMenu()
+
+    setLabel()
+    setOptions(options)
+    setValue(value)
+
+    removeHover(li)
+    addHover(li)
+
+    disableSelection(selector)
+    generateOptions(self, options)
+    handleKeyDown(event)
+    handleKeyPress(event)
+    init(options)
+    keepOptionInView(li, center)
+    refresh()
+    removeHover(li)
+    selectOption(li, event)
 
 ## Events
 
 Events are fired on the original select element. You can bind events like this:
 
-	$("SELECT").selectBox().change( function() { alert( $(this).val() ); } );
+	$("SELECT").selectBox().change( function() alert( $(this).val() ); } );
 
 ### Available events
 
