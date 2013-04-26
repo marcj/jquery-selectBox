@@ -517,6 +517,7 @@ if (jQuery)(function($) {
 						options.find('A').each(function() {
 							if ($(this).text().substr(0, typeSearch.length).toLowerCase() === typeSearch.toLowerCase()) {
 								addHover(select, $(this).parent());
+								selectOption(select, $(this).parent(), event);
 								keepOptionInView(select, $(this).parent());
 								return false;
 							}
