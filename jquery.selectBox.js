@@ -105,7 +105,7 @@ if (jQuery)(function($) {
 							hideMenus();
 						}).insertAfter(select);
 						// Set label width
-						var labelWidth = control.width() - arrow.outerWidth() - parseInt(label.css('paddingLeft')) - parseInt(label.css('paddingLeft'));
+						var labelWidth = control.width() - arrow.outerWidth() - parseInt(label.css('paddingLeft')) - parseInt(label.css('paddingRight'));
 						label.width(labelWidth);
 						disableSelection(control);
 					}
