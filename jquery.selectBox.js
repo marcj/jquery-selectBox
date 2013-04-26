@@ -53,8 +53,10 @@ if (jQuery)(function($) {
 						}).bind('keypress.selectBox', function(event) {
 							handleKeyPress(select, event);
 						}).bind('mousedown.selectBox', function(event) {
-							if ($(event.target).is('A.selectBox-inline')) event.preventDefault();
-							if (!control.hasClass('selectBox-focus')) control.focus();
+							if ( event.which === 1 ) {
+								if ($(event.target).is('A.selectBox-inline')) event.preventDefault();
+								if (!control.hasClass('selectBox-focus')) control.focus();
+							}
 						}).insertAfter(select);
 						// Auto-height based on size attribute
 						if (!select[0].style.height) {
@@ -81,13 +83,15 @@ if (jQuery)(function($) {
 						options = getOptions(select, 'dropdown');
 						options.appendTo('BODY');
 						control.data('selectBox-options', options).addClass('selectBox-dropdown').append(label).append(arrow).bind('mousedown.selectBox', function(event) {
-							if (control.hasClass('selectBox-menuShowing')) {
-								hideMenus();
-							} else {
-								event.stopPropagation();
-								// Webkit fix to prevent premature selection of options
-								options.data('selectBox-down-at-x', event.screenX).data('selectBox-down-at-y', event.screenY);
-								showMenu(select);
+							if ( event.which === 1 ) {
+								if (control.hasClass('selectBox-menuShowing')) {
+									hideMenus();
+								} else {
+									event.stopPropagation();
+									// Webkit fix to prevent premature selection of options
+									options.data('selectBox-down-at-x', event.screenX).data('selectBox-down-at-y', event.screenY);
+									showMenu(select);
+								}
 							}
 						}).bind('keydown.selectBox', function(event) {
 							handleKeyDown(select, event);
@@ -144,11 +148,15 @@ if (jQuery)(function($) {
 						}).bind('mouseout.selectBox', function(event) {
 							removeHover(select, $(this).parent());
 						}).bind('mousedown.selectBox', function(event) {
-							event.preventDefault(); // Prevent options from being "dragged"
-							if (!select.selectBox('control').hasClass('selectBox-active')) select.selectBox('control').focus();
+							if ( event.which === 1) {
+								event.preventDefault(); // Prevent options from being "dragged"
+								if (!select.selectBox('control').hasClass('selectBox-active')) select.selectBox('control').focus();
+							}
 						}).bind('mouseup.selectBox', function(event) {
-							hideMenus();
-							selectOption(select, $(this).parent(), event);
+							if ( event.which === 1 ) {
+								hideMenus();
+								selectOption(select, $(this).parent(), event);
+							}
 						});
 						disableSelection(options);
 						return options;
@@ -156,19 +164,23 @@ if (jQuery)(function($) {
 						options = $('<ul class="selectBox-dropdown-menu selectBox-options" />');
 						options = _getOptions(select, options);
 						options.data('selectBox-select', select).css('display', 'none').appendTo('BODY').find('A').bind('mousedown.selectBox', function(event) {
-							event.preventDefault(); // Prevent options from being "dragged"
-							if (event.screenX === options.data('selectBox-down-at-x') && event.screenY === options.data('selectBox-down-at-y')) {
-								options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
+							if ( event.which === 1 ) {
+								event.preventDefault(); // Prevent options from being "dragged"
+								if (event.screenX === options.data('selectBox-down-at-x') && event.screenY === options.data('selectBox-down-at-y')) {
+									options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
+									hideMenus();
+								}
+							} 
+						}).bind('mouseup.selectBox', function(event) {
+							if ( event.which === 1 ) {
+								if (event.screenX === options.data('selectBox-down-at-x') && event.screenY === options.data('selectBox-down-at-y')) {
+									return;
+								} else {
+									options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
+								}
+								selectOption(select, $(this).parent());
 								hideMenus();
 							}
-						}).bind('mouseup.selectBox', function(event) {
-							if (event.screenX === options.data('selectBox-down-at-x') && event.screenY === options.data('selectBox-down-at-y')) {
-								return;
-							} else {
-								options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
-							}
-							selectOption(select, $(this).parent());
-							hideMenus();
 						}).bind('mouseover.selectBox', function(event) {
 							addHover(select, $(this).parent());
 						}).bind('mouseout.selectBox', function(event) {
@@ -249,8 +261,10 @@ if (jQuery)(function($) {
 					addHover(select, li);
 					control.addClass('selectBox-menuShowing');
 					$(document).bind('mousedown.selectBox', function(event) {
-						if ($(event.target).parents().andSelf().hasClass('selectBox-options')) return;
-						hideMenus();
+						if ( event.which === 1 ) {
+							if ($(event.target).parents().andSelf().hasClass('selectBox-options')) return;
+							hideMenus();
+						}
 					});
 				};
 			var hideMenus = function() {
