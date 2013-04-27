@@ -28,7 +28,7 @@
         this.typeTimer     = null;
         this.typeSearch    = '';
         this.isMac         = navigator.platform.match(/mac/i);
-        options            = options || {};
+        options            = 'object' === typeof options ? options :  {};
         this.selectElement = select;
 
         // Disable for iOS devices (their native controls are more suitable for a touch device)

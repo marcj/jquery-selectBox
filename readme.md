@@ -87,7 +87,7 @@ $('select').selectBox('methodName', [option]);
 You can instantiate the selectBox also through a classic OOP way:
 
 ```javascript
-var selectBox = new SelectBox($('#mySelectBox')[, settings = {}]);
+var selectBox = new SelectBox($('#mySelectBox'), settings = {});
 selectBox.showMenu();
 ```
 
@@ -102,14 +102,14 @@ enable()
 getLabelClass()
 getLabelText()
 getSelectElement()
-getOptions(type)
+getOptions(String type = 'inline'|'dropdown')
 
 hideMenus()
 showMenu()
 
 setLabel()
-setOptions(options)
-setValue(value)
+setOptions(Object options)
+setValue(String value)
 
 removeHover(HTMLElement li)
 addHover(HTMLElement li)
