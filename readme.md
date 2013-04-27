@@ -19,16 +19,28 @@ _Licensed under the MIT license: http://opensource.org/licenses/MIT_
 
 Link to the JS file:
 
-	<script src="jquery.selectbox.min.js" type="text/javascript"></script>
+```html
+<script src="jquery.selectbox.min.js" type="text/javascript"></script>
+```
 
 Add the CSS file (or append contents to your own stylesheet):
 
-	<link href="jquery.selectbox.css" rel="stylesheet" type="text/css" />
+```html
+<link href="jquery.selectbox.css" rel="stylesheet" type="text/css" />
+```
 
-To create:
+To initialize:
 
-	$('select').selectBox([settings]);
+```javascript
+// default
+$('select').selectBox();
 
+// or with custom settings
+$('select').selectBox({
+    mobile: true,
+    menuSpeed: 'fast'
+});
+```
 
 ## Settings
 
@@ -42,76 +54,102 @@ To create:
 
 To specify settings after the init, use this syntax:
 
-	$('select').selectBox('settings', settingName: value, ... });
+```javascript
+$('select').selectBox('settings', {settingName: value, ... });
+```
 
 ## Methods
 
 To call a method use this syntax:
 
-	$('select').selectBox('methodName', [options]);
+```javascript
+$('select').selectBox('methodName', [options]);
+```
 
 ### Available methods
 
-* __create__ - Creates the control (default)
-* __destroy__ - Destroys the selectBox control and reverts back to the original form control
-* __disable__ - Disables the control (i.e. disabled="disabled")
-* __enable__ - Enables the control
-* __value__ - if passed with a value, sets the control to that value; otherwise returns the current value
-* __options__ - if passed either a string of HTML or a JSON object, replaces the existing options; otherwise returns the options container element as a jQuery object
-* __control__ - returns the selectBox control element (an anchor tag) for working with directly
-* __refresh__ - updates the selectBox control's options based on the original controls options
-* __instance__ - returns the SelectBox instance, where you have more methods available (only in v1.2.0-dev available):
 
-    refresh()
-    destroy()
-    disable()
-    enable()
+| Key            | Description                                                                                   |
+| ---------------|-----------------------------------------------------------------------------------------------|
+| create         | Creates the control (default)                                                                 |
+| destroy        | Destroys the selectBox control and reverts back to the original form control                  |
+| disable        | Disables the control (i.e. disabled="disabled")                                               |
+| enable         | Enables the control                                                                           |
+| value          | If passed with a value, sets the control to that value; otherwise returns the current value   |
+| options        | If passed either a string of HTML or a JSON object, replaces the existing options; otherwise Returns the options container element as a jQuery object |
+| control        | Returns the selectBox control element (an anchor tag) for working with directly               |
+| refresh        | Updates the selectBox control's options based on the original controls options                |
+| instance       | Returns the SelectBox instance, where you have more methods available (only in v1.2.0-dev     |
+                 | available) as in the `SelectBox` class below.                                                 |
 
-    getLabelClass()
-    getLabelText()
-    getSelectElement()
-    getOptions(type)
+## API `SelectBox`
 
-    hideMenus()
-    showMenu()
+You can instantiate the selectBox also through a classic OOP way:
 
-    setLabel()
-    setOptions(options)
-    setValue(value)
+```javascript
+var selectBox = new SelectBox($('#mySelectBox')[, settings = {}]);
+selectBox.showMenu();
+```
 
-    removeHover(li)
-    addHover(li)
+The public methods are:
 
-    disableSelection(selector)
-    generateOptions(self, options)
-    handleKeyDown(event)
-    handleKeyPress(event)
-    init(options)
-    keepOptionInView(li, center)
-    refresh()
-    removeHover(li)
-    selectOption(li, event)
+```javascript
+refresh()
+destroy()
+disable()
+enable()
+
+getLabelClass()
+getLabelText()
+getSelectElement()
+getOptions(type)
+
+hideMenus()
+showMenu()
+
+setLabel()
+setOptions(options)
+setValue(value)
+
+removeHover(HTMLElement li)
+addHover(HTMLElement li)
+
+disableSelection(HTMLElement selector)
+generateOptions(jQuery self, jQuery options)
+handleKeyDown(event)
+handleKeyPress(event)
+init(options)
+keepOptionInView(jQuery li, Boolean center)
+refresh()
+removeHover(HTMLElement li)
+selectOption(HTMLElement li, event)
+```
 
 ## Events
 
 Events are fired on the original select element. You can bind events like this:
 
-	$("SELECT").selectBox().change( function() alert( $(this).val() ); } );
+```javascript
+	$('select').selectBox().change(function () {
+	    alert($(this).val());
+	});
+```
 
 ### Available events
 
-* __focus__ - Fired when the control gains focus
-* __blur__ - Fired when the control loses focus
-* __change__ - Fired when the value of a control changes
-* __beforeopen__ - Fired before a dropdown menu opens (cancelable)
-* __open__ - Fired after a dropdown menu opens (not cancelable)
-* __beforeclose__ - Fired before a dropdown menu closes (cancelable)
-* __close__ - Fired after a dropdown menu closes (not cancelable)
+| Key            | Description                                                                                   |
+| ---------------|-----------------------------------------------------------------------------------------------|
+| focus          | Fired when the control gains focus                                                            |
+| blur           | Fired when the control loses focus                                                            |
+| change         | Fired when the value of a control changes                                                     |
+| beforeopen     | Fired before a dropdown menu opens (cancelable)                                               |
+| open           | Fired after a dropdown menu opens (not cancelable)                                            |
+| beforeclose    | Fired before a dropdown menu closes (cancelable)                                              |
+| close          | Fired after a dropdown menu closes (not cancelable)                                           |
 
 ### Known Issues
 
 * The blur and focus callbacks are not very reliable in IE7. The change callback works fine.
-
 
 ## Credits
 

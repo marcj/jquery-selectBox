@@ -28,43 +28,42 @@
             // Enable selectBox control and bind events
             //
 
-            $("#create").click(function () {
-                $("SELECT").selectBox();
+            $('#create').click(function () {
+                $('SELECT').selectBox();
             });
 
-            $("#destroy").click(function () {
-                $("SELECT").selectBox('destroy');
+            $('#destroy').click(function () {
+                $('SELECT').selectBox('destroy');
             });
 
-            $("#enable").click(function () {
-                $("SELECT").selectBox('enable');
+            $('#enable').click(function () {
+                $('SELECT').selectBox('enable');
             });
 
-            $("#disable").click(function () {
-                $("SELECT").selectBox('disable');
+            $('#disable').click(function () {
+                $('SELECT').selectBox('disable');
             });
 
-            $("#serialize").click(function () {
-                $("#console").append('<br />-- Serialized data --<br />' +
-                        $("FORM").serialize().replace(/&/g, '<br />') + '<br /><br />');
-                $("#console")[0].scrollTop = $("#console")[0].scrollHeight;
+            $('#serialize').click(function () {
+                $('#console').append('<br />-- Serialized data --<br />' +
+                        $('FORM').serialize().replace(/&/g, '<br />') + '<br /><br />');
+                $('#console')[0].scrollTop = $('#console')[0].scrollHeight;
             });
 
-            $("#value-1").click(function () {
-                $("SELECT").selectBox('value', 1);
+            $('#value-1').click(function () {
+                $('SELECT').selectBox('value', 1);
             });
 
-            $("#value-2").click(function () {
-                $("SELECT").selectBox('value', 2);
+            $('#value-2').click(function () {
+                $('SELECT').selectBox('value', 2);
             });
 
-            $("#value-2-4").click(function () {
-                $("SELECT").selectBox('value', [2, 4]);
+            $('#value-2-4').click(function () {
+                $('SELECT').selectBox('value', [2, 4]);
             });
 
-            $("#options").click(function () {
-                $("SELECT").selectBox('options', {
-
+            $('#options').click(function () {
+                $('SELECT').selectBox('options', {
                     'Opt Group 1': {
                         '1': 'Value 1',
                         '2': 'Value 2',
@@ -86,46 +85,45 @@
                         '14': 'Value 14',
                         '15': 'Value 15'
                     }
-
                 });
             });
 
-            $("#default").click(function () {
-                $("SELECT").selectBox('settings', {
+            $('#default').click(function () {
+                $('SELECT').selectBox('settings', {
                     'menuTransition': 'default',
                     'menuSpeed': 0
                 });
             });
 
-            $("#fade").click(function () {
-                $("SELECT").selectBox('settings', {
+            $('#fade').click(function () {
+                $('SELECT').selectBox('settings', {
                     'menuTransition': 'fade',
                     'menuSpeed': 'fast'
                 });
             });
 
-            $("#slide").click(function () {
-                $("SELECT").selectBox('settings', {
+            $('#slide').click(function () {
+                $('SELECT').selectBox('settings', {
                     'menuTransition': 'slide',
                     'menuSpeed': 'fast'
                 });
             });
 
-            $("SELECT")
+            $('select')
                     .selectBox({
                         mobile: true
                     })
                     .focus(function () {
-                        $("#console").append('Focus on ' + $(this).attr('name') + '<br />');
-                        $("#console")[0].scrollTop = $("#console")[0].scrollHeight;
+                        $('#console').append('Focus on ' + $(this).attr('name') + '<br />');
+                        $('#console')[0].scrollTop = $('#console')[0].scrollHeight;
                     })
                     .blur(function () {
-                        $("#console").append('Blur on ' + $(this).attr('name') + '<br />');
-                        $("#console")[0].scrollTop = $("#console")[0].scrollHeight;
+                        $('#console').append('Blur on ' + $(this).attr('name') + '<br />');
+                        $('#console')[0].scrollTop = $('#console')[0].scrollHeight;
                     })
                     .change(function () {
-                        $("#console").append('Change on ' + $(this).attr('name') + ': ' + $(this).val() + '<br />');
-                        $("#console")[0].scrollTop = $("#console")[0].scrollHeight;
+                        $('#console').append('Change on ' + $(this).attr('name') + ': ' + $(this).val() + '<br />');
+                        $('#console')[0].scrollTop = $('#console')[0].scrollHeight;
                     });
 
         });
@@ -146,7 +144,7 @@
         </p>
     </div>
 
-    <h1>$("SELECT").selectBox();</h1>
+    <h1>$('select').selectBox();</h1>
 
     <p>
         <label for="standard-dropdown">Standard Dropdown</label><br/>

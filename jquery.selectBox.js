@@ -5,23 +5,31 @@
  *
  * v1.2.0-dev
  *
- * github.com/marcj/jquery-selectBox
+ * https://github.com/marcj/jquery-selectBox
  */
 ;(function ($) {
 
     /**
      * SelectBox class.
      *
-     * @param {HTMLElement} select
-     * @param {Object}      options
+     * @param {HTMLElement|jQuery} select If it's a jQuery object, we use the first element.
+     * @param {Object}             options
      * @constructor
      */
-    var SelectBox = function (select, options) {
-        this.typeTimer = null;
-        this.typeSearch = '';
-        this.isMac = navigator.platform.match(/mac/i);
+    var SelectBox = this.SelectBox = function (select, options) {
+        if (select instanceof jQuery) {
+            if (select.length > 0) {
+                select = select[0];
+            } else {
+                return;
+            }
+        }
+
+        this.typeTimer     = null;
+        this.typeSearch    = '';
+        this.isMac         = navigator.platform.match(/mac/i);
+        options            = options || {};
         this.selectElement = select;
-        options = options || {};
 
         // Disable for iOS devices (their native controls are more suitable for a touch device)
         if (!options.mobile && navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i)) {
@@ -37,14 +45,14 @@
     }
 
     /**
-     * @type {string}
+     * @type {String}
      */
     SelectBox.prototype.version = '1.2.0-dev';
 
     /**
      * @param {Object} options
      *
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     SelectBox.prototype.init = function (options) {
         var select = $(this.selectElement);
@@ -522,7 +530,7 @@
      *
      * @param {HTMLElement} li
      * @param {DOMEvent}    event
-     * @returns {boolean}
+     * @returns {Boolean}
      */
     SelectBox.prototype.selectOption = function (li, event) {
         var select = $(this.selectElement);
@@ -639,7 +647,7 @@
      * Checks if the widget is in the view.
      *
      * @param {jQuery}      li
-     * @param {boolean}     center
+     * @param {Boolean}     center
      */
     SelectBox.prototype.keepOptionInView = function (li, center) {
         if (!li || li.length === 0) {
@@ -974,7 +982,7 @@
      * Generates the options.
      *
      * @param {jQuery} self
-     * @param {Object} options
+     * @param {jQuery} options
      */
     SelectBox.prototype.generateOptions = function (self, options) {
         var li = $('<li />'), a = $('<a />');
