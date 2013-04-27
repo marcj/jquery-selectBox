@@ -901,9 +901,9 @@
     };
 
     /**
-     * Sets the options.
+     * Sets the option elements.
      *
-     * @param {Object}      options
+     * @param {String|Object} options
      */
     SelectBox.prototype.setOptions = function (options) {
         var select = $(this.selectElement)
@@ -911,24 +911,24 @@
             , settings = select.data('selectBox-settings')
             , type;
 
-        switch (typeof(data)) {
+        switch (typeof(options)) {
             case 'string':
-                select.html(data);
+                select.html(options);
                 break;
             case 'object':
                 select.html('');
-                for (var i in data) {
-                    if (data[i] === null) {
+                for (var i in options) {
+                    if (options[i] === null) {
                         continue;
                     }
-                    if (typeof(data[i]) === 'object') {
+                    if (typeof(options[i]) === 'object') {
                         var optgroup = $('<optgroup label="' + i + '" />');
-                        for (var j in data[i]) {
-                            optgroup.append('<option value="' + j + '">' + data[i][j] + '</option>');
+                        for (var j in options[i]) {
+                            optgroup.append('<option value="' + j + '">' + options[i][j] + '</option>');
                         }
                         select.append(optgroup);
                     } else {
-                        var option = $('<option value="' + i + '">' + data[i] + '</option>');
+                        var option = $('<option value="' + i + '">' + options[i] + '</option>');
                         select.append(option);
                     }
                 }
