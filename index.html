@@ -112,7 +112,9 @@
             });
 
             $("SELECT")
-                    .selectBox()
+                    .selectBox({
+                        mobile: true
+                    })
                     .focus(function () {
                         $("#console").append('Focus on ' + $(this).attr('name') + '<br />');
                         $("#console")[0].scrollTop = $("#console")[0].scrollHeight;

@@ -21,9 +21,10 @@
         this.typeSearch = '';
         this.isMac = navigator.platform.match(/mac/i);
         this.selectElement = select;
-        
+        options = options || {};
+
         // Disable for iOS devices (their native controls are more suitable for a touch device)
-        if (navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i)) {
+        if (!options.mobile && navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i)) {
             return false;
         }
 
@@ -1065,7 +1066,7 @@
                 default:
                     $(this).each(function (idx, select) {
                         if (!$(select).data('selectBox')) {
-                            $(select).data('selectBox', new SelectBox(select, options));
+                            $(select).data('selectBox', new SelectBox(select, method));
                         }
                     });
                     break;

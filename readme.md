@@ -23,31 +23,32 @@ Link to the JS file:
 
 Add the CSS file (or append contents to your own stylesheet):
 
-	<link href="jquery.selectbox.min.css" rel="stylesheet" type="text/css" />
+	<link href="jquery.selectbox.css" rel="stylesheet" type="text/css" />
 
 To create:
 
-	$("SELECT").selectBox([settings]);
+	$('select').selectBox([settings]);
 
 
 ## Settings
 
-To specify settings, use this syntax:
+| Key            | Default       | Values                     |  Description                                     |
+| ---------------|:-------------:|---------------------------:|-------------------------------------------------:|
+| mobile         | `false`       | Boolean                    | Disables the widget for mobile devices           |
+| menuTransition | `default`     | `default`, `slide`, `fade` | The show/hide transition for dropdown menus      |
+| menuSpeed      | `normal`      | `slow`, `normal`, `fast`   | The show/hide transition speed                   |
+| loopOptions    | `false`       | Boolean                    | Flag to allow arrow keys to loop through options |
 
-	$("SELECT").selectBox('settings', settingName: value, ... });
 
-### Available settings
+To specify settings after the init, use this syntax:
 
-* __menuTransition__ _[default,slide,fade]_ - the show/hide transition for dropdown menus
-* __menuSpeed__ _[slow,normal,fast]_ - the show/hide transition speed
-* __loopOptions__ _[boolean]_ - flag to allow arrow keys to loop through options
-
+	$('select').selectBox('settings', settingName: value, ... });
 
 ## Methods
 
 To call a method use this syntax:
 
-	$("SELECT").selectBox('methodName', [options]);
+	$('select').selectBox('methodName', [options]);
 
 ### Available methods
 
