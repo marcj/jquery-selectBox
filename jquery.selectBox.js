@@ -401,8 +401,15 @@
      * Refreshes the option elements.
      */
     SelectBox.prototype.refresh = function () {
-        var select = $(this.selectElement);
+        var select = $(this.selectElement),
+            control = select.data('selectBox-control'),
+            dropdown = control.hasClass('selectBox-dropdown'),
+            menuOpened = control.hasClass('selectBox-menuShowing');
         select.selectBox('options', select.html());
+        // Restore opened dropdown state (original menu was trashed)
+        if (dropdown && menuOpened) {
+            this.showMenu();
+        }
     };
 
     /**
