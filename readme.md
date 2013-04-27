@@ -63,7 +63,7 @@ $('select').selectBox('settings', {settingName: value, ... });
 To call a method use this syntax:
 
 ```javascript
-$('select').selectBox('methodName', [options]);
+$('select').selectBox('methodName', [option]);
 ```
 
 ### Available methods
@@ -130,9 +130,9 @@ selectOption(HTMLElement li, event)
 Events are fired on the original select element. You can bind events like this:
 
 ```javascript
-	$('select').selectBox().change(function () {
-	    alert($(this).val());
-	});
+$('select').selectBox().change(function () {
+    alert($(this).val());
+});
 ```
 
 ### Available events
