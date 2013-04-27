@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>jquery-selectbox by marcj</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/marcj/jquery-selectBox">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>jquery-selectbox</h1>
+            <h2>A jQuery plugin for replacing &lt;select&gt; elements.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/marcj/jquery-selectBox/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/marcj/jquery-selectBox/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>jQuery selectBox: A styleable replacement for SELECT elements</h1>
+
+<p><em>Licensed under the MIT license: <a href="http://opensource.org/licenses/MIT">http://opensource.org/licenses/MIT</a></em></p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Supports OPTGROUPS</li>
+<li>Supports standard dropdown controls</li>
+<li>Supports multi-select controls (i.e. multiple="multiple")</li>
+<li>Supports inline controls (i.e. size="5")</li>
+<li>Fully accessible via keyboard</li>
+<li>Shift + click (or shift + enter) to select a range of options in multi-select controls</li>
+<li>Type to search when the control has focus</li>
+<li>Auto-height based on the size attribute (to use, omit the height property in your CSS!)</li>
+<li>Tested in IE7-IE9, Firefox 3-4, recent WebKit browsers, and Opera</li>
+</ul><h2>Usage</h2>
+
+<p>Link to the JS file:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"jquery.selectbox.min.js"</span> <span class="na">type=</span><span class="s">"text/javascript"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>Add the CSS file (or append contents to your own stylesheet):</p>
+
+<div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">"jquery.selectbox.css"</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="nt">/&gt;</span>
+</pre></div>
+
+<p>To initialize:</p>
+
+<div class="highlight"><pre><span class="c1">// default</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">selectBox</span><span class="p">();</span>
+
+<span class="c1">// or with custom settings</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">selectBox</span><span class="p">({</span>
+    <span class="nx">mobile</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">menuSpeed</span><span class="o">:</span> <span class="s1">'fast'</span>
+<span class="p">});</span>
+</pre></div>
+
+<h2>Settings</h2>
+
+<table>
+<tr>
+<th>Key</th>
+<th align="center">Default</th>
+<th align="right">Values</th>
+<th align="right">Description</th>
+</tr>
+<tr>
+<td>mobile</td>
+<td align="center"><code>false</code></td>
+<td align="right">Boolean</td>
+<td align="right">Disables the widget for mobile devices</td>
+</tr>
+<tr>
+<td>menuTransition</td>
+<td align="center"><code>default</code></td>
+<td align="right">
+<code>default</code>, <code>slide</code>, <code>fade</code>
+</td>
+<td align="right">The show/hide transition for dropdown menus</td>
+</tr>
+<tr>
+<td>menuSpeed</td>
+<td align="center"><code>normal</code></td>
+<td align="right">
+<code>slow</code>, <code>normal</code>, <code>fast</code>
+</td>
+<td align="right">The show/hide transition speed</td>
+</tr>
+<tr>
+<td>loopOptions</td>
+<td align="center"><code>false</code></td>
+<td align="right">Boolean</td>
+<td align="right">Flag to allow arrow keys to loop through options</td>
+</tr>
+</table><p>To specify settings after the init, use this syntax:</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">selectBox</span><span class="p">(</span><span class="s1">'settings'</span><span class="p">,</span> <span class="p">{</span><span class="nx">settingName</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span> <span class="p">...</span> <span class="p">});</span>
+</pre></div>
+
+<h2>Methods</h2>
+
+<p>To call a method use this syntax:</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">selectBox</span><span class="p">(</span><span class="s1">'methodName'</span><span class="p">,</span> <span class="p">[</span><span class="nx">option</span><span class="p">]);</span>
+</pre></div>
+
+<h3>Available methods</h3>
+
+<table>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>create</td>
+<td>Creates the control (default)</td>
+</tr>
+<tr>
+<td>destroy</td>
+<td>Destroys the selectBox control and reverts back to the original form control</td>
+</tr>
+<tr>
+<td>disable</td>
+<td>Disables the control (i.e. disabled="disabled")</td>
+</tr>
+<tr>
+<td>enable</td>
+<td>Enables the control</td>
+</tr>
+<tr>
+<td>value</td>
+<td>If passed with a value, sets the control to that value; otherwise returns the current value</td>
+</tr>
+<tr>
+<td>options</td>
+<td>If passed either a string of HTML or a JSON object, replaces the existing options; otherwise Returns the options container element as a jQuery object</td>
+</tr>
+<tr>
+<td>control</td>
+<td>Returns the selectBox control element (an anchor tag) for working with directly</td>
+</tr>
+<tr>
+<td>refresh</td>
+<td>Updates the selectBox control's options based on the original controls options</td>
+</tr>
+<tr>
+<td>instance</td>
+<td>Returns the SelectBox instance, where you have more methods available (only in v1.2.0-dev</td>
+</tr>
+<tr>
+<td></td>
+<td>available) as in the <code>SelectBox</code> class below.</td>
+</tr>
+</table><h2>API <code>SelectBox</code>
+</h2>
+
+<p>You can instantiate the selectBox also through a classic OOP way:</p>
+
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">selectBox</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SelectBox</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">'#mySelectBox'</span><span class="p">)[,</span> <span class="nx">settings</span> <span class="o">=</span> <span class="p">{}]);</span>
+<span class="nx">selectBox</span><span class="p">.</span><span class="nx">showMenu</span><span class="p">();</span>
+</pre></div>
+
+<p>The public methods are:</p>
+
+<div class="highlight"><pre><span class="nx">refresh</span><span class="p">()</span>
+<span class="nx">destroy</span><span class="p">()</span>
+<span class="nx">disable</span><span class="p">()</span>
+<span class="nx">enable</span><span class="p">()</span>
+
+<span class="nx">getLabelClass</span><span class="p">()</span>
+<span class="nx">getLabelText</span><span class="p">()</span>
+<span class="nx">getSelectElement</span><span class="p">()</span>
+<span class="nx">getOptions</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span>
+
+<span class="nx">hideMenus</span><span class="p">()</span>
+<span class="nx">showMenu</span><span class="p">()</span>
+
+<span class="nx">setLabel</span><span class="p">()</span>
+<span class="nx">setOptions</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+<span class="nx">setValue</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+
+<span class="nx">removeHover</span><span class="p">(</span><span class="nx">HTMLElement</span> <span class="nx">li</span><span class="p">)</span>
+<span class="nx">addHover</span><span class="p">(</span><span class="nx">HTMLElement</span> <span class="nx">li</span><span class="p">)</span>
+
+<span class="nx">disableSelection</span><span class="p">(</span><span class="nx">HTMLElement</span> <span class="nx">selector</span><span class="p">)</span>
+<span class="nx">generateOptions</span><span class="p">(</span><span class="nx">jQuery</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">jQuery</span> <span class="nx">options</span><span class="p">)</span>
+<span class="nx">handleKeyDown</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+<span class="nx">handleKeyPress</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>
+<span class="nx">init</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+<span class="nx">keepOptionInView</span><span class="p">(</span><span class="nx">jQuery</span> <span class="nx">li</span><span class="p">,</span> <span class="nb">Boolean</span> <span class="nx">center</span><span class="p">)</span>
+<span class="nx">refresh</span><span class="p">()</span>
+<span class="nx">removeHover</span><span class="p">(</span><span class="nx">HTMLElement</span> <span class="nx">li</span><span class="p">)</span>
+<span class="nx">selectOption</span><span class="p">(</span><span class="nx">HTMLElement</span> <span class="nx">li</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span>
+</pre></div>
+
+<h2>Events</h2>
+
+<p>Events are fired on the original select element. You can bind events like this:</p>
+
+<div class="highlight"><pre><span class="nx">$</span><span class="p">(</span><span class="s1">'select'</span><span class="p">).</span><span class="nx">selectBox</span><span class="p">().</span><span class="nx">change</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">val</span><span class="p">());</span>
+<span class="p">});</span>
+</pre></div>
+
+<h3>Available events</h3>
+
+<table>
+<tr>
+<th>Key</th>
+<th>Description</th>
+</tr>
+<tr>
+<td>focus</td>
+<td>Fired when the control gains focus</td>
+</tr>
+<tr>
+<td>blur</td>
+<td>Fired when the control loses focus</td>
+</tr>
+<tr>
+<td>change</td>
+<td>Fired when the value of a control changes</td>
+</tr>
+<tr>
+<td>beforeopen</td>
+<td>Fired before a dropdown menu opens (cancelable)</td>
+</tr>
+<tr>
+<td>open</td>
+<td>Fired after a dropdown menu opens (not cancelable)</td>
+</tr>
+<tr>
+<td>beforeclose</td>
+<td>Fired before a dropdown menu closes (cancelable)</td>
+</tr>
+<tr>
+<td>close</td>
+<td>Fired after a dropdown menu closes (not cancelable)</td>
+</tr>
+</table><h3>Known Issues</h3>
+
+<ul>
+<li>The blur and focus callbacks are not very reliable in IE7. The change callback works fine.</li>
+</ul><h2>Credits</h2>
+
+<p>Original plugin by Cory LaViska of A Beautiful Site, LLC. (<a href="http://www.abeautifulsite.net/">http://www.abeautifulsite.net/</a>)</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/marcj">marcj</a> can be found on <a href="https://github.com/marcj/jquery-selectBox">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
