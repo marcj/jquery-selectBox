@@ -50,6 +50,13 @@
                 $('#console')[0].scrollTop = $('#console')[0].scrollHeight;
             });
 
+            $('#refresh').click(function() {
+                $('SELECT OPTION').each(function() {
+                    $(this).text($(this).text().replace("Item", "Value"));
+                });
+                $('SELECT').selectBox('refresh');
+            });
+
             $('#value-1').click(function () {
                 $('SELECT').selectBox('value', 1);
             });
@@ -337,6 +344,7 @@
         <input type="button" id="enable" value="Enable"/>
         <input type="button" id="disable" value="Disable"/>
         <input type="button" id="serialize" value="Serialize Form"/>
+        <input type="button" id="refresh" value="Refresh" />
     </p>
 
     <p>

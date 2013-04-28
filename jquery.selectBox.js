@@ -401,13 +401,31 @@
      * Refreshes the option elements.
      */
     SelectBox.prototype.refresh = function () {
-        var select = $(this.selectElement),
-            control = select.data('selectBox-control'),
-            dropdown = control.hasClass('selectBox-dropdown'),
-            menuOpened = control.hasClass('selectBox-menuShowing');
-        select.selectBox('options', select.html());
+        var select = $(this.selectElement)
+            , control = select.data('selectBox-control')
+            , type = control.hasClass('selectBox-dropdown') ? 'dropdown' : 'inline'
+            , options;
+
+        // Remove old options
+        control.data('selectBox-options').remove();
+
+        // Generate new options
+        options  = this.getOptions(type);
+        control.data('selectBox-options', options);
+
+        switch (type) {
+            case 'inline':
+                control.append(options);
+                break;
+            case 'dropdown':
+                // Update label
+                this.setLabel();
+                $("BODY").append(options);
+                break;
+        }
+
         // Restore opened dropdown state (original menu was trashed)
-        if (dropdown && menuOpened) {
+        if (type == 'dropdown' && control.hasClass('selectBox-menuShowing')) {
             this.showMenu();
         }
     };
@@ -922,9 +940,7 @@
      */
     SelectBox.prototype.setOptions = function (options) {
         var select = $(this.selectElement)
-            , control = select.data('selectBox-control')
-            , settings = select.data('selectBox-settings')
-            , type;
+            , control = select.data('selectBox-control');
 
         switch (typeof(options)) {
             case 'string':
@@ -950,27 +966,9 @@
                 break;
         }
 
-        if (!control) {
-            return;
-        }
-
-        // Remove old options
-        control.data('selectBox-options').remove();
-
-        // Generate new options
-        type     = control.hasClass('selectBox-dropdown') ? 'dropdown' : 'inline';
-        options  = this.getOptions(type);
-        control.data('selectBox-options', options);
-
-        switch (type) {
-            case 'inline':
-                control.append(options);
-                break;
-            case 'dropdown':
-                // Update label
-                this.setLabel();
-                $("BODY").append(options);
-                break;
+        if (control) {
+            // Refresh the control
+            this.refresh();
         }
     };
 
