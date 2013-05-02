@@ -3,7 +3,7 @@
  *
  * Licensed under the MIT license: http://opensource.org/licenses/MIT
  *
- * v1.2.0-dev
+ * v1.2.0
  *
  * https://github.com/marcj/jquery-selectBox
  */
@@ -47,7 +47,7 @@
     /**
      * @type {String}
      */
-    SelectBox.prototype.version = '1.2.0-dev';
+    SelectBox.prototype.version = '1.2.0';
 
     /**
      * @param {Object} options
