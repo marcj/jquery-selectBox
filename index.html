@@ -52,7 +52,7 @@
 
             $('#refresh').click(function() {
                 $('SELECT OPTION').each(function() {
-                    $(this).text($(this).text().replace("Item", "Value"));
+                    $(this).text('Refreshed ' + $(this).val());
                 });
                 $('SELECT').selectBox('refresh');
             });

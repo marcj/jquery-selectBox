@@ -425,7 +425,7 @@
         }
 
         // Restore opened dropdown state (original menu was trashed)
-        if (type == 'dropdown' && control.hasClass('selectBox-menuShowing')) {
+        if ('dropdown' === type && control.hasClass('selectBox-menuShowing')) {
             this.showMenu();
         }
     };
