@@ -845,6 +845,7 @@
                 event.preventDefault();
                 clearTimeout(this.typeTimer);
                 this.typeSearch += String.fromCharCode(event.charCode || event.keyCode);
+                // Using self inside each because context is not the same
                 options.find('A').each(function () {
                     if ($(this).text().substr(0, self.typeSearch.length).toLowerCase() === self.typeSearch.toLowerCase()) {
                         self.addHover($(this).parent());
