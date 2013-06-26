@@ -813,7 +813,8 @@
     SelectBox.prototype.handleKeyPress = function (event) {
         var select = $(this.selectElement)
             , control = select.data('selectBox-control')
-            , options = control.data('selectBox-options');
+            , options = control.data('selectBox-options')
+            , self    = this;
 
         if (control.hasClass('selectBox-disabled')) {
             return;
@@ -844,17 +845,18 @@
                 event.preventDefault();
                 clearTimeout(this.typeTimer);
                 this.typeSearch += String.fromCharCode(event.charCode || event.keyCode);
+                // Using self inside each because context is not the same
                 options.find('A').each(function () {
-                    if ($(this).text().substr(0, this.typeSearch.length).toLowerCase() === this.typeSearch.toLowerCase()) {
-                        this.addHover($(this).parent());
-                        this.selectOption($(this).parent(), event);
-                        this.keepOptionInView($(this).parent());
+                    if ($(this).text().substr(0, self.typeSearch.length).toLowerCase() === self.typeSearch.toLowerCase()) {
+                        self.addHover($(this).parent());
+                        self.selectOption($(this).parent(), event);
+                        self.keepOptionInView($(this).parent());
                         return false;
                     }
                 });
                 // Clear after a brief pause
                 this.typeTimer = setTimeout(function () {
-                    this.typeSearch = '';
+                    self.typeSearch = '';
                 }, 1000);
                 break;
         }
