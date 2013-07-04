@@ -206,8 +206,8 @@
             var labelWidth =
                     control.width()
                   - arrow.outerWidth()
-                  - parseInt(label.css('paddingLeft')) || 0
-                  - parseInt(label.css('paddingRight')) || 0;
+                  - (parseInt(label.css('paddingLeft')) || 0)
+                  - (parseInt(label.css('paddingRight')) || 0);
 
             label.width(labelWidth);
             this.disableSelection(control);
