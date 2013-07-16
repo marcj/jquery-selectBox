@@ -188,7 +188,7 @@ header h1 {
 
 header h2 {
   background-color: #7c334f;
-  font: bold italic .85em/1.5 Georgia, Times, “Times New Roman”, serif;
+  font: bold italic .85em/1.5 Georgia, Times, "Times New Roman", serif;
   color: #e69b95;
   padding-bottom: 14px;
   margin-top: -3px;
@@ -235,7 +235,7 @@ section#downloads a:hover {
 }
 
 section#downloads a em {
-  font: bold italic 12px/1 Georgia, Times, “Times New Roman”, serif;
+  font: bold italic 12px/1 Georgia, Times, "Times New Roman", serif;
   color: #83b7da;
   display: block;
 }
@@ -313,7 +313,7 @@ footer span.ribbon-inner p {
   background-color: #7c334f;
   margin: 0;
   color: #e69b95;
-  font: bold italic 12px/1 Georgia, Times, “Times New Roman”, serif;
+  font: bold italic 12px/1 Georgia, Times, "Times New Roman", serif;
   padding-bottom:4px;
 }
 
@@ -365,7 +365,7 @@ footer span.octocat {
 
 body {
   background: #ece4d8;
-  font: normal normal 15px/1.5 Georgia, Palatino,” Palatino Linotype”, Times, “Times New Roman”, serif;
+  font: normal normal 15px/1.5 Georgia, Palatino," Palatino Linotype", Times, "Times New Roman", serif;
   color: #544943;
   -webkit-font-smoothing: antialiased;
 }
@@ -413,6 +413,16 @@ ul {
 ul li {
   padding-left: 10px;
   background: transparent url(../images/chevron.png) left 6px no-repeat;
+}
+
+.selectBox li,
+.selectBox-dropdown-menu li {
+    background: transparent;
+}
+
+.selectBox:hover,
+.selectBox li a:hover {
+    text-decoration: none;
 }
 
 blockquote {

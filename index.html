@@ -8,13 +8,18 @@
     <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
     <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+    <link rel="stylesheet" href="jquery.selectBox.css"/>
 
     <script type="text/javascript" src="javascripts/modernizr.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript" src="jquery.selectBox.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function () {
-        $('#main_content').headsmart()
+        $('#main_content').headsmart();
+        $('select').selectBox({
+          mobile: true
+        })
       })
     </script>
     <title>jquery-selectbox by marcj</title>
@@ -62,7 +67,92 @@
 <li>Type to search when the control has focus</li>
 <li>Auto-height based on the size attribute (to use, omit the height property in your CSS!)</li>
 <li>Tested in IE7-IE9, Firefox 3-4, recent WebKit browsers, and Opera</li>
-</ul><h2>Usage</h2>
+</ul>
+
+<h2>Demo</h2>
+
+    <p>
+        <label for="standard-dropdown">Standard Dropdown</label><br/>
+        <select id="standard-dropdown" name="standard-dropdown" class="custom-class1 custom-class2" style="width: 200px;">
+            <option value="1" class="test-class-1">Item 1</option>
+            <option value="2" class="test-class-2" selected="selected">Item 2</option>
+            <option value="3" class="test-class-3">Item 3 has a really long label that will not interfere with the control's
+                width
+            </option>
+            <option value="4" class="test-class-4">Item 4</option>
+            <option value="5" disabled="disabled">Item 5 (disabled)</option>
+            <option value="6">Item 6</option>
+            <option value="7">Item 7</option>
+            <option value="8">Item 8</option>
+            <option value="9">Item 9</option>
+            <option value="10">Item 10</option>
+            <option value="11">Item 11</option>
+            <option value="12">Item 12</option>
+            <option value="13">Item 13</option>
+            <option value="14">Item 14</option>
+            <option value="15">Item 15</option>
+            <option value="16">Item 16</option>
+            <option value="17">Item 17</option>
+            <option value="18">Item 18</option>
+            <option value="19">Item 19</option>
+            <option value="20">Item 20</option>
+        </select>
+    </p>
+
+    <p>
+        <label for="multi-select-control">Multi-select Control</label><br/>
+        <select id="multi-select-control" name="multi-select-control" multiple="multiple">
+            <option value="1" selected="selected">Item 1</option>
+            <option value="2">Item 2</option>
+            <option value="3">Item 3</option>
+            <option value="4">Item 4</option>
+            <option value="5" disabled="disabled">Item 5 (disabled)</option>
+        </select>
+    </p>
+
+    <p>
+        Standard control with OPTGROUPS<br/>
+        <select name="standard-with-optgroups">
+            <optgroup label="Section 1">
+                <option value="1">Item 1</option>
+                <option value="2">Item 2</option>
+                <option value="3">Item 3</option>
+                <option value="4">Item 4</option>
+            </optgroup>
+            <optgroup label="Section 2">
+                <option value="5">Item 5</option>
+                <option value="6">Item 6</option>
+                <option value="7">Item 7</option>
+                <option value="8">Item 8</option>
+            </optgroup>
+            <optgroup label="Section 3">
+                <option value="9">Item 9</option>
+                <option value="10">Item 10</option>
+                <option value="11">Item 11</option>
+                <option value="12">Item 12</option>
+            </optgroup>
+            <optgroup label="Section 4">
+                <option value="13">Item 13</option>
+                <option value="14">Item 14</option>
+                <option value="15">Item 15</option>
+                <option value="16">Item 16</option>
+            </optgroup>
+            <optgroup label="Section 5">
+                <option value="17">Item 17</option>
+                <option value="18">Item 18</option>
+                <option value="19">Item 19</option>
+                <option value="20">Item 20</option>
+            </optgroup>
+            <optgroup label="Section 6">
+                <option value="21">Item 21</option>
+                <option value="22">Item 22</option>
+                <option value="23">Item 23</option>
+                <option value="24">Item 24</option>
+            </optgroup>
+        </select>
+    </p>
+
+<h2>Usage</h2>
 
 <p>Link to the JS file:</p>
 
