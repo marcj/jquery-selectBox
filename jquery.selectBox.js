@@ -445,15 +445,29 @@
         }
 
         this.hideMenus();
+		
+		// Get top and bottom width of selectBox
         var borderBottomWidth = parseInt(control.css('borderBottomWidth')) || 0;
+        var borderTopWidth = parseInt(control.css('borderTopWidth')) || 0;
+		
+		// Get top or bottom position for menu
+		var top = control.offset().top + control.outerHeight() - borderBottomWidth
+			, posTop = top+options.outerHeight()>$(window).outerHeight();
+		top = posTop?control.offset().top - options.outerHeight() + borderTopWidth:top;
 
+		// Save if position is top to options data
+		options.data('posTop',posTop);
+		
+		
         // Menu position
         options
             .width(control.innerWidth())
             .css({
-                top: control.offset().top + control.outerHeight() - borderBottomWidth,
+                top: top,
                 left: control.offset().left
-            });
+            })
+			// Add Top and Bottom class based on position
+			.addClass('selectBox-options selectBox-options-'+(posTop?'top':'bottom'));
 
 
         if (select.triggerHandler('beforeopen')) {
@@ -487,7 +501,7 @@
         var li = options.find('.selectBox-selected:first');
         this.keepOptionInView(li, true);
         this.addHover(li);
-        control.addClass('selectBox-menuShowing');
+        control.addClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
 
         $(document).bind('mousedown.selectBox', function (event) {
             if (1 === event.which) {
@@ -512,7 +526,8 @@
             var options = $(this)
                 , select = options.data('selectBox-select')
                 , control = select.data('selectBox-control')
-                , settings = select.data('selectBox-settings');
+                , settings = select.data('selectBox-settings')
+				, posTop = options.data('posTop');
 
             if (select.triggerHandler('beforeclose')) {
                 return false;
@@ -523,7 +538,6 @@
                     _selectBox: true
                 });
             };
-
             if (settings) {
                 switch (settings.menuTransition) {
                     case 'fade':
@@ -539,14 +553,17 @@
                 if (!settings.menuSpeed) {
                     dispatchCloseEvent();
                 }
-                control.removeClass('selectBox-menuShowing');
+                control.removeClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
             } else {
                 $(this).hide();
                 $(this).triggerHandler('close', {
                     _selectBox: true
                 });
-                $(this).removeClass('selectBox-menuShowing');
+                $(this).removeClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
             }
+			//Remove Top or Bottom class based on position
+			options.removeClass('selectBox-options selectBox-options-'+(posTop?'top':'bottom'));
+			options.data('posTop' , false);
         });
     };
 
