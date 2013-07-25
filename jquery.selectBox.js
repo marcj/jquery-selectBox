@@ -170,7 +170,7 @@
                 .append(arrow)
                 .bind('mousedown.selectBox', function (event) {
                     if (1 === event.which) {
-                        if (control.hasClass('selectBox-menuShowing-top')||control.hasClass('selectBox-menuShowing-bottom')) {
+                        if (control.hasClass('selectBox-menuShowing')) {
                             self.hideMenus();
                         } else {
                             event.stopPropagation();
@@ -425,7 +425,7 @@
         }
 
         // Restore opened dropdown state (original menu was trashed)
-        if ('dropdown' === type && (control.hasClass('selectBox-menuShowing-top')||control.hasClass('selectBox-menuShowing-bottom'))) {
+        if ('dropdown' === type && control.hasClass('selectBox-menuShowing')) {
             this.showMenu();
         }
     };
@@ -454,7 +454,7 @@
 		var top = control.offset().top + control.outerHeight() - borderBottomWidth
 			, posTop = top+options.outerHeight()>$(window).outerHeight();
 		top = posTop?control.offset().top - options.outerHeight() + borderTopWidth:top;
-		
+
 		// Save if position is top to options data
 		options.data('posTop',posTop);
 		
@@ -467,7 +467,7 @@
                 left: control.offset().left
             })
 			// Add Top and Bottom class based on position
-			.addClass('selectBox-options-'+(posTop?'top':'bottom'));
+			.addClass('selectBox-options selectBox-options-'+(posTop?'top':'bottom'));
 
 
         if (select.triggerHandler('beforeopen')) {
@@ -501,7 +501,7 @@
         var li = options.find('.selectBox-selected:first');
         this.keepOptionInView(li, true);
         this.addHover(li);
-        control.addClass('selectBox-menuShowing-'+(posTop?'top':'bottom'));
+        control.addClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
 
         $(document).bind('mousedown.selectBox', function (event) {
             if (1 === event.which) {
@@ -553,16 +553,17 @@
                 if (!settings.menuSpeed) {
                     dispatchCloseEvent();
                 }
-                control.removeClass('selectBox-menuShowing-'+(posTop?'top':'bottom'));
+                control.removeClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
             } else {
                 $(this).hide();
                 $(this).triggerHandler('close', {
                     _selectBox: true
                 });
-                $(this).removeClass('selectBox-menuShowing-'+(posTop?'top':'bottom'));
+                $(this).removeClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
             }
 			//Remove Top or Bottom class based on position
-			options.removeClass('selectBox-options-'+(posTop?'top':'bottom'));
+			options.removeClass('selectBox-options selectBox-options-'+(posTop?'top':'bottom'));
+			options.data('posTop' , false);
         });
     };
 
@@ -748,7 +749,7 @@
                 break;
             case 13:
                 // enter
-                if (control.hasClass('selectBox-menuShowing-top')||control.hasClass('selectBox-menuShowing-bottom')) {
+                if (control.hasClass('selectBox-menuShowing')) {
                     this.selectOption(options.find('LI.selectBox-hover:first'), event);
                     if (control.hasClass('selectBox-dropdown')) {
                         this.hideMenus();
@@ -762,7 +763,7 @@
             case 37:
                 // left
                 event.preventDefault();
-                if (control.hasClass('selectBox-menuShowing-top')||control.hasClass('selectBox-menuShowing-bottom')) {
+                if (control.hasClass('selectBox-menuShowing')) {
                     var prev = options.find('.selectBox-hover').prev('LI');
                     totalOptions = options.find('LI:not(.selectBox-optgroup)').length;
                     i = 0;
@@ -792,7 +793,7 @@
             case 39:
                 // right
                 event.preventDefault();
-                if (control.hasClass('selectBox-menuShowing-top')||control.hasClass('selectBox-menuShowing-bottom')) {
+                if (control.hasClass('selectBox-menuShowing')) {
                     var next = options.find('.selectBox-hover').next('LI');
                     totalOptions = options.find('LI:not(.selectBox-optgroup)').length;
                     i = 0;
@@ -855,7 +856,7 @@
                 break;
             default:
                 // Type to find
-                if (!control.hasClass('selectBox-menuShowing-top')||!control.hasClass('selectBox-menuShowing-bottom')) {
+                if (!control.hasClass('selectBox-menuShowing')) {
                     this.showMenu();
                 }
                 event.preventDefault();
