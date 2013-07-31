@@ -28,13 +28,22 @@
     border-color: #666;
 }
 
-.selectBox-dropdown.selectBox-menuShowing {
+.selectBox-dropdown.selectBox-menuShowing-bottom {
     -moz-border-radius-bottomleft: 0;
     -moz-border-radius-bottomright: 0;
     -webkit-border-bottom-left-radius: 0;
     -webkit-border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+.selectBox-dropdown.selectBox-menuShowing-top {
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .selectBox-dropdown .selectBox-label {
@@ -95,6 +104,26 @@
     cursor: default;
     padding: 0;
     margin: 0;
+}
+
+.selectBox-options.selectBox-options-top{
+    border-bottom:none;
+	margin-top:1px;
+	-moz-border-radius-topleft: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.selectBox-options.selectBox-options-bottom{
+	border-top:none;
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .selectBox-options LI A {
