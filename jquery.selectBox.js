@@ -452,7 +452,7 @@
         
         // Get top or bottom position for menu
         var top = control.offset().top + control.outerHeight() - borderBottomWidth
-            , posTop = top+options.outerHeight()>$(window).outerHeight();
+            , posTop = top+options.outerHeight()>$(window).height();
         top = posTop?control.offset().top - options.outerHeight() + borderTopWidth:top;
 
         // Save if position is top to options data
