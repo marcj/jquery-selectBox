@@ -28,10 +28,10 @@
         this.typeTimer     = null;
         this.typeSearch    = '';
         this.isMac         = navigator.platform.match(/mac/i);
-        options            = 'object' === typeof options ? options :  {};
+        this.options       = options = 'object' === typeof options ? options :  {};
         this.selectElement = select;
 
-        // Disable for iOS devices (their native controls are more suitable for a touch device)
+        // Disable for mobile devices (their native controls are more suitable for a touch device)
         if (!options.mobile && navigator.userAgent.match(/iPad|iPhone|Android|IEMobile|BlackBerry/i)) {
             return false;
         }
@@ -67,11 +67,11 @@
             , self     = this;
 
         control
-            .width(select.outerWidth())
+            .width(settings.disableAutoStyle ? '' : select.outerWidth())
             .addClass(select.attr('class'))
             .attr('title', select.attr('title') || '')
             .attr('tabindex', tabIndex)
-            .css('display', 'inline-block')
+            .css('display', settings.disableAutoStyle ? '' : 'inline-block')
             .bind('focus.selectBox', function () {
                 if (this !== document.activeElement && document.body !== document.activeElement) {
                     $(document.activeElement).blur();
@@ -209,7 +209,7 @@
                   - (parseInt(label.css('paddingLeft')) || 0)
                   - (parseInt(label.css('paddingRight')) || 0);
 
-            label.width(labelWidth);
+            label.width(this.options.disableAutoStyle ? '' : labelWidth);
             this.disableSelection(control);
         }
         // Store data for later use and show the control
@@ -1042,7 +1042,7 @@
         if (self.attr('disabled')) {
             li.addClass('selectBox-disabled');
         }
-        if (self.attr('selected')) {
+        if (self.prop('selected')) {
             li.addClass('selectBox-selected');
         }
         options.append(li);
