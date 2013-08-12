@@ -1042,7 +1042,7 @@
         if (self.attr('disabled')) {
             li.addClass('selectBox-disabled');
         }
-        if (self.attr('selected')) {
+        if (self.prop('selected')) {
             li.addClass('selectBox-selected');
         }
         options.append(li);
