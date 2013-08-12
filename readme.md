@@ -44,12 +44,13 @@ $('select').selectBox({
 
 ## Settings
 
-| Key            | Default       | Values                     |  Description                                     |
-| ---------------|:-------------:|---------------------------:|-------------------------------------------------:|
-| mobile         | `false`       | Boolean                    | Disables the widget for mobile devices           |
-| menuTransition | `default`     | `default`, `slide`, `fade` | The show/hide transition for dropdown menus      |
-| menuSpeed      | `normal`      | `slow`, `normal`, `fast`   | The show/hide transition speed                   |
-| loopOptions    | `false`       | Boolean                    | Flag to allow arrow keys to loop through options |
+| Key                 | Default       | Values                     |  Description                                     |
+| --------------------|:-------------:|---------------------------:|-------------------------------------------------:|
+| mobile              | `false`       | Boolean                    | Disables the widget for mobile devices           |
+| menuTransition      | `default`     | `default`, `slide`, `fade` | The show/hide transition for dropdown menus      |
+| menuSpeed           | `normal`      | `slow`, `normal`, `fast`   | The show/hide transition speed                   |
+| loopOptions         | `false`       | Boolean                    | Flag to allow arrow keys to loop through options |
+| disableAutoStyle    | `false`       | Boolean                    | Disables setting inline styles                   |
 
 
 To specify settings after the init, use this syntax:
