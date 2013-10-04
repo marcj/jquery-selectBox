@@ -93,7 +93,7 @@
         if (!$(window).data('selectBox-bindings')) {
             $(window)
                 .data('selectBox-bindings', true)
-                .bind('scroll.selectBox', this.hideMenus)
+                .bind('scroll.selectBox', (settings.hideOnWindowScroll) ? this.hideMenus : $.noop)
                 .bind('resize.selectBox', this.hideMenus);
         }
 
@@ -452,6 +452,8 @@
         
         // Get proper variables for keeping options in viewport
         var pos = control.offset()
+            , topPositionCorrelation = (settings.topPositionCorrelation) ? settings.topPositionCorrelation : 0
+            , bottomPositionCorrelation = (settings.bottomPositionCorellation) ? settings.bottomPositionCorellation : 0
             , optionsHeight = options.outerHeight()
             , controlHeight = control.outerHeight()
             , maxHeight = parseInt(options.css('max-height'))
@@ -460,8 +462,8 @@
             , heightToBottom = $(window).height() - ( heightToTop + controlHeight )
             , posTop = heightToTop > heightToBottom
             , top = posTop 
-                  ? pos.top - optionsHeight + borderTopWidth
-                  : pos.top + controlHeight - borderBottomWidth;        
+                  ? pos.top - optionsHeight + borderTopWidth + topPositionCorrelation
+                  : pos.top + controlHeight - borderBottomWidth - bottomPositionCorrelation;        
         
         
         // If the height to top and height to bottom are less than the max-height
