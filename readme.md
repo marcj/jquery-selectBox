@@ -44,12 +44,15 @@ $('select').selectBox({
 
 ## Settings
 
-| Key            | Default       | Values                     |  Description                                     |
-| ---------------|:-------------:|---------------------------:|-------------------------------------------------:|
-| mobile         | `false`       | Boolean                    | Disables the widget for mobile devices           |
-| menuTransition | `default`     | `default`, `slide`, `fade` | The show/hide transition for dropdown menus      |
-| menuSpeed      | `normal`      | `slow`, `normal`, `fast`   | The show/hide transition speed                   |
-| loopOptions    | `false`       | Boolean                    | Flag to allow arrow keys to loop through options |
+| Key                       | Default       | Values                     |  Description                                                                  |
+| --------------------------|:-------------:|---------------------------:|------------------------------------------------------------------------------:|
+| mobile                    | `false`       | Boolean                    | Disables the widget for mobile devices                                        |
+| menuTransition            | `default`     | `default`, `slide`, `fade` | The show/hide transition for dropdown menus                                   |
+| menuSpeed                 | `normal`      | `slow`, `normal`, `fast`   | The show/hide transition speed                                                |
+| loopOptions               | `false`       | Boolean                    | Flag to allow arrow keys to loop through options                              |
+| topPositionCorrelation    | `0`           | Integer                    | Will be plused to top position if droplist will be show at the top            |
+| bottomPositionCorrelation | `0`           | Integer                    | Will be substracted from top position if droplist will be shown at the bottom |
+| hideOnWindowScroll        | `true`        | Boolean                    | If false then showed droplist will not hide itself on window scroll event     |
 
 
 To specify settings after the init, use this syntax:
