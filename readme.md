@@ -53,6 +53,7 @@ $('select').selectBox({
 | topPositionCorrelation    | `0`           | Integer                    | Will be plused to top position if droplist will be show at the top            |
 | bottomPositionCorrelation | `0`           | Integer                    | Will be substracted from top position if droplist will be shown at the bottom |
 | hideOnWindowScroll        | `true`        | Boolean                    | If false then showed droplist will not hide itself on window scroll event     |
+| keepInViewport            | `true`        | Boolean                    | If set to false, the droplist will be always open towards the bottom          |
 
 
 To specify settings after the init, use this syntax:
