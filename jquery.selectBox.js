@@ -300,6 +300,10 @@
                             if (event.screenX === options.data('selectBox-down-at-x') &&
                                 event.screenY === options.data('selectBox-down-at-y')) {
                                 options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
+                                if (/android/i.test(navigator.userAgent.toLowerCase()) &&
+                                    /chrome/i.test(navigator.userAgent.toLowerCase())) {
+                                    self.selectOption($(this).parent());        
+                                }
                                 self.hideMenus();
                             }
                         }
