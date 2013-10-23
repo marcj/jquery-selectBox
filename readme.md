@@ -20,7 +20,7 @@ _Licensed under the MIT license: http://opensource.org/licenses/MIT_
 Link to the JS file:
 
 ```html
-<script src="jquery.selectbox.min.js" type="text/javascript"></script>
+<script src="jquery.selectbox.js" type="text/javascript"></script>
 ```
 
 Add the CSS file (or append contents to your own stylesheet):
