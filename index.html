@@ -4,6 +4,7 @@
     <title>jQuery selectBox (select replacement plugin)</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="jquery.selectBox.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cloud.github.com/downloads/lafeber/world-flags-sprite/flags32.css" />
     <link type="text/css" rel="stylesheet" href="jquery.selectBox.css"/>
 
     <style type="text/css">
@@ -18,6 +19,7 @@
             padding: 10px;
             float: right;
         }
+        .f32.f16 .flag{zoom: 0.5; -ms-zoom: 0.5; -moz-transform:scale(0.60); -moz-transform-origin: 0 0; padding-right: 5px }
     </style>
 
     <script type="text/javascript">
@@ -116,6 +118,35 @@
                 });
             });
 
+            $('SELECT#formatting-dropdown').selectBox({
+                // dynamically set the label instead of using the actual label from the option
+                setLabel: function (select, control, label, selected) {
+                    if (selected != null) {
+                        var labelText = (selected.val() || '\u00A0').trim();
+                        var flagClass = selected.attr('class').match(/(^|\s)flag_[a-zA-Z]{2}(\s|$)/)[0].replace(/\s+/, '');
+                        labelText = labelText.replace(/ \(.*\)$/, "");
+
+                        var country = flagClass.split(/_/)[1].toLowerCase();
+                        label.text(labelText + " (" + country.toUpperCase() + ")");
+
+                        var i = $('<i />');
+                        i.addClass('flag').addClass(country);
+                        label.prepend(i);
+                    } else {
+                        label.text("- please choose -");
+                    }
+                },
+                // change how options dropdowns are generated
+                generateOptions: function (self, options, a) {
+                    var li = a.parent();
+                    var flagClass = li.attr('class').match(/(^|\s)flag_[a-zA-Z]{2}(\s|$)/)[0].replace(/\s+/, '');
+                    var i = $('<i />');
+                    i.addClass('flag').addClass(flagClass.split(/_/)[1].toLowerCase());
+                    a.prepend(i);
+                },
+                customOptionsClass: 'f32 f16'
+            });
+
             $('select')
                     .selectBox({
                         mobile: true
@@ -133,6 +164,7 @@
                         $('#console')[0].scrollTop = $('#console')[0].scrollHeight;
                     });
 
+            $('SELECT#width-dropdown').data('selectbox-width', '400px');
         });
 
     </script>
@@ -334,6 +366,46 @@
             <option value="20">Item 20</option>
         </select>
     </p>
+
+    <p>
+        <label for="width-dropdown">Custom dropdown width</label> <br/>
+        <select id="width-dropdown" name="width-dropdown" style="width: 200px">
+            <option value="1" class="test-class-1">Item 1</option>
+            <option value="2" class="test-class-2" selected="selected">Item 2</option>
+            <option value="3" class="test-class-3">Item 3 has a really long label that will not interfere with the control's
+                width
+            </option>
+            <option value="4" class="test-class-4">Item 4</option>
+            <option value="5" disabled="disabled">Item 5 (disabled)</option>
+            <option value="6">Item 6</option>
+            <option value="7">Item 7</option>
+            <option value="8">Item 8</option>
+            <option value="9">Item 9</option>
+            <option value="10">Item 10</option>
+            <option value="11">Item 11</option>
+            <option value="12">Item 12</option>
+            <option value="13">Item 13</option>
+            <option value="14">Item 14</option>
+            <option value="15">Item 15</option>
+            <option value="16">Item 16</option>
+            <option value="17">Item 17</option>
+            <option value="18">Item 18</option>
+            <option value="19">Item 19</option>
+            <option value="20">Item 20</option>
+        </select>
+    </p>
+
+    <p class="f32 f16">
+        <label for="formatting-dropdown">Custom label formatting</label> <br/>
+        <select id="formatting-dropdown" name="formatting-dropdown" style="width: 50px">
+            <option value="+1" class="flag_US" selected="selected">United States</option>
+            <option value="+44" class="flag_GB">United Kingdom</option>
+            <option value="+49" class="flag_DE">Germany</option>
+            <option value="+39" class="flag_IT" disabled="disabled">Italy</option>
+        </select>
+    </p>
+
+
 
     <hr align="left" style="height: 1px; background-color: #DDD; width: 40%; margin-top: 1.5em; border: 0;"/>
 

@@ -66,8 +66,14 @@
             , tabIndex = parseInt(select.prop('tabindex')) || 0
             , self     = this;
 
+        // Store data for later use and show the control
+        select
+            .addClass('selectBox')
+            .data('selectBox-control', control)
+            .data('selectBox-settings', settings)
+
         control
-            .width(select.outerWidth())
+            .width(settings.width ? settings.width : select.outerWidth())
             .addClass(select.attr('class'))
             .attr('title', select.attr('title') || '')
             .attr('tabindex', tabIndex)
@@ -158,8 +164,6 @@
             var label = $('<span class="selectBox-label" />'),
                 arrow = $('<span class="selectBox-arrow" />');
 
-            // Update label
-            label.attr('class', this.getLabelClass()).text(this.getLabelText());
             options = this.getOptions('dropdown');
             options.appendTo('BODY');
 
@@ -202,6 +206,10 @@
                 })
                 .insertAfter(select);
 
+            // Update label, call this only after the label has been added to control
+            // label.attr('class', this.getLabelClass()).text(this.getLabelText());
+            this.setLabel();
+
             // Set label width
             var labelWidth =
                     control.width()
@@ -209,15 +217,11 @@
                   - (parseInt(label.css('paddingLeft')) || 0)
                   - (parseInt(label.css('paddingRight')) || 0);
 
-            label.width(labelWidth);
+            label.width(Math.max(labelWidth, 15));
             this.disableSelection(control);
         }
         // Store data for later use and show the control
-        select
-            .addClass('selectBox')
-            .data('selectBox-control', control)
-            .data('selectBox-settings', settings)
-            .hide();
+        select.hide();
     };
 
     /**
@@ -227,6 +231,8 @@
     SelectBox.prototype.getOptions = function (type) {
         var options;
         var select = $(this.selectElement);
+        var settings = select.data('selectBox-settings');
+        var customGenerateOptions = settings.generateOptions;
         var self   = this;
         // Private function to handle recursion in the getOptions function.
         var _getOptions = function (select, options) {
@@ -237,7 +243,7 @@
                     // Check for a value in the option found.
                     if ($(this).length > 0) {
                         // Create an option form the found element.
-                        self.generateOptions($(this), options);
+                        self.generateOptions($(this), options, customGenerateOptions);
                     } else {
                         // No option information found, so add an empty.
                         options.append('<li>\u00A0</li>');
@@ -257,6 +263,7 @@
         switch (type) {
             case 'inline':
                 options = $('<ul class="selectBox-options" />');
+                if(settings.customOptionsClass) { options.addClass(settings.customOptionsClass); }
                 options = _getOptions(select, options);
                 options
                     .find('A')
@@ -287,6 +294,7 @@
                 return options;
             case 'dropdown':
                 options = $('<ul class="selectBox-dropdown-menu selectBox-options" />');
+                if(settings.customOptionsClass) { options.addClass(settings.customOptionsClass); }
                 options = _getOptions(select, options);
 
                 options
@@ -333,7 +341,7 @@
                 if ('' !== classes) {
                     classes = classes.split(' ');
                     for (var i in classes) {
-                        options.addClass(classes[i] + '-selectBox-dropdown-menu');
+                        options.addClass(classes[i]); // why do this? + '-selectBox-dropdown-menu');
                     }
                 }
                 this.disableSelection(options);
@@ -367,15 +375,21 @@
      */
     SelectBox.prototype.setLabel = function () {
         var select = $(this.selectElement);
+        var settings = select.data('selectBox-settings');
         var control = select.data('selectBox-control');
         if (!control) {
             return;
         }
+        var selected = select.find('OPTION:selected');
+        var label = control.find('.selectBox-label');
 
-        control
-            .find('.selectBox-label')
+        if(settings.setLabel) {
+            settings.setLabel.call(this, select, control, label, selected);
+        } else {
+            label
             .attr('class', this.getLabelClass())
             .text(this.getLabelText());
+        }
     };
 
     /**
@@ -491,7 +505,7 @@
         
         // Menu position
         options
-            .width(control.innerWidth())
+            .width(select.data('selectbox-width') ? select.data('selectbox-width') : control.innerWidth())
             .css({
                 top: top,
                 left: control.offset().left
@@ -653,7 +667,8 @@
         }
 
         if (control.hasClass('selectBox-dropdown')) {
-            control.find('.selectBox-label').text(li.text());
+            // control.find('.selectBox-label').text(li.text());
+            this.setLabel();
         }
 
         // Update original control's value
@@ -1039,18 +1054,28 @@
      * @param {jQuery} self
      * @param {jQuery} options
      */
-    SelectBox.prototype.generateOptions = function (self, options) {
+    SelectBox.prototype.generateOptions = function (self, options, customGenerateOptions) {
         var li = $('<li />'), a = $('<a />');
         li.addClass(self.attr('class'));
         li.data(self.data());
-        a.attr('rel', self.val()).text(self.text());
         li.append(a);
+        a.attr('rel', self.val())
+        a.attr('data-tile', self.attr('title'));
+
+        var title = self.attr('title');
+        a.text(title ? title : self.text());
+
         if (self.attr('disabled')) {
             li.addClass('selectBox-disabled');
         }
         if (self.attr('selected')) {
             li.addClass('selectBox-selected');
         }
+
+        if(customGenerateOptions) {
+            customGenerateOptions.call(this, self, options, a);
+        }
+
         options.append(li);
     };
 
@@ -1092,6 +1117,7 @@
                     $(this).each(function () {
                         if (selectBox = $(this).data('selectBox')) {
                             selectBox.setValue(options);
+                            this.setLabel();
                         }
                     });
                     break;
