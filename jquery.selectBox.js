@@ -335,7 +335,7 @@
                     for (var i = 0; i < classes.length; i++) {
                         options.addClass(classes[i] + '-selectBox-dropdown-menu');
                     }
-                    }
+                    
                 }
                 this.disableSelection(options);
                 return options;
