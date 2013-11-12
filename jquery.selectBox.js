@@ -332,8 +332,9 @@
                 var classes = select.attr('class') || '';
                 if ('' !== classes) {
                     classes = classes.split(' ');
-                    for (var i = 0; i < classes.length; i++)
+                    for (var i = 0; i < classes.length; i++) {
                         options.addClass(classes[i] + '-selectBox-dropdown-menu');
+                    }
                     }
                 }
                 this.disableSelection(options);
