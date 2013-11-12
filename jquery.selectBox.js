@@ -457,7 +457,7 @@
         // Get proper variables for keeping options in viewport
         var pos = control.offset()
             , topPositionCorrelation = (settings.topPositionCorrelation) ? settings.topPositionCorrelation : 0
-            , bottomPositionCorrelation = (settings.bottomPositionCorellation) ? settings.bottomPositionCorellation : 0
+            , bottomPositionCorrelation = (settings.bottomPositionCorrelation) ? settings.bottomPositionCorrelation : 0
             , optionsHeight = options.outerHeight()
             , controlHeight = control.outerHeight()
             , maxHeight = parseInt(options.css('max-height'))
