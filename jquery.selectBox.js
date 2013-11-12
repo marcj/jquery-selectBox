@@ -332,7 +332,7 @@
                 var classes = select.attr('class') || '';
                 if ('' !== classes) {
                     classes = classes.split(' ');
-                    for (var i in classes) {
+                    for (var i = 0; i < classes.length; i++)
                         options.addClass(classes[i] + '-selectBox-dropdown-menu');
                     }
                 }
