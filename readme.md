@@ -158,3 +158,5 @@ $('select').selectBox().change(function () {
 ## Credits
 
 Original plugin by Cory LaViska of A Beautiful Site, LLC. (http://www.abeautifulsite.net/)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/marcj/jquery-selectbox/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
