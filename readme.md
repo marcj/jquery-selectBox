@@ -17,6 +17,8 @@ _Licensed under the MIT license: http://opensource.org/licenses/MIT_
 
 ## Usage
 
+Download the latest version: https://github.com/marcj/jquery-selectBox/releases
+
 Link to the JS file:
 
 ```html
