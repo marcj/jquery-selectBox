@@ -42,7 +42,7 @@
         }
 
         this.init(options);
-    }
+    };
 
     /**
      * @type {String}
@@ -593,7 +593,7 @@
                 $(this).removeClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
             }
             
-            options.css('max-height','')
+            options.css('max-height','');
             //Remove Top or Bottom class based on position
             options.removeClass('selectBox-options-'+(posTop?'top':'bottom'));
             options.data('posTop' , false);
