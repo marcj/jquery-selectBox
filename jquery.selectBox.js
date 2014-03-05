@@ -7,6 +7,8 @@
  *
  * https://github.com/marcj/jquery-selectBox
  */
+
+
 ;(function ($) {
 
     /**
@@ -984,44 +986,7 @@
         }
     };
 
-    /**
-     * Sets the option elements.
-     *
-     * @param {String|Object} options
-     */
-    SelectBox.prototype.setOptions = function (options) {
-        var select = $(this.selectElement)
-            , control = select.data('selectBox-control');
 
-        switch (typeof(options)) {
-            case 'string':
-                select.html(options);
-                break;
-            case 'object':
-                select.html('');
-                for (var i in options) {
-                    if (options[i] === null) {
-                        continue;
-                    }
-                    if (typeof(options[i]) === 'object') {
-                        var optgroup = $('<optgroup label="' + i + '" />');
-                        for (var j in options[i]) {
-                            optgroup.append('<option value="' + j + '">' + options[i][j] + '</option>');
-                        }
-                        select.append(optgroup);
-                    } else {
-                        var option = $('<option value="' + i + '">' + options[i] + '</option>');
-                        select.append(option);
-                    }
-                }
-                break;
-        }
-
-        if (control) {
-            // Refresh the control
-            this.refresh();
-        }
-    };
 
     /**
      * Disables the selection.
@@ -1059,7 +1024,52 @@
      * Extends the jQuery.fn object.
      */
     $.extend($.fn, {
-        selectBox: function (method, options) {
+
+          /**
+     * Sets the option elements.
+     *
+     * @param {String|Object} options
+     */
+    setOptions : function (options) {
+        var select = $(this)
+            , control = select.data('selectBox-control');
+         
+      
+        switch (typeof(options)) {
+            case 'string':
+                select.html(options);
+                break;
+            case 'object':
+                select.html('');
+                for (var i in options) {
+                    if (options[i] === null) {
+                        continue;
+                    }
+                    if (typeof(options[i]) === 'object') {
+                        var optgroup = $('<optgroup label="' + i + '" />');
+                        for (var j in options[i]) {
+                            optgroup.append('<option value="' + j + '">' + options[i][j] + '</option>');
+                        }
+                        select.append(optgroup);
+                    } else {
+                        var option = $('<option value="' + i + '">' + options[i] + '</option>');
+                        select.append(option);
+                    }
+                }
+                break;
+        }
+
+        if (control) {
+            // Refresh the control
+            $(this).selectBox('refresh');
+            // Remove old options
+  
+        }
+      },
+      
+      
+      
+      selectBox: function (method, options) {
             var selectBox;
 
             switch (method) {
@@ -1075,14 +1085,18 @@
                     break;
                 case 'options':
                     // Getter
+                   
                     if (undefined === options) {
                         return $(this).data('selectBox-control').data('selectBox-options');
                     }
+                   
                     // Setter
                     $(this).each(function () {
-                        if (selectBox = $(this).data('selectBox')) {
-                            selectBox.setOptions(options);
-                        }
+                      
+                      //     if (selectBox =  $(this).data('selectBox'))  {
+                             $(this).setOptions(options);
+                     //   }
+                        
                     });
                     break;
                 case 'value':
