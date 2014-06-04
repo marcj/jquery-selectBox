@@ -302,7 +302,7 @@
                                 options.removeData('selectBox-down-at-x').removeData('selectBox-down-at-y');
                                 if (/android/i.test(navigator.userAgent.toLowerCase()) &&
                                     /chrome/i.test(navigator.userAgent.toLowerCase())) {
-                                    self.selectOption($(this).parent());        
+                                    self.selectOption($(this).parent());
                                 }
                                 self.hideMenus();
                             }
@@ -335,7 +335,7 @@
                     for (var i = 0; i < classes.length; i++) {
                         options.addClass(classes[i] + '-selectBox-dropdown-menu');
                     }
-                    
+
                 }
                 this.disableSelection(options);
                 return options;
@@ -450,11 +450,11 @@
         }
 
         this.hideMenus();
-        
+
         // Get top and bottom width of selectBox
         var borderBottomWidth = parseInt(control.css('borderBottomWidth')) || 0;
         var borderTopWidth = parseInt(control.css('borderTopWidth')) || 0;
-        
+
         // Get proper variables for keeping options in viewport
         var pos = control.offset()
             , topPositionCorrelation = (settings.topPositionCorrelation) ? settings.topPositionCorrelation : 0
@@ -466,14 +466,15 @@
             , heightToTop = pos.top - scrollPos
             , heightToBottom = $(window).height() - ( heightToTop + controlHeight )
             , posTop = (heightToTop > heightToBottom) && (settings.keepInViewport == null ? true : settings.keepInViewport)
+            , width = control.innerWidth() >= options.innerWidth() ? control.innerWidth() + 'px' : 'auto'
             , top = posTop
                   ? pos.top - optionsHeight + borderTopWidth + topPositionCorrelation
-                  : pos.top + controlHeight - borderBottomWidth - bottomPositionCorrelation;        
-        
-        
+                  : pos.top + controlHeight - borderBottomWidth - bottomPositionCorrelation;
+
+
         // If the height to top and height to bottom are less than the max-height
         if(heightToTop < maxHeight&& heightToBottom < maxHeight){
-            
+
             // Set max-height and top
             if(posTop){
                 var maxHeightDiff = maxHeight - ( heightToTop - 5 );
@@ -483,16 +484,16 @@
                 var maxHeightDiff = maxHeight - ( heightToBottom - 5 );
                 options.css({'max-height': maxHeight - maxHeightDiff + 'px'});
             }
-            
+
         }
-        
+
         // Save if position is top to options data
         options.data('posTop',posTop);
-        
-        
+
+
         // Menu position
         options
-            .width(control.innerWidth())
+            .width(width)
             .css({
                 top: top,
                 left: control.offset().left
@@ -592,7 +593,7 @@
                 });
                 $(this).removeClass('selectBox-menuShowing selectBox-menuShowing-'+(posTop?'top':'bottom'));
             }
-            
+
             options.css('max-height','');
             //Remove Top or Bottom class based on position
             options.removeClass('selectBox-options-'+(posTop?'top':'bottom'));
