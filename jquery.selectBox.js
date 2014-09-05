@@ -982,6 +982,8 @@
         if (settings.change) {
             settings.change.call(select);
         }
+        
+        select.trigger('change');
     };
 
     /**
