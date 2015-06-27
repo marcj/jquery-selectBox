@@ -1092,11 +1092,7 @@
                    
                     // Setter
                     $(this).each(function () {
-                      
-                      //     if (selectBox =  $(this).data('selectBox'))  {
-                             $(this).setOptions(options);
-                     //   }
-                        
+                        $(this).setOptions(options);
                     });
                     break;
                 case 'value':
