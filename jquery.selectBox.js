@@ -161,7 +161,7 @@
                 arrow = $('<span class="selectBox-arrow" />');
 
             // Update label
-            label.attr('class', this.getLabelClass()).text(this.getLabelText());
+            label.attr('class', this.getLabelClass()).html(this.getLabelHtml());
             options = this.getOptions('dropdown');
             options.appendTo('BODY');
 
@@ -359,14 +359,20 @@
      *
      * @returns {String}
      */
-    SelectBox.prototype.getLabelText = function () {
+    SelectBox.prototype.getLabelHtml = function () {
         var selected = $(this.selectElement).find('OPTION:selected');
-        return selected.text() || '\u00A0';
+        var labelHtml;
+        if (selected.data('icon')) {
+            labelHtml = '<i class="fa fa-'+selected.data('icon')+' fa-fw fa-lg"></i> '+selected.text();
+        } else {
+            labelHtml = selected.text();
+        }
+        return labelHtml || '\u00A0';
     };
 
     /**
      * Sets the label.
-     * This method uses the getLabelClass() and getLabelText() methods.
+     * This method uses the getLabelClass() and getLabelHtml() methods.
      */
     SelectBox.prototype.setLabel = function () {
         var select = $(this.selectElement);
@@ -378,7 +384,7 @@
         control
             .find('.selectBox-label')
             .attr('class', this.getLabelClass())
-            .text(this.getLabelText());
+            .html(this.getLabelHtml());
     };
 
     /**
@@ -659,7 +665,7 @@
         }
 
         if (control.hasClass('selectBox-dropdown')) {
-            control.find('.selectBox-label').text(li.text());
+            control.find('.selectBox-label').html(li.html());
         }
 
         // Update original control's value
@@ -1012,7 +1018,11 @@
         var li = $('<li />'), a = $('<a />');
         li.addClass(self.attr('class'));
         li.data(self.data());
-        a.attr('rel', self.val()).text(self.text());
+        if (self.data('icon')) {
+            a.attr('rel', self.val()).html('<i class="fa fa-'+self.data('icon')+' fa-fw fa-lg"></i> '+self.text());
+        } else {
+            a.attr('rel', self.val()).text(self.text());
+        }
         li.append(a);
         if (self.attr('disabled')) {
             li.addClass('selectBox-disabled');
