@@ -502,7 +502,10 @@
             // Add Top and Bottom class based on position
             .addClass('selectBox-options selectBox-options-'+(posTop?'top':'bottom'));
 
-
+		if (settings.styleClass) {
+			options.addClass(settings.styleClass);
+		}
+		
         if (select.triggerHandler('beforeopen')) {
             return false;
         }
