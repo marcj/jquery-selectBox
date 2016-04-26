@@ -18,7 +18,7 @@
      * @param {Object}             options
      * @constructor
      */
-    var SelectBox = this.SelectBox = function (select, options) {
+    var SelectBox = window.SelectBox = function (select, options) {
         if (select instanceof jQuery) {
             if (select.length > 0) {
                 select = select[0];
