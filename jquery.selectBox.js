@@ -809,7 +809,8 @@
                 // left
                 event.preventDefault();
                 if (control.hasClass('selectBox-menuShowing')) {
-                    var prev = options.find('.selectBox-hover').prev('LI');
+                    var currentHover = options.find('.selectBox-hover'),
+                        prev = currentHover.length === 0 ? options.find("LI:first") : currentHover.prev('LI');
                     totalOptions = options.find('LI:not(.selectBox-optgroup)').length;
                     i = 0;
                     while (prev.length === 0 || prev.hasClass('selectBox-disabled') ||
@@ -839,7 +840,8 @@
                 // right
                 event.preventDefault();
                 if (control.hasClass('selectBox-menuShowing')) {
-                    var next = options.find('.selectBox-hover').next('LI');
+                    var currentHover = options.find('.selectBox-hover'),
+                        next = currentHover.length === 0 ? options.find("LI:first") : currentHover.next('LI');
                     totalOptions = options.find('LI:not(.selectBox-optgroup)').length;
                     i = 0;
                     while (0 === next.length || next.hasClass('selectBox-disabled') ||
