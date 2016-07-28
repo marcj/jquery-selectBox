@@ -512,7 +512,7 @@
 		if (settings.styleClass) {
 			options.addClass(settings.styleClass);
 		}
-		
+
         if (select.triggerHandler('beforeopen')) {
             return false;
         }
@@ -1047,8 +1047,8 @@
     setOptions : function (options) {
         var select = $(this)
             , control = select.data('selectBox-control');
-         
-      
+
+
         switch (typeof(options)) {
             case 'string':
                 select.html(options);
@@ -1077,12 +1077,12 @@
             // Refresh the control
             $(this).selectBox('refresh');
             // Remove old options
-  
+
         }
       },
-      
-      
-      
+
+
+
       selectBox: function (method, options) {
             var selectBox;
 
@@ -1099,11 +1099,11 @@
                     break;
                 case 'options':
                     // Getter
-                   
+
                     if (undefined === options) {
                         return $(this).data('selectBox-control').data('selectBox-options');
                     }
-                   
+
                     // Setter
                     $(this).each(function () {
                         $(this).setOptions(options);
@@ -1132,12 +1132,18 @@
                         if (selectBox = $(this).data('selectBox')) {
                             selectBox.enable(this);
                         }
+                        else{
+                          $(this).attr('disabled',false);
+                        }
                     });
                     break;
                 case 'disable':
                     $(this).each(function () {
                         if (selectBox = $(this).data('selectBox')) {
                             selectBox.disable();
+                        }
+                        else{
+                          $(this).attr('disabled','disabled');
                         }
                     });
                     break;
