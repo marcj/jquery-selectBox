@@ -548,7 +548,7 @@
 
         $(document).bind('mousedown.selectBox', function (event) {
             if (1 === event.which) {
-                if ($(event.target).parents().andSelf().hasClass('selectBox-options')) {
+                if ($(event.target).parents().addBack().hasClass('selectBox-options')) {
                     return;
                 }
                 self.hideMenus();
