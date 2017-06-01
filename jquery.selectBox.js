@@ -161,7 +161,10 @@
                 arrow = $('<span class="selectBox-arrow" />');
 
             // Update label
-            label.attr('class', this.getLabelClass()).html(this.getLabelHtml());
+            label
+                .attr('class', this.getLabelClass())
+                .attr('title', this.getLabelTitle())
+                .html(this.getLabelHtml());
             options = this.getOptions('dropdown');
             options.appendTo('BODY');
 
@@ -355,6 +358,17 @@
     };
 
     /**
+     * Returns the current title of the selected option.
+     *
+     * @returns {String}
+     */
+    SelectBox.prototype.getLabelTitle = function () {
+        var selected = $(this.selectElement).find('OPTION:selected');
+
+        return selected.attr('title') || '';
+    };
+
+    /**
      * Returns the current label of the selected option.
      *
      * @returns {String}
@@ -372,7 +386,7 @@
 
     /**
      * Sets the label.
-     * This method uses the getLabelClass() and getLabelHtml() methods.
+     * This method uses the getLabelClass(), getLabelTitle(), and getLabelHtml() methods.
      */
     SelectBox.prototype.setLabel = function () {
         var select = $(this.selectElement);
@@ -384,6 +398,7 @@
         control
             .find('.selectBox-label')
             .attr('class', this.getLabelClass())
+            .attr('title', this.getLabelTitle())
             .html(this.getLabelHtml());
     };
 
@@ -509,10 +524,10 @@
             // Add Top and Bottom class based on position
             .addClass('selectBox-options selectBox-options-'+(posTop?'top':'bottom'));
 
-		if (settings.styleClass) {
-			options.addClass(settings.styleClass);
-		}
-		
+        if (settings.styleClass) {
+            options.addClass(settings.styleClass);
+        }
+
         if (select.triggerHandler('beforeopen')) {
             return false;
         }
@@ -1018,11 +1033,12 @@
     SelectBox.prototype.generateOptions = function (self, options) {
         var li = $('<li />'), a = $('<a />');
         li.addClass(self.attr('class'));
+        li.attr('title', self.attr('title'));
         li.data(self.data());
         if (self.data('icon')) {
             a.attr('rel', self.val()).html('<i class="fa fa-'+self.data('icon')+' fa-fw fa-lg"></i> '+self.text());
         } else {
-            a.attr('rel', self.val()).text(self.text());
+        a.attr('rel', self.val()).text(self.text());
         }
         li.append(a);
         if (self.attr('disabled')) {
@@ -1047,8 +1063,8 @@
     setOptions : function (options) {
         var select = $(this)
             , control = select.data('selectBox-control');
-         
-      
+
+
         switch (typeof(options)) {
             case 'string':
                 select.html(options);
@@ -1077,12 +1093,12 @@
             // Refresh the control
             $(this).selectBox('refresh');
             // Remove old options
-  
+
         }
       },
-      
-      
-      
+
+
+
       selectBox: function (method, options) {
             var selectBox;
 
@@ -1099,11 +1115,11 @@
                     break;
                 case 'options':
                     // Getter
-                   
+
                     if (undefined === options) {
                         return $(this).data('selectBox-control').data('selectBox-options');
                     }
-                   
+
                     // Setter
                     $(this).each(function () {
                         $(this).setOptions(options);
