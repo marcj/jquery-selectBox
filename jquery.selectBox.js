@@ -158,18 +158,25 @@
         } else {
             // Dropdown controls
             var label = $('<span class="selectBox-label" />'),
-                arrow = $('<span class="selectBox-arrow" />');
+                arrow = $('<span class="selectBox-arrow" />'),
+                input = $('<input type="text" class="selectBox-input"/>');
 
             // Update label
             label.attr('class', this.getLabelClass()).html(this.getLabelHtml());
             options = this.getOptions('dropdown');
             options.appendTo('BODY');
 
+            input
+            .bind('input.selectBox', function (event) {
+                self.handleInput(event);
+            });
+
             control
                 .data('selectBox-options', options)
                 .addClass('selectBox-dropdown')
                 .append(label)
                 .append(arrow)
+                .append(input)
                 .bind('mousedown.selectBox', function (event) {
                     if (1 === event.which) {
                         if (control.hasClass('selectBox-menuShowing')) {
@@ -186,9 +193,6 @@
                 })
                 .bind('keydown.selectBox', function (event) {
                     self.handleKeyDown(event);
-                })
-                .bind('keypress.selectBox', function (event) {
-                    self.handleKeyPress(event);
                 })
                 .bind('open.selectBox',function (event, triggerData) {
                     if (triggerData && triggerData._selectBox === true) {
@@ -451,7 +455,10 @@
             , select   = $(this.selectElement)
             , control  = select.data('selectBox-control')
             , settings = select.data('selectBox-settings')
-            , options  = control.data('selectBox-options');
+            , options  = control.data('selectBox-options')
+            , options = control.data('selectBox-options')
+		    , label = control.find('.selectBox-label')
+			, input = control.find('.selectBox-input');
 
         if (control.hasClass('selectBox-disabled')) {
             return false;
@@ -554,6 +561,15 @@
                 self.hideMenus();
             }
         });
+        // If there's scroll in the container
+		if (options[0].scrollHeight > options.height()) {
+			label.hide();
+			input.val('');
+			input.show();
+			setTimeout(function () {
+				input.focus();
+			}, 200);
+		}
     };
 
     /**
@@ -570,7 +586,15 @@
                 , select = options.data('selectBox-select')
                 , control = select.data('selectBox-control')
                 , settings = select.data('selectBox-settings')
-                , posTop = options.data('posTop');
+                , posTop = options.data('posTop')
+                , label = control.find('.selectBox-label')
+                , input = control.find('.selectBox-input');
+            
+            label.show();
+            input.hide();
+            options.find('A').each(function () {
+                $(this).show();
+            });
 
             if (select.triggerHandler('beforeclose')) {
                 return false;
@@ -763,6 +787,68 @@
     };
 
     /**
+     * Handles the input event, for search in dropdowns with scroll enabled
+     *
+     */
+	SelectBox.prototype.handleInput = function () {
+		var select = $(this.selectElement)
+            , control = select.data('selectBox-control')
+            , options = control.data('selectBox-options')
+            , self = this;
+
+		if (control.hasClass('selectBox-disabled')) {
+			return;
+		}
+
+		
+		// Type to find
+		if (!control.hasClass('selectBox-menuShowing')) {
+			this.showMenu();
+		}
+		this.typeSearch = control.find('.selectBox-input').val();
+		options.find('A').each(function () {
+			if ($(this).text().substr(0, self.typeSearch.length).toLowerCase() === self.typeSearch.toLowerCase()) {
+				$(this).show();
+			} else {
+				$(this).toggle(self.typeSearch.length === 0);
+			}
+		});
+		//if listing is displayed on top
+		if (options.hasClass('selectBox-options-top')) {
+			self.resizeOptionList();
+		}
+
+	};
+	/**
+     * Resizes list for search when dropdown list displays on top
+     */
+	SelectBox.prototype.resizeOptionList = function resizeList() {
+		var self = this
+            , select = $(this.selectElement)
+            , control = select.data('selectBox-control')
+            , settings = select.data('selectBox-settings')
+			, options = control.data('selectBox-options')
+		    , label = control.find('.selectBox-label')
+			, input = control.find('.selectBox-input');
+		
+			// Get top and bottom width of selectBox
+			var borderBottomWidth = parseInt(control.css('borderBottomWidth')) || 0;
+			var borderTopWidth = parseInt(control.css('borderTopWidth')) || 0;
+
+			// Get proper variables for keeping options in viewport
+			var pos = control.offset()
+				, topPositionCorrelation = (settings.topPositionCorrelation) ? settings.topPositionCorrelation : 0
+				, optionsHeight = options.outerHeight()
+				, top = pos.top - optionsHeight + borderTopWidth + topPositionCorrelation;
+
+			// Menu position
+			options
+				.css({
+					top: top
+				})
+	};
+
+    /**
      * Handles the keyDown event.
      * Handles open/close and arrow key functionality
      *
@@ -782,8 +868,6 @@
         switch (event.keyCode) {
             case 8:
                 // backspace
-                event.preventDefault();
-                this.typeSearch = '';
                 break;
             case 9:
             // tab
