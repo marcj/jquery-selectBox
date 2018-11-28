@@ -908,7 +908,7 @@
                 clearTimeout(this.typeTimer);
                 this.typeSearch += String.fromCharCode(event.charCode || event.keyCode);
                 options.find('A').each(function () {
-                    if ($(this).text().substr(0, self.typeSearch.length).toLowerCase() === self.typeSearch.toLowerCase()) {
+                    if ($(this).text().trim().substr(0, self.typeSearch.length).toLowerCase() === self.typeSearch.toLowerCase()) {
                         self.addHover($(this).parent());
                         self.selectOption($(this).parent(), event);
                         self.keepOptionInView($(this).parent());
