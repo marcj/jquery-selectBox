@@ -512,7 +512,7 @@
 		if (settings.styleClass) {
 			options.addClass(settings.styleClass);
 		}
-		
+
         if (select.triggerHandler('beforeopen')) {
             return false;
         }
@@ -1047,8 +1047,8 @@
     setOptions : function (options) {
         var select = $(this)
             , control = select.data('selectBox-control');
-         
-      
+
+
         switch (typeof(options)) {
             case 'string':
                 select.html(options);
@@ -1075,91 +1075,92 @@
 
         if (control) {
             // Refresh the control
-            $(this).selectBox('refresh');
+            select.selectBox('refresh');
             // Remove old options
-  
+
         }
       },
-      
-      
-      
+
+
+
       selectBox: function (method, options) {
-            var selectBox;
+            var selectBox,
+                $this = $(this);
 
             switch (method) {
                 case 'control':
-                    return $(this).data('selectBox-control');
+                    return $this.data('selectBox-control');
                 case 'settings':
                     if (!options) {
-                        return $(this).data('selectBox-settings');
+                        return $this.data('selectBox-settings');
                     }
-                    $(this).each(function () {
-                        $(this).data('selectBox-settings', $.extend(true, $(this).data('selectBox-settings'), options));
+                    $this.each(function () {
+                        $this.data('selectBox-settings', $.extend(true, $this.data('selectBox-settings'), options));
                     });
                     break;
                 case 'options':
                     // Getter
-                   
+
                     if (undefined === options) {
-                        return $(this).data('selectBox-control').data('selectBox-options');
+                        return $this.data('selectBox-control').data('selectBox-options');
                     }
-                   
+
                     // Setter
-                    $(this).each(function () {
-                        $(this).setOptions(options);
+                    $this.each(function () {
+                        $this.setOptions(options);
                     });
                     break;
                 case 'value':
                     // Empty string is a valid value
                     if (undefined === options) {
-                        return $(this).val();
+                        return $this.val();
                     }
-                    $(this).each(function () {
-                        if (selectBox = $(this).data('selectBox')) {
+                    $this.each(function () {
+                        if (selectBox = $this.data('selectBox')) {
                             selectBox.setValue(options);
                         }
                     });
                     break;
                 case 'refresh':
-                    $(this).each(function () {
-                        if (selectBox = $(this).data('selectBox')) {
+                    $this.each(function () {
+                        if (selectBox = $this.data('selectBox')) {
                             selectBox.refresh();
                         }
                     });
                     break;
                 case 'enable':
-                    $(this).each(function () {
-                        if (selectBox = $(this).data('selectBox')) {
+                    $this.each(function () {
+                        if (selectBox = $this.data('selectBox')) {
                             selectBox.enable(this);
                         }
                     });
                     break;
                 case 'disable':
-                    $(this).each(function () {
-                        if (selectBox = $(this).data('selectBox')) {
+                    $this.each(function () {
+                        if (selectBox = $this.data('selectBox')) {
                             selectBox.disable();
                         }
                     });
                     break;
                 case 'destroy':
-                    $(this).each(function () {
-                        if (selectBox = $(this).data('selectBox')) {
+                    $this.each(function () {
+                        if (selectBox = $this.data('selectBox')) {
                             selectBox.destroy();
-                            $(this).data('selectBox', null);
+                            $this.data('selectBox', null);
                         }
                     });
                     break;
                 case 'instance':
-                    return $(this).data('selectBox');
+                    return $this.data('selectBox');
                 default:
-                    $(this).each(function (idx, select) {
+                    $this.each(function (idx, select) {
                         if (!$(select).data('selectBox')) {
                             $(select).data('selectBox', new SelectBox(select, method));
                         }
                     });
                     break;
             }
-            return $(this);
+            return $this;
         }
     });
 })(jQuery);
